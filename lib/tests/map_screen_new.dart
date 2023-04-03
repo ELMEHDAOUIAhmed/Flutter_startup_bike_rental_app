@@ -9,6 +9,7 @@ import 'package:myapp/screens/profile_menu.dart';
 
 import './buttons.dart';
 import './nav_bar_new.dart';
+import 'dart:async';
 
 class MapScreenNew extends StatefulWidget {
   @override
@@ -16,6 +17,10 @@ class MapScreenNew extends StatefulWidget {
 }
 
 class _MapScreenNewState extends State<MapScreenNew> {
+
+  ?
+  // Define a timer variable
+  Timer _timer;
   String id;
   String userDestStation = '';
 
@@ -112,14 +117,38 @@ class _MapScreenNewState extends State<MapScreenNew> {
     ),
   ];
 
+  // ONE TIME CALLS
+
   Future<Position> _determinePosition() async {
     Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.best,
       timeLimit: const Duration(seconds: 10),
     );
-
     return position;
   }
+
+  void _moveCamera(Position position) {
+    _googleMapController.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+            target: LatLng(position.latitude, position.longitude),
+            zoom: 17)));
+  }
+
+  // Every 10 sec
+
+  Future<Position> _determinePositionMoveCamera() async {
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.best,
+      timeLimit: const Duration(seconds: 10),
+    );
+    _googleMapController.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+            target: LatLng(position.latitude, position.longitude),
+            zoom: 17)));
+    return position;
+  }
+
+
 
   @override
   void dispose() {
@@ -137,16 +166,15 @@ class _MapScreenNewState extends State<MapScreenNew> {
       body: Stack(
         alignment: Alignment.center,
         children: [
-            GoogleMap(
-              myLocationButtonEnabled: false,
-              zoomControlsEnabled: false,
-              initialCameraPosition: _initialCameraPosition,
-              onMapCreated: (controller) => _googleMapController = controller,
-              //place markers on the screen
-              markers: {if (_user != null) _user, ...Set.from(_markers)},
-              //onLongPress: _setDestination,
-            ),
-
+          GoogleMap(
+            myLocationButtonEnabled: false,
+            zoomControlsEnabled: false,
+            initialCameraPosition: _initialCameraPosition,
+            onMapCreated: (controller) => _googleMapController = controller,
+            //place markers on the screen
+            markers: {if (_user != null) _user, ...Set.from(_markers)},
+            //onLongPress: _setDestination,
+          ),
 
           Visibility(
             visible: _ride_Visible,
@@ -323,13 +351,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
                 child: TextButton(
                   onPressed: () async {
                     positionuser = await _determinePosition();
-                    _googleMapController.animateCamera(
-                        CameraUpdate.newCameraPosition(CameraPosition(
-                            target: LatLng(
-                                positionuser.latitude, positionuser.longitude),
-                            zoom: 17))
-                        // ignore: avoid_print
-                        );
+                    _moveCamera(positionuser);
                     setState(() {
                       _user = Marker(
                         markerId: const MarkerId('User'),
