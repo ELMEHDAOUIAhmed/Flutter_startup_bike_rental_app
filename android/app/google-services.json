@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "217855495200",
+    "firebase_url": "https://bikerental-f58aa-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "bikerental-f58aa",
+    "storage_bucket": "bikerental-f58aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217855495200:android:198ada08cbf1ef8d6e8045",
+        "android_client_info": {
+          "package_name": "com.example.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217855495200-vtm096g7cfhk89v6t7jim2l3f9gr1bab.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR021Rb5C823DKjKvOBKT2qBwyYlafg40"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217855495200-vtm096g7cfhk89v6t7jim2l3f9gr1bab.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
