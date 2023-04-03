@@ -17,11 +17,80 @@ class MapScreenNew extends StatefulWidget {
 
 class _MapScreenNewState extends State<MapScreenNew> {
 
-  String _selectedMarkerId = '';
+  //Starting location
+  static const _initialCameraPosition = CameraPosition(
+    target: LatLng(36.71228369662267, 3.1805848553156153),
+    zoom: 16.5,
+  );
+
+  GoogleMapController _googleMapController;
+  Marker _user;
+
+  Position positionuser = Position(
+    latitude: 0.0,
+    longitude: 0.0,
+  );
   Position _dest, _userDest;
   String _selectedStationName;
   bool _ride_Visible = true;
   bool _nav_bar_Visible = false;
+  String _selectedMarkerId = '';
+
+
+
+//    List<Marker> _markers;
+//   _MapScreenNewState() : _markers = _getMarkers();
+
+
+
+//  List<Marker> _getMarkers() {
+//     return [
+//       Marker(
+//           markerId: MarkerId('1'),
+//           position: LatLng(36.715957, 3.186346),
+//           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+//           infoWindow: InfoWindow(
+//             title: 'Parking Enseignants',
+//             snippet: 'Stock: 10',
+//           ),
+//           onTap: () {
+//             _selectedMarkerId = '1';
+//           }),
+//       Marker(
+//           markerId: MarkerId('2'),
+//           position: LatLng(36.717171, 3.183816),
+//           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+//           infoWindow: InfoWindow(
+//             title: 'Faculté De Mathematique',
+//             snippet: 'Stock: 5',
+//           ),
+//           onTap: () {
+//             _selectedMarkerId = '2';
+//           }),
+//       Marker(
+//           markerId: MarkerId('3'),
+//           position: LatLng(36.713483, 3.176465),
+//           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+//           infoWindow: InfoWindow(
+//             title: 'Project Initiative Club',
+//             snippet: 'Stock: 2',
+//           ),
+//           onTap: () {
+//             _selectedMarkerId = '3';
+//           }),
+//       Marker(
+//           markerId: MarkerId('4'),
+//           position: LatLng(36.713716, 3.180834),
+//           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+//           infoWindow: InfoWindow(
+//             title: 'Bibliothèque Universitaire',
+//             snippet: 'Stock: 21',
+//           ),
+//           onTap: () {
+//             _selectedMarkerId = '4';
+//           }),
+//     ];
+//   }
 
   void _stationNotSelected() {
     showDialog(
@@ -96,19 +165,18 @@ class _MapScreenNewState extends State<MapScreenNew> {
     );
   }
 
-  final List<Marker> _markers = [
+  List<Marker> _markers = [
     Marker(
-      markerId: MarkerId('marker1'),
+      markerId: MarkerId('1'),
       position: LatLng(36.715957, 3.186346),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
-        title: 'Parking Enseignants ',
+        title: 'Parking Enseignants',
         snippet: 'Stock: 10',
       ),
     ),
-    
     Marker(
-      markerId: MarkerId('marker2'),
+      markerId: MarkerId('2'),
       position: LatLng(36.717171, 3.183816),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
@@ -117,7 +185,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
       ),
     ),
     Marker(
-      markerId: MarkerId('marker3'),
+      markerId: MarkerId('3'),
       position: LatLng(36.713483, 3.176465),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
@@ -126,7 +194,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
       ),
     ),
     Marker(
-      markerId: MarkerId('marker4'),
+      markerId: MarkerId('4'),
       position: LatLng(36.713716, 3.180834),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
@@ -135,11 +203,6 @@ class _MapScreenNewState extends State<MapScreenNew> {
       ),
     ),
   ];
-
-  Position positionuser = Position(
-    latitude: 0.0,
-    longitude: 0.0,
-  );
 
   Future<Position> _determinePosition() async {
     // Commented because i'm asking permission in main.dart
@@ -169,15 +232,6 @@ class _MapScreenNewState extends State<MapScreenNew> {
     return position;
   }
 
-  //Starting location
-  static const _initialCameraPosition = CameraPosition(
-    target: LatLng(36.71228369662267, 3.1805848553156153),
-    zoom: 16.5,
-  );
-
-  GoogleMapController _googleMapController;
-  Marker _user;
-
   @override
   void dispose() {
     _googleMapController?.dispose();
@@ -200,10 +254,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
             initialCameraPosition: _initialCameraPosition,
             onMapCreated: (controller) => _googleMapController = controller,
             //place markers on the screen
-            markers: {
-              if (_user != null) _user,
-              ...Set.from(_markers)
-            },
+            markers: {if (_user != null) _user, ...Set.from(_markers)},
             onLongPress: _setDestination,
           ),
 
@@ -334,7 +385,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
                     ),
                   ),
                   Flexible(
-                    flex :2,
+                    flex: 2,
                     fit: FlexFit.loose,
                     child: Text(
                       '${positionuser.latitude},${positionuser.longitude}',
@@ -424,8 +475,6 @@ class _MapScreenNewState extends State<MapScreenNew> {
       ),
     );
   }
-
-
 
 //WORKS LIKE A CHARM
   void _setDestination(LatLng pos) async {
