@@ -195,28 +195,30 @@ class Promotion extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Positioned(
-                                  // title5Ly (1:1529)
-                                  left: 0*fem,
-                                  top: 1*fem,
-                                  child: Align(
-                                    child: SizedBox(
-                                      width: 57*fem,
-                                      height: 26*fem,
-                                      child: Text(
-                                        'xxxxx',
-                                        textAlign: TextAlign.center,
-                                        style: SafeGoogleFont (
-                                          'Montserrat',
-                                          fontSize: 21*ffem,
-                                          fontWeight: FontWeight.w400,
-                                          height: 1.2175*ffem/fem,
-                                          color: Color(0xff000000),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                //duplicte code remove after
+                                // Positioned(
+                                //   // title5Ly (1:1529)
+                                //   left: 0*fem,
+                                //   top: 1*fem,
+                                //   child: Align(
+                                //     child: SizedBox(
+                                //       width: 57*fem,
+                                //       height: 26*fem,
+                                //       child: Text(
+                                //         'xxxxx',
+                                //         textAlign: TextAlign.center,
+                                //         style: SafeGoogleFont (
+                                //           'Montserrat',
+                                //           fontSize: 21*ffem,
+                                //           fontWeight: FontWeight.w400,
+                                //           height: 1.2175*ffem/fem,
+                                //           color: Color(0xff000000),
+                                //           decoration: TextDecoration.none,
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
