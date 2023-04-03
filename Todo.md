@@ -1,3 +1,16 @@
+
+
+things to add 
+
+after user clicks take a ride 
+show list of station
+user selects one station 
+he can change his mind
+
+
+
+
+
 # 1 Remove ability to go back  to the previous page by using 
 automaticallyimplyleading : false,
 
