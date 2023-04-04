@@ -148,3 +148,82 @@
 
   //   return position;
   // }
+
+  // CUSTOM MARKER
+  //   BitmapDescriptor userIcon = BitmapDescriptor.defaultMarker;
+  // BitmapDescriptor userIconBike = BitmapDescriptor.defaultMarker;
+  // BitmapDescriptor stationIcon = BitmapDescriptor.defaultMarker;
+
+  // void setCustomMarkerIcon() {
+  //   BitmapDescriptor.fromAssetImage(
+  //           ImageConfiguration.empty, 'assets/icons/body.png')
+  //       .then(
+  //     (icon) {
+  //       userIcon = icon;
+  //     },
+  //   );
+  //   BitmapDescriptor.fromAssetImage(
+  //           ImageConfiguration.empty, 'assets/icons/bike.png')
+  //       .then(
+  //     (icon) {
+  //       userIconBike = icon;
+  //     },
+  //   );
+
+  //   BitmapDescriptor.fromAssetImage(
+  //           ImageConfiguration.empty, 'assets/icons/bike-parking.png')
+  //       .then(
+  //     (icon) {
+  //       stationIcon = icon;
+  //     },
+  //   );
+  // }
+
+
+  //  static List<Marker> markers = [
+  //   Marker(
+  //     markerId: MarkerId('1'),
+  //     position: LatLng(36.715957, 3.186346),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Parking Enseignants',
+  //       snippet: 'Stock: ',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('2'),
+  //     position: LatLng(36.717171, 3.183816),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Faculté De Mathematique',
+  //       snippet: 'Stock: ',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('3'),
+  //     position: LatLng(36.713483, 3.176465),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Project Initiative Club',
+  //       snippet: 'Stock: 2',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('4'),
+  //     position: LatLng(36.713716, 3.180834),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Bibliothèque Universitaire',
+  //       snippet: 'Stock: 21',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('5'),
+  //     position: LatLng(36.709513, 3.181112),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Nouveaux Blocs Salles TP',
+  //       snippet: 'Stock: 1',
+  //     ),
+  //   ),
+  // ];

@@ -41,6 +41,7 @@ dependencies:
   geolocator: ^9.0.2
   flutter_icons: ^1.1.0
   flutter_bluetooth_serial: ^0.4.0
+  awesome_notifications: ^0.7.4+1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -219,6 +220,8 @@ flutter:
     - assets/page-1/images/nfc_locked.png
     - assets/page-1/images/error.png
     - assets/icons/bike.png
+    - assets/icons/bike-parking.png
+    - assets/icons/body.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

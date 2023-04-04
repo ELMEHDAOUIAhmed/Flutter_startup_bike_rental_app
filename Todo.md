@@ -39,18 +39,7 @@ https://www.figma.com/file/ngtERbOap4EpKAYQTq88WC/Untitled?node-id=0%3A1&t=6pzUY
 https://www.figma.com/file/SO2VnAVSZdmTCXAhR5YJZh/Untitled?node-id=0%3A1&t=1dRxv5wvbF65C5XM-1
 
 
-flutter sdk  was 
-sdk: '>=2.18.2 <3.0.0'
 
-
-minSdkVersion flutter.minSdkVersion
-
-
-Set the minSdkVersion in android/app/build.gradle:
-line 50 was 
-
-
-minSdkVersion flutter.minSdkVersion
 
 
 

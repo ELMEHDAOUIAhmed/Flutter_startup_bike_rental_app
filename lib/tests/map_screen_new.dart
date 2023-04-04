@@ -17,17 +17,13 @@ class MapScreenNew extends StatefulWidget {
 }
 
 class _MapScreenNewState extends State<MapScreenNew> {
-
-  ?
-  // Define a timer variable
-  Timer _timer;
   String id;
   String userDestStation = '';
 
   //Starting location
   static const _initialCameraPosition = CameraPosition(
     target: LatLng(36.71228369662267, 3.1805848553156153),
-    zoom: 16.5,
+    zoom: 14.5,
   );
 
   GoogleMapController _googleMapController;
@@ -69,14 +65,14 @@ class _MapScreenNewState extends State<MapScreenNew> {
     );
   }
 
-  List<Marker> _markers = [
+  List<Marker> markers = [
     Marker(
       markerId: MarkerId('1'),
       position: LatLng(36.715957, 3.186346),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
         title: 'Parking Enseignants',
-        snippet: 'Stock: 10',
+        snippet: 'Stock: Loading...',
       ),
     ),
     Marker(
@@ -85,7 +81,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
         title: 'Faculté De Mathematique',
-        snippet: 'Stock: 5',
+        snippet: 'Stock: Loading...',
       ),
     ),
     Marker(
@@ -94,7 +90,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
         title: 'Project Initiative Club',
-        snippet: 'Stock: 2',
+        snippet: 'Stock: Loading...',
       ),
     ),
     Marker(
@@ -103,7 +99,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
         title: 'Bibliothèque Universitaire',
-        snippet: 'Stock: 21',
+        snippet: 'Stock: Loading...',
       ),
     ),
     Marker(
@@ -112,17 +108,58 @@ class _MapScreenNewState extends State<MapScreenNew> {
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
         title: 'Nouveaux Blocs Salles TP',
-        snippet: 'Stock: 1',
+        snippet: 'Stock: Loading...',
       ),
     ),
   ];
+
+  int stock = 10; // the initial stock value retreive this from DB
+
+  Marker updateMarkerStock(int index, int stock) {
+    Marker marker = markers[index];
+    return Marker(
+      markerId: marker.markerId,
+      position: marker.position,
+      icon: marker.icon,
+      infoWindow: InfoWindow(
+        title: marker.infoWindow.title,
+        snippet: 'Stock: $stock',
+      ),
+    );
+  }
+
+  void takeBikeFromMarker(String markerId) {
+    setState(() {
+      final index =
+          markers.indexWhere((marker) => marker.markerId.value == markerId);
+      if (index >= 0) {
+        final marker = markers[index];
+        final newStock = stock - 1;
+        stock = newStock;
+        markers[index] = updateMarkerStock(index, newStock);
+      }
+    });
+  }
+
+  void returbBikeFromMarker(String markerId) {
+    setState(() {
+      final index =
+          markers.indexWhere((marker) => marker.markerId.value == markerId);
+      if (index >= 0) {
+        final marker = markers[index];
+        final newStock = stock + 1;
+        stock = newStock;
+        markers[index] = updateMarkerStock(index, newStock);
+      }
+    });
+  }
 
   // ONE TIME CALLS
 
   Future<Position> _determinePosition() async {
     Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.best,
-      timeLimit: const Duration(seconds: 10),
+      desiredAccuracy: LocationAccuracy.high,
+      timeLimit: const Duration(seconds: 5),
     );
     return position;
   }
@@ -130,25 +167,36 @@ class _MapScreenNewState extends State<MapScreenNew> {
   void _moveCamera(Position position) {
     _googleMapController.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
-            target: LatLng(position.latitude, position.longitude),
-            zoom: 17)));
+            target: LatLng(position.latitude, position.longitude), zoom: 17)));
   }
 
   // Every 10 sec
 
-  Future<Position> _determinePositionMoveCamera() async {
-    Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.best,
-      timeLimit: const Duration(seconds: 10),
-    );
-    _googleMapController.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(
-            target: LatLng(position.latitude, position.longitude),
-            zoom: 17)));
-    return position;
+  StreamSubscription<Position> _positionStreamSubscription;
+
+  void _determinePositionMoveCamera() async {
+    try {
+      _positionStreamSubscription =
+          Geolocator.getPositionStream().listen((position) {
+        setState(() {
+          positionuser = position;
+        });
+        // move camera to new position here
+        _googleMapController.animateCamera(CameraUpdate.newCameraPosition(
+            CameraPosition(
+                target: LatLng(position.latitude, position.longitude),
+                zoom: 17)));
+      });
+    } catch (e) {
+      // handle errors here
+    }
   }
 
-
+  @override
+  void initState() {
+    //initialize stuff here  also allow you to execute function without call
+    _determinePositionMoveCamera();
+  }
 
   @override
   void dispose() {
@@ -170,10 +218,21 @@ class _MapScreenNewState extends State<MapScreenNew> {
             myLocationButtonEnabled: false,
             zoomControlsEnabled: false,
             initialCameraPosition: _initialCameraPosition,
-            onMapCreated: (controller) => _googleMapController = controller,
-            //place markers on the screen
-            markers: {if (_user != null) _user, ...Set.from(_markers)},
+            onMapCreated: (controller) {
+              _googleMapController = controller;
+            },
             //onLongPress: _setDestination,
+            //place markers on the screen
+            markers: {
+              Marker(
+                markerId: const MarkerId('User'),
+                infoWindow: const InfoWindow(title: 'You'),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueBlue),
+                position: LatLng(positionuser.latitude, positionuser.longitude),
+              ),
+              ...Set.from(markers)
+            },
           ),
 
           Visibility(
@@ -353,18 +412,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
                     positionuser = await _determinePosition();
                     _moveCamera(positionuser);
                     setState(() {
-                      _user = Marker(
-                        markerId: const MarkerId('User'),
-                        infoWindow: const InfoWindow(title: 'You'),
-                        icon: BitmapDescriptor.defaultMarkerWithHue(
-                            BitmapDescriptor.hueBlue),
-
-                        //icon :'assets/icons/bike.png' as BitmapDescriptor,
-                        //change the icon after
-
-                        position: LatLng(
-                            positionuser.latitude, positionuser.longitude),
-                      );
+                      positionuser = positionuser;
                     });
                   },
                   style: TextButton.styleFrom(
@@ -384,7 +432,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
   }
 
   String _getId(int index) {
-    return _markers[index].markerId.value;
+    return markers[index].markerId.value;
   }
 
   void stationSelection() {
@@ -401,16 +449,16 @@ class _MapScreenNewState extends State<MapScreenNew> {
               width: double.maxFinite,
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: _markers.length,
+                itemCount: markers.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
                     leading: Icon(Icons.directions_bike),
-                    title: Text(_markers[index].infoWindow.title),
-                    trailing: Text(_markers[index].infoWindow.snippet),
+                    title: Text(markers[index].infoWindow.title),
+                    trailing: Text(markers[index].infoWindow.snippet),
                     onTap: () {
                       id = _getId(index);
                       Navigator.pop(context);
-
+                      takeBikeFromMarker(id);
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -426,9 +474,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
                                 Flexible(
                                   fit: FlexFit.loose,
                                   child: Text(
-                                      'Station \n "' +
-                                          _markers[index].infoWindow.title +
-                                          '"\n successfully selected. \n\n Go to your Station and Follow instruction to unlock Bike.',
+                                      'Station \n "${markers[index].infoWindow.title}"\n successfully selected. \n\n Go to your Station and Follow instruction to unlock Bike.',
                                       style: TextStyle(fontSize: 16.0)),
                                 ),
                               ],
@@ -482,6 +528,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
           actions: [
             TextButton(
               onPressed: () {
+                returbBikeFromMarker(id);
                 Navigator.of(context).pop();
                 id = null;
               },
