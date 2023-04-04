@@ -170,7 +170,8 @@ class _MapScreenNewState extends State<MapScreenNew> {
             target: LatLng(position.latitude, position.longitude), zoom: 17)));
   }
 
-  // Every 10 sec
+  // Only start executing this when the user has started his ride 
+  //Every 20 sec send http request of this information
 
   StreamSubscription<Position> _positionStreamSubscription;
 
