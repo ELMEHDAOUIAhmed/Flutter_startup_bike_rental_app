@@ -170,7 +170,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
             target: LatLng(position.latitude, position.longitude), zoom: 17)));
   }
 
-  // Only start executing this when the user has started his ride 
+  // Only start executing this when the user has started his ride
   //Every 20 sec send http request of this information
 
   StreamSubscription<Position> _positionStreamSubscription;
@@ -193,10 +193,25 @@ class _MapScreenNewState extends State<MapScreenNew> {
     }
   }
 
+  BitmapDescriptor userIcon = BitmapDescriptor.defaultMarker;
+
+  void setCustomMarkerIcon() {
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration(size: const Size(64, 64)),
+            'assets/icons/google_icon.png')
+        .then(
+      (icon) {
+        userIcon = icon;
+      },
+    );
+  }
+
   @override
   void initState() {
     //initialize stuff here  also allow you to execute function without call
     _determinePositionMoveCamera();
+    setCustomMarkerIcon();
+    super.initState();
   }
 
   @override
@@ -228,8 +243,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
               Marker(
                 markerId: const MarkerId('User'),
                 infoWindow: const InfoWindow(title: 'You'),
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueBlue),
+                icon: userIcon,
                 position: LatLng(positionuser.latitude, positionuser.longitude),
               ),
               ...Set.from(markers)

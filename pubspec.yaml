@@ -222,6 +222,8 @@ flutter:
     - assets/icons/bike.png
     - assets/icons/bike-parking.png
     - assets/icons/body.png
+    - assets/icons/blue_circule.png
+    - assets/icons/google_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
