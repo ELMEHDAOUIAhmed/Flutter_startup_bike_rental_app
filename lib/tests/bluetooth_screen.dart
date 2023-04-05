@@ -1,8 +1,7 @@
-import 'dart:convert';
-import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import './bluetooth.dart';
+// import './bluetooth.dart';
+import './BT_new.dart';
 
 class Bluetooth extends StatefulWidget {
   const Bluetooth({Key key}) : super(key: key);
@@ -45,32 +44,32 @@ class _BluetoothState extends State<Bluetooth> {
               SizedBox(width: 8),
               Text(bluetoothStatus),
               ElevatedButton(
-                  onPressed: () async {
-                    await bluetoothService.startScan(1234);
+                  onPressed: () {
+                    bluetoothService.startScan(pin);
                   },
-                  child: Text('Connect')),
+                  child: Text('connect')),
               ElevatedButton(
                 onPressed: () async {
                   String bt_bt =
-                      await bluetoothService.sendAndReceive('status');
+                      await bluetoothService.sendAndReceive('status\n');
                   setState(() {
                     bt = bt_bt;
                   });
                 },
-                child: Text('Send status'),
+                child: Text('send status'),
               ),
               ElevatedButton(
                 onPressed: () async {
-                  String bt_bt = await bluetoothService.sendAndReceive('clear');
+                  String bt_bt = await bluetoothService.sendAndReceive('clear\n');
                   setState(() {
                     bt = bt_bt;
                   });
                 },
-                child: Text('Clear'),
+                child: Text('clear'),
               ),
               ElevatedButton(
                 onPressed: () async {
-                  String bt_bt = await bluetoothService.sendAndReceive('1234');
+                  String bt_bt = await bluetoothService.sendAndReceive('191931089014\n');
                   setState(() {
                     bt = bt_bt;
                   });

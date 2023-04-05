@@ -5,6 +5,7 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 class BluetoothService {
   bool isConnected = false;
   BluetoothConnection connection;
+  StreamSubscription<List<int>> _inputSubscription;
 
   Future<void> connectToDevice(BluetoothDevice device, int pin) async {
     try {
@@ -31,23 +32,28 @@ class BluetoothService {
     }
   }
 
-  Future<String> sendAndReceive(
-      String message) async {
+  Future<String> sendAndReceive(String message) async {
     if (!isConnected) {
       return ('BLUETOOTH NOT CONNECTED');
     }
     try {
-      //send the message
+      // Send the message
       connection.output.add(utf8.encode(message));
-      connection.output.allSent;
+      await connection.output.allSent;
 
       // Wait for the response
-      List<int> data = await connection.input
-          .where((event) => event != null && event.isNotEmpty)
-          .first
-          .timeout(Duration(seconds: 40));
+      final completer = Completer<String>();
+      final buffer = StringBuffer();
+      _inputSubscription ??= connection.input.listen((data) {
+        buffer.write(utf8.decode(data));
+        final message = buffer.toString();
+        if (message.endsWith('\n')) {
+          completer.complete(message.trim());
+          buffer.clear();
+        }
+      });
 
-      String response = utf8.decode(data);
+      final response = await completer.future;  //.timeout(Duration(seconds: 3));
       print(response);
       return response;
     } catch (e) {
@@ -74,6 +80,8 @@ class BluetoothService {
     if (isConnected) {
       connection.finish();
       isConnected = false;
+      _inputSubscription?.cancel();
+      _inputSubscription = null;
     }
   }
 }

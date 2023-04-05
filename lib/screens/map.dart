@@ -129,7 +129,7 @@ class Ride extends StatelessWidget {
                               padding: EdgeInsets.zero,
                             ),
                             child: Image.asset(
-                              'assets/page-1/images/profile_menu.png',
+                              'assets/page-1/images/menu.png',
                               //'assets/page-1/images/image-19.png',
                               fit: BoxFit.cover,
                             ),

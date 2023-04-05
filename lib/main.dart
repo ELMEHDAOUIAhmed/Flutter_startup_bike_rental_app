@@ -21,7 +21,7 @@ import 'firebase_options.dart';
 //import 'screens/map1_new.dart';
 //import './screens/profilemenu_new.dart';
 // import 'screens/message.dart';
-// import 'screens/payment.dart';
+import 'screens/payment.dart';
 // import 'screens/promotion.dart';
 // import 'screens/unlock.dart';
 // import 'screens/unlock_2.dart';
@@ -35,6 +35,7 @@ import 'firebase_options.dart';
 
 import 'tests/map_screen_new.dart';
 import 'tests/bluetooth_screen.dart';
+import 'screens/support.dart';
 
 
 
@@ -83,7 +84,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MapScreenNew(),
+      home: Payment(),
     );
   }
 }

@@ -172,6 +172,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
 
   // Only start executing this when the user has started his ride
   //Every 20 sec send http request of this information
+  //add stop listening for gps after user finishes ride
 
   StreamSubscription<Position> _positionStreamSubscription;
 
@@ -182,6 +183,9 @@ class _MapScreenNewState extends State<MapScreenNew> {
         setState(() {
           positionuser = position;
         });
+        //send positionuser via http in 20sec intervals
+
+
         // move camera to new position here
         _googleMapController.animateCamera(CameraUpdate.newCameraPosition(
             CameraPosition(
@@ -192,6 +196,8 @@ class _MapScreenNewState extends State<MapScreenNew> {
       // handle errors here
     }
   }
+
+  
 
   BitmapDescriptor userIcon = BitmapDescriptor.defaultMarker;
 
@@ -209,7 +215,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
   @override
   void initState() {
     //initialize stuff here  also allow you to execute function without call
-    _determinePositionMoveCamera();
+    // _determinePositionMoveCamera();
     setCustomMarkerIcon();
     super.initState();
   }
@@ -298,6 +304,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
                       TextButton(
                         // image35nh3 (1:120)
                         onPressed: () {
+                          
                           //promotion button
                           Navigator.push(
                               context,
@@ -328,7 +335,6 @@ class _MapScreenNewState extends State<MapScreenNew> {
           //Blur
           Positioned(
             // rectangle277p8d (1:38)
-            left: 0 * fem,
             top: 0 * fem,
 
             child: Align(
@@ -336,7 +342,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
                 width: 414 * fem,
                 height: 109 * fem,
                 child: Image.asset(
-                  'assets/page-1/images/rectangle-277.png',
+                  'assets/page-1/images/blur_screen.png',
                   // top blur
                   width: 414 * fem,
                   height: 129 * fem,

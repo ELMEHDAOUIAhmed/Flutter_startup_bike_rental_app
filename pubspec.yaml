@@ -77,9 +77,7 @@ flutter:
   assets:
     - assets/page-1/images/-1sj.png
     - assets/page-1/images/.png
-    - assets/page-1/images/auto-group-fjpj.png
     - assets/page-1/images/backgroundnotremoved-2.png
-    - assets/page-1/images/bar-tab1.png
     - assets/page-1/images/black-screen-Rim.png
     - assets/page-1/images/black-screen.png
     - assets/page-1/images/blur.png
@@ -87,9 +85,6 @@ flutter:
     - assets/page-1/images/clock.png
     - assets/page-1/images/cloudly.png
     - assets/page-1/images/compass.png
-    - assets/page-1/images/controls-table-view-row-x-accessory-right-dark-switch-off-qnV.png
-    - assets/page-1/images/controls-table-view-row-x-accessory-right-dark-switch-off.png
-    - assets/page-1/images/controls-table-view-row-x-accessory-right-dark-switch-on-copy.png
     - assets/page-1/images/coupon.png
     - assets/page-1/images/distanceicon.png
     - assets/page-1/images/group-141-copy-2.png
@@ -120,13 +115,6 @@ flutter:
     - assets/page-1/images/image-14.png
     - assets/page-1/images/image-15.png
     - assets/page-1/images/image-16.png
-    - assets/page-1/images/image-17.png
-    - assets/page-1/images/image-18.png
-    - assets/page-1/images/image-2.png
-    - assets/page-1/images/image-20.png
-    - assets/page-1/images/image-21.png
-    - assets/page-1/images/image-22.png
-    - assets/page-1/images/image-23.png
     - assets/page-1/images/image-24-m17.png
     - assets/page-1/images/image-24.png
     - assets/page-1/images/image-25-Df3.png
@@ -149,21 +137,12 @@ flutter:
     - assets/page-1/images/location_not_selected.png
     - assets/page-1/images/location_selected.png
     - assets/page-1/images/lock_selected.png
-    - assets/page-1/images/mail-KjB.png
-    - assets/page-1/images/mail-VFT.png
-    - assets/page-1/images/mail-WJZ.png
-    - assets/page-1/images/mail-WzZ.png
     - assets/page-1/images/mail.png
-    - assets/page-1/images/map.png
     - assets/page-1/images/menu.png
     - assets/page-1/images/nfc_unlocked.png
     - assets/page-1/images/oval-5Uy.png
     - assets/page-1/images/oval-6nR.png
     - assets/page-1/images/oval-82y.png
-    - assets/page-1/images/oval-copy-2.png
-    - assets/page-1/images/oval-copy-5.png
-    - assets/page-1/images/oval-copy-6.png
-    - assets/page-1/images/oval-copy-7.png
     - assets/page-1/images/oval-gdB.png
     - assets/page-1/images/oval-HfT.png
     - assets/page-1/images/oval-wyP.png
@@ -215,8 +194,6 @@ flutter:
     - assets/page-1/images/promotion.png
     - assets/page-1/images/takeride_button.png
     - assets/page-1/images/gps.png
-    - assets/page-1/images/profile_menu.png
-    - assets/page-1/images/map.png
     - assets/page-1/images/nfc_locked.png
     - assets/page-1/images/error.png
     - assets/icons/bike.png
@@ -224,6 +201,7 @@ flutter:
     - assets/icons/body.png
     - assets/icons/blue_circule.png
     - assets/icons/google_icon.png
+    - assets/page-1/images/blur_screen.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
