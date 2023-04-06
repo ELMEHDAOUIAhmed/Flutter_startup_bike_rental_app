@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:myapp/providers/auth_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:myapp/utils.dart';
 import 'package:geolocator/geolocator.dart';
@@ -16,10 +17,10 @@ import 'firebase_options.dart';
 // import 'screens/onboarding_3.dart';
 // import 'screens/profile_menu.dart';
 // import 'screens/signup.dart';
-// import 'screens/login.dart';
+import 'screens/login.dart';
 //import 'screens/map_1.dart';
 //import 'screens/map1_new.dart';
-//import './screens/profilemenu_new.dart';
+//import '/screens/profile_menu.dart';
 // import 'screens/message.dart';
 import 'screens/payment_voucher.dart';
 import 'screens/payment.dart';
@@ -85,7 +86,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Payment(),
+      home: AuthPage(),
     );
   }
 }
