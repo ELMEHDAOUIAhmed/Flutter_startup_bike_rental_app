@@ -9,15 +9,14 @@ import 'package:myapp/components/my_textfield.dart';
 import 'package:myapp/components/my_button.dart';
 
 class Signup extends StatelessWidget {
-
   // variables to hold user input
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
+  final matriculeController = TextEditingController();
 
   // sign user up method
-  void SignUserUp(){}
-  
-  
+  void SignUserUp() {}
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +128,8 @@ class Signup extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(
                     27 * fem, 46 * fem, 32 * fem, 353 * fem),
                 width: 414 * fem,
-                height: 830 * fem, // heigh of container that hold email ect to signup button
+                height: 1000 *
+                    fem, // heigh of container that hold email ect to signup button
                 decoration: BoxDecoration(
                   color: Color(0xffffffff),
                   borderRadius: BorderRadius.only(
@@ -140,6 +140,18 @@ class Signup extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // text fields as containers
+                    MyTextField(
+                      controller: matriculeController,
+                      labelText: 'Matricule',
+                      hintText: '',
+                      obscureText: false,
+                    ),
+                    MyTextField(
+                      controller: usernameController,
+                      labelText: 'Username',
+                      hintText: '',
+                      obscureText: false,
+                    ),
                     MyTextField(
                       controller: emailController,
                       labelText: 'Email',

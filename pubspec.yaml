@@ -201,6 +201,7 @@ flutter:
     - assets/icons/google_icon.png
     - assets/page-1/images/blur_screen.png
     - assets/page-1/images/payment_code.png
+    - assets/page-1/images/image-23.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

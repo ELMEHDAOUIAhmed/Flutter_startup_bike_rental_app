@@ -42,6 +42,7 @@ class _LoginState extends State<Login> {
       );
       //pop out circule
       Navigator.pop(context);
+      Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
     } on FirebaseAuthException catch (e) {
       // WRONG EMAIL
       if (e.code == 'user-not-found') {
@@ -57,7 +58,6 @@ class _LoginState extends State<Login> {
         userNotFoundMessage();
       }
     }
-    AuthPage();
   }
 
   // wrong email message popup
@@ -269,7 +269,6 @@ class _LoginState extends State<Login> {
                       hintText: '',
                       obscureText: true,
                     ),
-
                     Container(
                       // signupwithyoureeHj (1:1339)
                       margin: EdgeInsets.fromLTRB(

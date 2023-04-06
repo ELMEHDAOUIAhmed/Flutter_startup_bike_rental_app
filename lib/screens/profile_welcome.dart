@@ -6,8 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:myapp/utils.dart';
 import './ride_history.dart';
 import 'profile_menu.dart';
-
-import './map.dart';
+import '/tests/map_screen_new.dart';
 
 class Profile_welcome extends StatelessWidget {
 
@@ -391,7 +390,7 @@ class Profile_welcome extends StatelessWidget {
                                                     Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Ride()));
+                                    builder: (context) => MapScreenNew()));
                         },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,

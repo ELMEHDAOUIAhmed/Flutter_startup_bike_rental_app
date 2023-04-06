@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 // import 'package:flutter/gestures.dart';
 // import 'dart:ui';
 // import 'package:google_fonts/google_fonts.dart';
+// import 'package:myapp/components/my_button.dart';
 import 'package:myapp/utils.dart';
-
+import 'package:myapp/components/my_textfield.dart';
 import 'package:myapp/components/my_button.dart';
+import 'package:flutter/services.dart';
 
-class Scene extends StatelessWidget {
+class Verification extends StatelessWidget {
+  // variables to hold user input
+  final verifyCodeController = TextEditingController();
+
+  void verify() {}
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 414;
@@ -15,24 +23,25 @@ class Scene extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: Container(
-        // verificationDyP (1:1297)
+        // support7Q1 (1:375)
         width: double.infinity,
-        height: 896*fem,
-        decoration: const BoxDecoration (
+        height: 896 * fem,
+        decoration: const BoxDecoration(
           color: Color(0xffffffff),
         ),
         child: Stack(
           children: [
             Positioned(
-              // headerKWd (I1:1298;0:1414)
-              left: 0*fem,
-              top: 0*fem,
+              // header1VP (I1:376;0:1414)
+              left: 0 * fem,
+              top: 0 * fem,
               child: Container(
-                padding: EdgeInsets.fromLTRB(32*fem, 64*fem, 32*fem, 158*fem),
-                width: 414*fem,
-                height: 293*fem,
-                decoration: const BoxDecoration (
-                  gradient: LinearGradient (
+                padding: EdgeInsets.fromLTRB(
+                    32 * fem, 64 * fem, 32 * fem, 158 * fem),
+                width: 414 * fem,
+                height: 293 * fem,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
                     begin: Alignment(0.217, 1),
                     end: Alignment(0.2, -1),
                     colors: <Color>[Color(0xff009efd), Color(0xff000000)],
@@ -43,36 +52,27 @@ class Scene extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      // iconchevronleftWr1 (I1:1298;0:1417)
-                      margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 14.72*fem),
-                      child: TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom (
-                          padding: EdgeInsets.zero,
-                        ),
-                        child: Container(
-                          width: 18.13*fem,
-                          height: 17.28*fem,
-                          child: Image.asset(
-                            'assets/page-1/images/icon-chevron-left-qQ1.png',
-                            width: 18.13*fem,
-                            height: 17.28*fem,
-                          ),
-                        ),
+                      // iconchevronleftnuT (I1:376;0:1417)
+                      margin: EdgeInsets.fromLTRB(
+                          0 * fem, 0 * fem, 0 * fem, 14.72 * fem),
+                      width: 18.13 * fem,
+                      height: 17.28 * fem,
+                      child: const Icon(
+                        CupertinoIcons.back,
+                        color: Colors.white,
+                        size: 30,
                       ),
                     ),
-                    Container(
-                      // mystatisticsMrd (1:1299)
-                      margin: EdgeInsets.fromLTRB(3*fem, 0*fem, 0*fem, 0*fem),
-                      child: Text(
-                        'Verification',
-                        style: SafeGoogleFont (
-                          'Montserrat',
-                          fontSize: 32*ffem,
-                          fontWeight: FontWeight.w600,
-                          height: 1.2175*ffem/fem,
-                          color: Color(0xffffffff),
-                        ),
+                    Text(
+                      // mystatistics4ry (I1:376;0:1416)
+                      'Verification',
+                      style: SafeGoogleFont(
+                        'Montserrat',
+                        fontSize: 32 * ffem,
+                        fontWeight: FontWeight.w600,
+                        height: 1.2175 * ffem / fem,
+                        color: Color(0xffffffff),
+                        decoration: TextDecoration.none,
                       ),
                     ),
                   ],
@@ -80,143 +80,84 @@ class Scene extends StatelessWidget {
               ),
             ),
             Positioned(
-              // cardRrV (1:1300)
-              left: 0*fem,
-              top: 167*fem,
+              // inputsa4d (1:377)
+              left: 0 * fem,
+              top: 167 * fem,
               child: Container(
-                padding: EdgeInsets.fromLTRB(32*fem, 50*fem, 32*fem, 353*fem),
-                width: 414*fem,
-                height: 729*fem,
-                decoration: BoxDecoration (
+                padding: EdgeInsets.fromLTRB(
+                    32 * fem, 55 * fem, 32 * fem, 341 * fem),
+                width: 414 * fem,
+                height: 900 * fem,
+                decoration: BoxDecoration(
                   color: Color(0xffffffff),
-                  borderRadius: BorderRadius.only (
-                    topLeft: Radius.circular(48*fem),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(48 * fem),
                   ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      // autogrouphtnqGMK (NEry7pQWaJRCay8zArHtNq)
-                      margin: EdgeInsets.fromLTRB(44*fem, 0*fem, 206*fem, 10.5*fem),
-                      width: double.infinity,
-                      child: Row(
+                      width: 414 * fem,
+                      //height: 830 * fem,
+                      decoration: BoxDecoration(
+                        color: Color(0xffffffff),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(48 * fem),
+                        ),
+                      ),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            // AxV (1:1306)
-                            margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 62*fem, 0*fem),
-                            child: Text(
-                              '5',
-                              textAlign: TextAlign.center,
-                              style: SafeGoogleFont (
-                                'Montserrat',
-                                fontSize: 32*ffem,
-                                fontWeight: FontWeight.w400,
-                                height: 1.2175*ffem/fem,
-                                color: Color(0xff030303),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            // Twb (1:1307)
-                            '3',
-                            textAlign: TextAlign.center,
-                            style: SafeGoogleFont (
-                              'Montserrat',
-                              fontSize: 32*ffem,
-                              fontWeight: FontWeight.w400,
-                              height: 1.2175*ffem/fem,
-                              color: Color(0xff030303),
-                            ),
-                          ),
+                              // signupwithyoureeHj (1:1339)
+                              margin: EdgeInsets.fromLTRB(
+                                  5 * fem, 0 * fem, 0 * fem, 20 * fem),
+                              child: RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                  style: TextStyle(
+                                    fontSize: 15 * ffem,
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.3333333333 * ffem / fem,
+                                    decoration: TextDecoration.none,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          'We have sent the verification code to \n',
+                                      style: SafeGoogleFont(
+                                        'Montserrat',
+                                        fontSize: 15 * ffem,
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.3333333333 * ffem / fem,
+                                        color: Color(0xff000000),
+                                        decoration: TextDecoration.none,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: 't****@**il.com',
+                                      style: SafeGoogleFont(
+                                        'Montserrat',
+                                        fontSize: 19 * ffem,
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.3333333333 * ffem / fem,
+                                        color: Colors.blue,
+                                        decoration: TextDecoration.none,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+
+                          Otp(),
+
+                          // add button here as a container
+                          Container(
+                              margin: EdgeInsets.fromLTRB(
+                                  0 * fem, 80 * fem, 0 * fem, 0 * fem),
+                              child: MyButton(text: 'Continue', onTap: verify))
                         ],
-                      ),
-                    ),
-                    Container(
-                      // inputszAq (1:1308)
-                      margin: EdgeInsets.fromLTRB(23*fem, 0*fem, 24*fem, 33*fem),
-                      width: double.infinity,
-                      height: 1.5*fem,
-                    ),
-                    Container(
-                      // donecviverraeleifeu2u (1:1302)
-                      margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 13*fem),
-                      constraints: BoxConstraints (
-                        maxWidth: 253*fem,
-                      ),
-                      child: Text(
-                        'Donec viverra eleifend lacus, vitae ullamcorper metus sed.',
-                        textAlign: TextAlign.center,
-                        style: SafeGoogleFont (
-                          'Montserrat',
-                          fontSize: 15*ffem,
-                          fontWeight: FontWeight.w400,
-                          height: 1.2175*ffem/fem,
-                          color: Color(0xff030303),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      // ZdF (1:1303)
-                      margin: EdgeInsets.fromLTRB(2*fem, 0*fem, 0*fem, 41*fem),
-                      child: Text(
-                        'ah*********@mail.com',
-                        textAlign: TextAlign.center,
-                        style: SafeGoogleFont (
-                          'Montserrat',
-                          fontSize: 18*ffem,
-                          fontWeight: FontWeight.w600,
-                          height: 1.2175*ffem/fem,
-                          color: Color(0xff030303),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      // didntreceivesmss89 (1:1304)
-                      margin: EdgeInsets.fromLTRB(3*fem, 0*fem, 0*fem, 40*fem),
-                      child: Text(
-                        'Didn’t receive EMAIL?',
-                        textAlign: TextAlign.center,
-                        style: SafeGoogleFont (
-                          'Montserrat',
-                          fontSize: 15*ffem,
-                          fontWeight: FontWeight.w400,
-                          height: 1.2175*ffem/fem,
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      // buttonwhite195f (1:1305)
-                      onPressed: () {},
-                      style: TextButton.styleFrom (
-                        padding: EdgeInsets.zero,
-                      ),
-                      child: Container(
-                        width: double.infinity,
-                        height: 70*fem,
-                        decoration: BoxDecoration (
-                          borderRadius: BorderRadius.circular(35*fem),
-                          gradient: const LinearGradient (
-                            begin: Alignment(0.217, 1),
-                            end: Alignment(0.2, -1),
-                            colors: <Color>[Color(0xff009efd), Color(0xff000000)],
-                            stops: <double>[0, 1],
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Continue',
-                            textAlign: TextAlign.center,
-                            style: SafeGoogleFont (
-                              'Montserrat',
-                              fontSize: 21*ffem,
-                              fontWeight: FontWeight.w600,
-                              height: 1.2175*ffem/fem,
-                              color: Color(0xffffffff),
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                   ],
@@ -226,6 +167,135 @@ class Scene extends StatelessWidget {
           ],
         ),
       ),
-          );
+    );
+  }
+}
+
+/// Otp
+class Otp extends StatelessWidget {
+  Otp({
+    Key key,
+  }) : super(key: key);
+
+  var textFormFieldDecoration = InputDecoration(
+    hintText: ".",
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: const BorderSide(
+        width: 2,
+        color: Colors.black,
+      ),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(15),
+      borderSide: const BorderSide(
+        width: 3,
+        color: Colors.blue,
+      ),
+    ),
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var textTheme = Theme.of(context).textTheme;
+    return SizedBox(
+      width: size.width,
+      height: size.height * 0.1,
+      child: Form(
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SizedBox(
+            width: 65,
+            height: 65,
+            child: Material(
+              child: TextFormField(
+                onChanged: (value) {
+                  if (value.length == 1) {
+                    FocusScope.of(context).nextFocus();
+                  }
+                },
+                decoration: textFormFieldDecoration,
+                textAlign: TextAlign.center,
+                cursorHeight: 30.0,
+                maxLines: 1,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(1),
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 65,
+            height: 65,
+            child: Material(
+              child: TextFormField(
+                onChanged: (value) {
+                  if (value.length == 1) {
+                    FocusScope.of(context).nextFocus();
+                  }
+                },
+                decoration: textFormFieldDecoration,
+                textAlign: TextAlign.center,
+                cursorHeight: 30.0,
+                maxLines: 1,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(1),
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 65,
+            height: 65,
+            child: Material(
+              child: TextFormField(
+                onChanged: (value) {
+                  if (value.length == 1) {
+                    FocusScope.of(context).nextFocus();
+                  }
+                },
+                decoration: textFormFieldDecoration,
+                textAlign: TextAlign.center,
+                cursorHeight: 30.0,
+                maxLines: 1,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(1),
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 65,
+            height: 65,
+            child: Material(
+              child: TextFormField(
+                onChanged: (value) {
+                  if (value.length == 1) {
+                    FocusScope.of(context).unfocus();
+                  }
+                },
+                decoration: textFormFieldDecoration,
+                textAlign: TextAlign.center,
+                cursorHeight: 30.0,
+                maxLines: 1,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(1),
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+              ),
+            ),
+          ),
+        ],
+      )),
+    );
   }
 }

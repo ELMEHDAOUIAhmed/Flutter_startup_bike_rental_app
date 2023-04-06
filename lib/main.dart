@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myapp/providers/auth_page.dart';
+import 'package:myapp/route_generator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:myapp/utils.dart';
 import 'package:geolocator/geolocator.dart';
@@ -38,6 +39,10 @@ import 'screens/payment.dart';
 import 'tests/map_screen_new.dart';
 import 'tests/bluetooth_screen.dart';
 import 'screens/support.dart';
+
+import '/tests/verification_screen.dart';
+import '/screens/verification.dart';
+import 'screens/message.dart';
 
 
 
@@ -86,7 +91,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AuthPage(),
+
+      // initialRoute: '/auth',
+      // onGenerateRoute: RouteGenerator.generateRoute,
+
+      //for testing 
+       home: Message(),
+      
     );
   }
 }

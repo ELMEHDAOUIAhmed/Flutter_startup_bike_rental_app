@@ -5,11 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:myapp/utils.dart';
 
 import 'profile_menu.dart';
-import '/widgets/nav_bar.dart';
-import './promotion.dart';
 
-// Ride must be a statefull widget so we can add map inside it 
-class Ride extends StatelessWidget {
+class Home_page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double baseWidth = 414;
@@ -44,8 +41,8 @@ class Ride extends StatelessWidget {
                           width: 414 * fem,
                           height: 896 * fem,
                           child: Image.asset(
-                            //'assets/page-1/images/image-36.png',
-                            'assets/page-1/images/map.png',
+                            'assets/page-1/images/image-36.png',
+                            // map , after it will dynamique not a photo
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -61,7 +58,7 @@ class Ride extends StatelessWidget {
                           height: 129 * fem,
                           child: Image.asset(
                             'assets/page-1/images/rectangle-277.png',
-                            //white blur
+                            // top blur
                             width: 414 * fem,
                             height: 129 * fem,
                           ),
@@ -120,17 +117,18 @@ class Ride extends StatelessWidget {
                           height: 15 * fem,
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProfileMenu()));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             ProfileMenu()));
                             },
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.zero,
                             ),
                             child: Image.asset(
-                              'assets/page-1/images/menu.png',
                               //'assets/page-1/images/image-19.png',
+                              'assets/page-1/images/menu.png',
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -139,96 +137,25 @@ class Ride extends StatelessWidget {
                     ),
                     Positioned(
                       // image34byw (1:84)
+                      //refrech location , change it postion after
                       left: 350 * fem,
-                      top: 559 * fem,
+                      top: 650 * fem,
                       child: Align(
                         child: SizedBox(
                           width: 51 * fem,
                           height: 51 * fem,
                           child: TextButton(
-                            onPressed: () {
-                              //get user location
-                            },
+                            onPressed: () {},
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.zero,
                             ),
                             child: Image.asset(
-                              //'assets/page-1/images/image-34.png',
+                             //'assets/page-1/images/image-34.png',
                               'assets/page-1/images/gps.png',
+                              //refresh location
                               fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              // cardsgZ (1:99)
-              left: 1 * fem,
-              top: 625 * fem,
-              child: Container(
-                padding:
-                    EdgeInsets.fromLTRB(14 * fem, 26 * fem, 14 * fem, 81 * fem),
-                width: 414 * fem,
-                height: 271 * fem,
-                decoration: BoxDecoration(
-                  color: Color(0xffffffff),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(48 * fem),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      // image327L1 (1:80)
-                      margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 0 * fem, 15 * fem),
-                      child: TextButton(
-                        onPressed: () {
-                          //take a ride button
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => NavBar()));
-                        },
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                        ),
-                        child: Container(
-                          width: 386 * fem,
-                          height: 56 * fem,
-                          child: Image.asset(
-                            //'assets/page-1/images/image-32.png',
-                            'assets/page-1/images/takeride_button.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      // image35nh3 (1:120)
-                      onPressed: () {
-                        //promotion button
-
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Promotion()));
-                      },
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                      ),
-                      child: Container(
-                        width: 386 * fem,
-                        height: 93 * fem,
-                        child: Image.asset(
-                          //'assets/page-1/images/image-35.png',
-                          'assets/page-1/images/promotion.png',
-                          fit: BoxFit.cover,
                         ),
                       ),
                     ),

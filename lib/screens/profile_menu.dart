@@ -25,7 +25,6 @@ class ProfileMenu extends StatelessWidget {
 
   void signUserOut() {
     FirebaseAuth.instance.signOut(); // to sign out the user
-    AuthPage();
   }
 
   @override
@@ -427,11 +426,8 @@ class ProfileMenu extends StatelessWidget {
                                 TextButton(
                               onPressed: () {
                                 FirebaseAuth.instance.signOut();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            AuthPage()));
+                                Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+                                //
                               },
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,
