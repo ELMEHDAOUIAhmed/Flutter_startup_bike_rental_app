@@ -10,6 +10,7 @@ import 'package:myapp/utils.dart';
 import './signup.dart';
 import 'package:myapp/components/my_textfield.dart';
 import 'package:myapp/components/my_button.dart';
+import 'package:myapp/providers/auth_page.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -56,6 +57,7 @@ class _LoginState extends State<Login> {
         userNotFoundMessage();
       }
     }
+    AuthPage();
   }
 
   // wrong email message popup
