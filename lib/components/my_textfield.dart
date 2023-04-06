@@ -6,6 +6,7 @@ class MyTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final String labelText;
+  final Color backgroundColor;
 
   MyTextField({
     Key key,
@@ -13,6 +14,7 @@ class MyTextField extends StatelessWidget {
     @required this.labelText,
     @required this.hintText,
     @required this.obscureText,
+    this.backgroundColor = Colors.white,
     // wee need confirm password after
   }) : super(key: key);
 
@@ -26,6 +28,7 @@ class MyTextField extends StatelessWidget {
       child: Container(
         width: 350 * fem,
         height: 80 * fem,
+        color: backgroundColor,
         child: Container(
           // autogroup8li1b2m (NErzybeFn6WYMCLAkw8Li1)
           margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 24 * fem, 14 * fem),

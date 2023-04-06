@@ -173,7 +173,6 @@ flutter:
     - assets/page-1/images/select_2.png
     - assets/page-1/images/select_3.png
     - assets/page-1/images/student_id.png
-    - assets/page-1/images/tab-bar.png
     - assets/page-1/images/takeride_button.png
     - assets/page-1/images/tool.png
     - assets/page-1/images/toolkit_not_slected.png
@@ -189,7 +188,6 @@ flutter:
     - assets/page-1/images/buttonon.png
     - assets/page-1/images/icon-log-out.png
     - assets/page-1/images/image-32.png
-    - assets/page-1/images/image-36.png
     - assets/page-1/images/rectangle-277.png
     - assets/page-1/images/promotion.png
     - assets/page-1/images/takeride_button.png
@@ -202,6 +200,7 @@ flutter:
     - assets/icons/blue_circule.png
     - assets/icons/google_icon.png
     - assets/page-1/images/blur_screen.png
+    - assets/page-1/images/payment_code.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
