@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/screens/profile_welcome.dart';
 import 'package:myapp/screens/starting_page.dart';
 
-
+//https://www.youtube.com/watch?v=nyvwx7o277U
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
