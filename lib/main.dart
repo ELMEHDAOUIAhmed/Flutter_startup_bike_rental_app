@@ -22,6 +22,7 @@ import 'firebase_options.dart';
 //import './screens/profilemenu_new.dart';
 // import 'screens/message.dart';
 import 'screens/payment_voucher.dart';
+import 'screens/payment.dart';
 // import 'screens/promotion.dart';
 // import 'screens/unlock.dart';
 // import 'screens/unlock_2.dart';
@@ -84,7 +85,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PaymentVoucher(),
+      home: Payment(),
     );
   }
 }
