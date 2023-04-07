@@ -1,18 +1,26 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 class BluetoothService {
   bool isConnected = false;
   BluetoothConnection connection;
   StreamSubscription<List<int>> _inputSubscription;
-  StreamController<String> _messageController = StreamController<String>.broadcast();
+  StreamController<String> _messageController =
+      StreamController<String>.broadcast();
+
+  String _receivedMessage = '';
 
   Future<void> connectToDevice(BluetoothDevice device, int pin) async {
     try {
       connection = await BluetoothConnection.toAddress(device.address);
       isConnected = true;
       print('Connected to ${device.name}');
+      listenForMessages().listen((message) {
+        print('Received message: $message');
+        // Do whatever you need to do with the message here
+      });
     } catch (e) {
       print('Error connecting to ${device.name}: ${e.toString()}');
     }
@@ -41,7 +49,7 @@ class BluetoothService {
       // Send the message
       connection.output.add(utf8.encode(message));
       await connection.output.allSent;
-      return 'Message sent successfully';
+      return 'Message sent: $message';
     } catch (e) {
       print('Error sending message: $e');
       return ('Error sending message');
@@ -70,11 +78,16 @@ class BluetoothService {
     if (_inputSubscription == null) {
       _inputSubscription = connection.input.listen((data) {
         String message = utf8.decode(data).trim();
+        print(message);
         _messageController.add(message);
       });
     }
     return _messageController.stream;
   }
+
+
+
+
 
   void disconnect() {
     if (isConnected) {

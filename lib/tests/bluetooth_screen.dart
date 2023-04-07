@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-// import './bluetooth.dart';
 import './BT_new.dart';
 
 class Bluetooth extends StatefulWidget {
@@ -30,12 +29,15 @@ class _BluetoothState extends State<Bluetooth> {
   void initState() {
     super.initState();
     _checkBluetoothStatus();
-    _subscription = bluetoothService.listenForMessages().listen((message) {
-      print('Received message: $message');
-      setState(() {
-        _message = message;
-      });
-    });
+
+    // _subscription = bluetoothService.listenForMessages().listen((message) {
+    //   print('Received message: $message');
+    //   setState(() {
+    //     _message = message;
+    //   });
+    // }, onError: (error) {
+    //   print('Error: $error');
+    // });
   }
 
   @override
