@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 // import 'package:flutter/gestures.dart';
 // import 'dart:ui';
 // import 'package:google_fonts/google_fonts.dart';
@@ -49,10 +50,10 @@ class Mywallet extends StatelessWidget {
                           0 * fem, 0 * fem, 0 * fem, 14.72 * fem),
                       width: 18.13 * fem,
                       height: 17.28 * fem,
-                      child: Image.asset(
-                        'assets/page-1/images/icon-chevron-left-aUm.png',
-                        width: 18.13 * fem,
-                        height: 17.28 * fem,
+                      child: const Icon(
+                        CupertinoIcons.back,
+                        color: Colors.white,
+                        size: 30,
                       ),
                     ),
                     Text(
@@ -90,14 +91,13 @@ class Mywallet extends StatelessWidget {
                 ),
               ),
             ),
+            
             Positioned(
               // paymente1T (1:613)
               left: 32 * fem,
               top: 502 * fem,
               child: TextButton(
-                onPressed: () {
-
-                },
+                onPressed: () {},
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.zero,
                 ),
@@ -107,10 +107,10 @@ class Mywallet extends StatelessWidget {
                   width: 350 * fem,
                   height: 70 * fem,
                   child: TextButton(
-                    // payment button 
+                    // payment button
                     onPressed: () {
-                                        Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Payment()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Payment()));
                     },
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,
@@ -143,13 +143,13 @@ class Mywallet extends StatelessWidget {
                             Container(
                               // pathoBB (1:615)
                               margin: EdgeInsets.fromLTRB(
-                                  0 * fem, 0 * fem, 0 * fem, 2 * fem),
+                                  0 * fem, 0 * fem, 0 * fem, 20 * fem),
                               width: 6 * fem,
                               height: 12 * fem,
-                              child: Image.asset(
-                                'assets/page-1/images/path-eub.png',
-                                width: 6 * fem,
-                                height: 12 * fem,
+                              child: const Icon(
+                                CupertinoIcons.forward,
+                                color: Colors.grey,
+                                size: 30,
                               ),
                             ),
                           ],
@@ -216,7 +216,7 @@ class Mywallet extends StatelessWidget {
                       Container(
                         // buttonghost13NM (1:617)
                         margin: EdgeInsets.fromLTRB(
-                            0 * fem, 12 * fem, 0 * fem, 5 * fem),
+                            0 * fem, 12 * fem, 0 * fem, 20 * fem),
                         child: TextButton(
                           onPressed: () {
                             Navigator.push(
@@ -229,7 +229,7 @@ class Mywallet extends StatelessWidget {
                           ),
                           child: Container(
                             width: 114 * fem,
-                            height: double.infinity,
+                            height: 45 * fem,
                             decoration: BoxDecoration(
                               border: Border.all(color: Color(0x7fc7c7cc)),
                               borderRadius: BorderRadius.circular(20 * fem),

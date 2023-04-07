@@ -14,7 +14,7 @@ import 'firebase_options.dart';
 //screen and widgets
 // import 'package:myapp/providers/auth_page.dart';
 // import 'screens/starting_page.dart';
-// import 'screens/profile_welcome.dart';
+import 'screens/profile_welcome.dart';
 // import 'screens/onboarding_3.dart';
 // import 'screens/profile_menu.dart';
 // import 'screens/signup.dart';
@@ -92,11 +92,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      // initialRoute: '/auth',
-      // onGenerateRoute: RouteGenerator.generateRoute,
+      initialRoute: '/auth',
+      onGenerateRoute: RouteGenerator.generateRoute,
 
-      //for testing 
-       home: Message(),
+      // //for testing 
+      //  home: Login(),
       
     );
   }

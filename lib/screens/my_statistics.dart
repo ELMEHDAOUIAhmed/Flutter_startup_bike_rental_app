@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 // import 'package:flutter/gestures.dart';
 // import 'dart:ui';
 // import 'package:google_fonts/google_fonts.dart';
@@ -57,11 +58,11 @@ class Mystatistics extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) => Profile_welcome()));
                         },
-                        child: Image.asset(
-                          'assets/page-1/images/icon-chevron-left-iqb.png',
-                          width: 18.13 * fem,
-                          height: 17.28 * fem,
-                        ),
+                        child: const Icon(
+                        CupertinoIcons.back,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                       ),
                     ),
                     Text(

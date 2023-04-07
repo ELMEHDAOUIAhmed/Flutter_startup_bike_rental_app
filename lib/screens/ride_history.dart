@@ -71,7 +71,7 @@ class Ridehistory extends StatelessWidget {
                     Container(
                       // supportrequestF1F (I1:1235;0:1424)
                       margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 0 * fem, 111 * fem),
+                          0 * fem, 0 * fem, 0 * fem, 97 * fem),
                       child: Text(
                         'Ride history',
                         textAlign: TextAlign.center,

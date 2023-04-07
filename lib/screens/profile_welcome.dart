@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 // import 'package:flutter/gestures.dart';
 // import 'dart:ui';
 // import 'package:google_fonts/google_fonts.dart';
@@ -369,14 +370,14 @@ class Profile_welcome extends StatelessWidget {
                           Container(
                             // iconchevronleftgV3 (1:1273)
                             margin: EdgeInsets.fromLTRB(
-                                0 * fem, 0.72 * fem, 0 * fem, 0 * fem),
+                                0 * fem, 0.72 * fem, 0 * fem, 12 * fem),
                             width: 8.64 * fem,
                             height: 17.28 * fem,
-                            child: Image.asset(
-                              'assets/page-1/images/icon-chevron-left-bQ9.png',
-                              width: 8.64 * fem,
-                              height: 17.28 * fem,
-                            ),
+                            child: const Icon(
+                        CupertinoIcons.forward,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                           ),
                         ],
                       ),

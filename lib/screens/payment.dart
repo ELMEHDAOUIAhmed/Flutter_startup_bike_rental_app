@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 // import 'package:flutter/gestures.dart';
 // import 'dart:ui';
 // import 'package:google_fonts/google_fonts.dart';
@@ -44,7 +45,7 @@ class Payment extends StatelessWidget {
                     Container(
                       // iconchevronleftmP3 (I1:556;0:1425)
                       margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 65.37 * fem, 109.72 * fem),
+                          0 * fem, 0 * fem, 65.37 * fem, 124 * fem),
                       child: TextButton(
                         onPressed: () {},
                         style: TextButton.styleFrom(
@@ -53,11 +54,11 @@ class Payment extends StatelessWidget {
                         child: Container(
                           width: 18.13 * fem,
                           height: 17.28 * fem,
-                          child: Image.asset(
-                            'assets/page-1/images/icon-chevron-left-2iH.png',
-                            width: 18.13 * fem,
-                            height: 17.28 * fem,
-                          ),
+                          child: const Icon(
+                        CupertinoIcons.back,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                         ),
                       ),
                     ),
@@ -102,101 +103,135 @@ class Payment extends StatelessWidget {
               ),
             ),
             Positioned(
-              // inputwhiteshadow1copy2h3j (1:566)
+              // paymente1T (1:613)
               left: 32 * fem,
-              top: 391 * fem,
-              child: Container(
-                width: 350 * fem,
-                height: 47 * fem,
+              top: 360 * fem,
+              child: TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                ),
                 child: Container(
-                  // contains USTHB PAY FIX OVERFLOW BACKGROUND COLOR AND CHEVRON MUST BE INSIDE IT
-                  // autogroupmfxhBzV (NErgbsm1tgo7knU9jzmfxH)
-                  width: 349 * fem,
-                  height: 26 * fem,
-                  child: ElevatedButton(
+                  padding:
+                      EdgeInsets.fromLTRB(0 * fem, 23 * fem, 0 * fem, 0 * fem),
+                  width: 350 * fem,
+                  height: 70 * fem,
+                  child: TextButton(
+                    // payment button
                     onPressed: () {
-                      // Action to perform when the button is pressed
+                      //pushName VOUCHER
                     },
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          // contenthxq (I1:566;0:1316)
-                          margin: EdgeInsets.fromLTRB(
-                              0 * fem, 0 * fem, 224 * fem, 0 * fem),
-                          child: Text(
-                            'USTHB Pay',
-                            style: SafeGoogleFont(
-                              'Montserrat',
-                              fontSize: 21 * ffem,
-                              fontWeight: FontWeight.w400,
-                              height: 1.2175 * ffem / fem,
-                              color: Color(0xff080608),
-                              decoration: TextDecoration.none,
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: Container(
+                        // autogroupwqb7221 (NErhNGei9GhxzqJYo1WQB7)
+                        width: 346 * fem,
+                        height: 26 * fem,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              // contentKG1 (I1:614;0:1316)
+                              margin: EdgeInsets.fromLTRB(
+                                  0 * fem, 0 * fem, 220 * fem, 0 * fem),
+                              child: Text(
+                                'USTHB Pay',
+                                style: SafeGoogleFont(
+                                  'Montserrat',
+                                  fontSize: 21 * ffem,
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.2175 * ffem / fem,
+                                  color: Color(0xff000000),
+                                ),
+                              ),
                             ),
-                          ),
+                            Container(
+                              // pathoBB (1:615)
+                              margin: EdgeInsets.fromLTRB(
+                                  0 * fem, 0 * fem, 0 * fem, 20 * fem),
+                              width: 6 * fem,
+                              height: 12 * fem,
+                              child: const Icon(
+                                CupertinoIcons.forward,
+                                color: Colors.grey,
+                                size: 30,
+                              ),
+                            ),
+                          ],
                         ),
-                        Container(
-                          // pathnUV (1:567)
-                          margin: EdgeInsets.fromLTRB(
-                              0 * fem, 0 * fem, 0 * fem, 2 * fem),
-                          width: 6 * fem,
-                          height: 12 * fem,
-                          child: Image.asset(
-                            'assets/page-1/images/path-nW1.png',
-                            width: 6 * fem,
-                            height: 12 * fem,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
             Positioned(
-              // inputwhiteshadow1copy25Ch (1:569)
+              // paymente1T (1:613)
               left: 32 * fem,
-              top: 461 * fem,
-              child: Container(
-                width: 350 * fem,
-                height: 47 * fem,
+              top: 440 * fem,
+              child: TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                ),
                 child: Container(
-                  // autogroupdtkfmLR (NErguT64mWc9wtvVXodtKF)
-                  width: 349 * fem,
-                  height: 26 * fem,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        // content5ru (I1:569;0:1316)
-                        margin: EdgeInsets.fromLTRB(
-                            0 * fem, 0 * fem, 157 * fem, 0 * fem),
-                        child: Text(
-                          'Payment Options',
-                          style: SafeGoogleFont(
-                            'Montserrat',
-                            fontSize: 21 * ffem,
-                            fontWeight: FontWeight.w400,
-                            height: 1.2175 * ffem / fem,
-                            color: Color(0xff0e0c0e),
-                            decoration: TextDecoration.none,
-                          ),
+                  padding:
+                      EdgeInsets.fromLTRB(0 * fem, 23 * fem, 0 * fem, 0 * fem),
+                  width: 350 * fem,
+                  height: 70 * fem,
+                  child: TextButton(
+                    // payment button
+                    onPressed: () {
+                      //pushName VOUCHER
+                    },
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: Container(
+                        // autogroupwqb7221 (NErhNGei9GhxzqJYo1WQB7)
+                        width: 346 * fem,
+                        height: 26 * fem,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              // contentKG1 (I1:614;0:1316)
+                              margin: EdgeInsets.fromLTRB(
+                                  0 * fem, 0 * fem, 160 * fem, 0 * fem),
+                              child: Text(
+                                'Payment options',
+                                style: SafeGoogleFont(
+                                  'Montserrat',
+                                  fontSize: 21 * ffem,
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.2175 * ffem / fem,
+                                  color: Color(0xff000000),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              // pathoBB (1:615)
+                              margin: EdgeInsets.fromLTRB(
+                                  0 * fem, 0 * fem, 0 * fem, 20 * fem),
+                              width: 6 * fem,
+                              height: 12 * fem,
+                              child: const Icon(
+                                CupertinoIcons.forward,
+                                color: Colors.grey,
+                                size: 30,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Container(
-                        // pathky3 (1:570)
-                        margin: EdgeInsets.fromLTRB(
-                            0 * fem, 0 * fem, 0 * fem, 2 * fem),
-                        width: 6 * fem,
-                        height: 12 * fem,
-                        child: Image.asset(
-                          'assets/page-1/images/path-WCu.png',
-                          width: 6 * fem,
-                          height: 12 * fem,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
