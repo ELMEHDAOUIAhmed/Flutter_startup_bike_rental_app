@@ -1,3 +1,4 @@
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 // import './bluetooth.dart';
@@ -12,21 +13,36 @@ class Bluetooth extends StatefulWidget {
 
 class _BluetoothState extends State<Bluetooth> {
   final BluetoothService bluetoothService = BluetoothService();
+  StreamSubscription<String> _subscription;
+  String _message = '';
   String bluetoothStatus = 'NOT CONNECTED';
   int pin = 1234;
   String bt = 'Loading ...';
-
-  @override
-  void initState() {
-    super.initState();
-    _checkBluetoothStatus();
-  }
 
   Future<void> _checkBluetoothStatus() async {
     String status = await bluetoothService.getStatus(pin);
     setState(() {
       bluetoothStatus = status;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checkBluetoothStatus();
+    _subscription = bluetoothService.listenForMessages().listen((message) {
+      print('Received message: $message');
+      setState(() {
+        _message = message;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _subscription?.cancel();
+    bluetoothService.disconnect();
   }
 
   @override
@@ -50,36 +66,30 @@ class _BluetoothState extends State<Bluetooth> {
                   child: Text('connect')),
               ElevatedButton(
                 onPressed: () async {
-                  String bt_bt =
-                      await bluetoothService.sendAndReceive('status\n');
-                  setState(() {
-                    bt = bt_bt;
-                  });
+                  String bt_bt = await bluetoothService.send('status\n');
+                  print(bt_bt);
                 },
                 child: Text('send status'),
               ),
               ElevatedButton(
                 onPressed: () async {
-                  String bt_bt = await bluetoothService.sendAndReceive('clear\n');
-                  setState(() {
-                    bt = bt_bt;
-                  });
+                  String bt_bt = await bluetoothService.send('clear\n');
+                  print(bt_bt);
                 },
                 child: Text('clear'),
               ),
               ElevatedButton(
                 onPressed: () async {
-                  String bt_bt = await bluetoothService.sendAndReceive('191931089014\n');
-                  setState(() {
-                    bt = bt_bt;
-                  });
+                  String bt_bt = await bluetoothService.send('F7 6B A4 7A\n');
+                  print(bt_bt);
                 },
                 child: Text('add uid'),
               ),
               ElevatedButton(
                   onPressed: bluetoothService.disconnect,
                   child: Text('Disconnect')),
-              Text(bt),
+              Text('Return code \n' + bt + '\n'),
+              Text('HC-05 Response \n' + _message),
             ],
           ),
         ),
