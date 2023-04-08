@@ -78,7 +78,6 @@ class BluetoothService {
     if (_inputSubscription == null) {
       _inputSubscription = connection.input.listen((data) {
         String message = utf8.decode(data).trim();
-        print(message);
         _messageController.add(message);
       });
     }
