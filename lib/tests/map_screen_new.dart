@@ -17,6 +17,9 @@ class MapScreenNew extends StatefulWidget {
 }
 
 class _MapScreenNewState extends State<MapScreenNew> {
+  static double _distanceInMeters = 0.0;
+  bool _distance_window = false;
+  bool _menu_window=true;
   String id;
   String userDestStation = '';
 
@@ -165,9 +168,11 @@ class _MapScreenNewState extends State<MapScreenNew> {
   }
 
   void _moveCamera(Position position) {
+    if(position!=null){
     _googleMapController.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
             target: LatLng(position.latitude, position.longitude), zoom: 17)));
+    }
   }
 
   // Only start executing this when the user has started his ride
@@ -179,7 +184,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
   void _determinePositionMoveCamera() async {
     try {
       _positionStreamSubscription =
-          Geolocator.getPositionStream().listen((position) {
+          Geolocator.getPositionStream().listen((position) async {
         setState(() {
           positionuser = position;
         });
@@ -190,7 +195,17 @@ class _MapScreenNewState extends State<MapScreenNew> {
             CameraPosition(
                 target: LatLng(position.latitude, position.longitude),
                 zoom: 17)));
+
+        double distanceInMeters = await calculateDistanceInMeters(2, positionuser);
+
+      setState(() {
+        _distanceInMeters = distanceInMeters;
       });
+
+      });
+
+
+
     } catch (e) {
       // handle errors here
     }
@@ -209,10 +224,27 @@ class _MapScreenNewState extends State<MapScreenNew> {
     );
   }
 
+  Future<double> calculateDistanceInMeters(
+      int markerIndex, Position userPosition) async {
+    if (markerIndex != null && userPosition != null) {
+      Marker marker = markers[markerIndex];
+      double distanceInMeters = Geolocator.distanceBetween(
+        userPosition.latitude,
+        userPosition.longitude,
+        marker.position.latitude,
+        marker.position.longitude,
+      );
+      return distanceInMeters;
+    }
+    else {
+    return 0.0;
+    }
+  }
+
   @override
   void initState() {
     //initialize stuff here  also allow you to execute function without call
-    // _determinePositionMoveCamera();
+    _determinePositionMoveCamera();
     setCustomMarkerIcon();
     super.initState();
   }
@@ -234,26 +266,26 @@ class _MapScreenNewState extends State<MapScreenNew> {
         alignment: Alignment.center,
         children: [
           GoogleMap(
-            //mapType: MapType.normal,
-            //https://github.com/afgprogrammer/Flutter-google-map-example
-            myLocationButtonEnabled: false,
-            zoomControlsEnabled: false,
-            initialCameraPosition: _initialCameraPosition,
-            onMapCreated: (controller) {
-              _googleMapController = controller;
-            },
-            //onLongPress: _setDestination,
-            //place markers on the screen
-            markers: {
-              Marker(
-                markerId: const MarkerId('User'),
-                infoWindow: const InfoWindow(title: 'You'),
-                icon: userIcon,
-                position: LatLng(positionuser.latitude, positionuser.longitude),
-              ),
-              ...Set.from(markers)
-            },
-          ),
+              //mapType: MapType.normal,
+              //https://github.com/afgprogrammer/Flutter-google-map-example
+              myLocationButtonEnabled: false,
+              zoomControlsEnabled: false,
+              initialCameraPosition: _initialCameraPosition,
+              onMapCreated: (controller) {
+                _googleMapController = controller;
+              },
+              //place markers on the screen
+              markers: {
+                Marker(
+                  markerId: const MarkerId('User'),
+                  infoWindow: const InfoWindow(title: 'You'),
+                  icon: userIcon,
+                  position:
+                      LatLng(positionuser.latitude, positionuser.longitude),
+                ),
+                ...Set.from(markers)
+              },
+              onCameraMove: (position) {}),
 
           Visibility(
             visible: _ride_Visible,
@@ -354,7 +386,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
             top: 42 * fem,
             child: Container(
               width: 414 * fem,
-              height: 44 * fem,
+              height: 90 * fem,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -389,10 +421,32 @@ class _MapScreenNewState extends State<MapScreenNew> {
                       ),
                     ),
                   ),
+                  Divider(thickness: 0*ffem,color: Colors.transparent,),
+                  if (_distance_window)
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding:
+                          const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                      child: Text(
+                        '${_distanceInMeters.round()} m',
+                        style: SafeGoogleFont(
+                          'Montserrat',
+                          fontSize: 14 * ffem,
+                          fontWeight: FontWeight.w600,
+                          height: 1.2189999989 * ffem / fem,
+                          color: Color(0xff000000),
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
           ),
+          if(_menu_window)
           Positioned(
             // image19YEy (1:44)
             left: 28 * fem,
@@ -547,7 +601,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
           ),
           actions: [
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 returbBikeFromMarker(id);
                 Navigator.of(context).pop();
                 id = null;
@@ -555,12 +609,16 @@ class _MapScreenNewState extends State<MapScreenNew> {
               child: Text("NO"),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 setState(() {
                   _ride_Visible = !_ride_Visible;
                   _nav_bar_Visible = !_nav_bar_Visible;
                 });
                 Navigator.of(context).pop();
+                // _determinePositionMoveCamera();
+                _distance_window = true;
+                _menu_window=false;
+                // await calculateDistanceInMeters(2, positionuser);
               },
               child: Text("YES"),
             ),

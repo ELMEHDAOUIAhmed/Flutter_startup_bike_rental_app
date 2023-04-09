@@ -96,7 +96,7 @@ class MyApp extends StatelessWidget {
       // onGenerateRoute: RouteGenerator.generateRoute,
 
       // //for testing 
-      home: Bluetooth(),
+      home: MapScreenNew(),
       
     );
   }
