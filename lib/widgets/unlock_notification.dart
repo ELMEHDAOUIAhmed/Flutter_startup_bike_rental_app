@@ -6,6 +6,7 @@ import '/tests/BT_new.dart';
 // add Visibility
 // First show same card but show : Looking for Bluetooth devices and show connected if error show button of connect
 // then when message get transfered succefully to phone and you receive from arduino success , 
+//hide 1 st widget
 // Show "pUT YOUR STUDENT ID CARD CLOSE TO THE LOCK"
 // if status sent to open , hide widget 
 // all steps send http request to server time also
