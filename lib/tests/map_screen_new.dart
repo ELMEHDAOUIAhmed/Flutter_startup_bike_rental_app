@@ -10,6 +10,7 @@ import 'package:myapp/screens/profile_menu.dart';
 import './buttons.dart';
 import './nav_bar_new.dart';
 import 'dart:async';
+import 'package:myapp/widgets/unlock_notification.dart';
 
 class MapScreenNew extends StatefulWidget {
   @override
@@ -17,10 +18,14 @@ class MapScreenNew extends StatefulWidget {
 }
 
 class _MapScreenNewState extends State<MapScreenNew> {
+  //gps postion
+  double topPosition = 559;
+
   static double _distanceInMeters = 0.0;
   bool _distance_window = false;
   bool _menu_window=true;
   String id;
+  int id_int;
   String userDestStation = '';
 
   //Starting location
@@ -40,6 +45,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
   String _selectedStationName;
   bool _ride_Visible = true;
   bool _nav_bar_Visible = false;
+  bool _notification_Visible = false;
   String _selectedMarkerId = '';
 
   void _stationNotSelected() {
@@ -181,7 +187,8 @@ class _MapScreenNewState extends State<MapScreenNew> {
 
   StreamSubscription<Position> _positionStreamSubscription;
 
-  void _determinePositionMoveCamera() async {
+  void _determinePositionMoveCamera(int index) async {
+    
     try {
       _positionStreamSubscription =
           Geolocator.getPositionStream().listen((position) async {
@@ -195,13 +202,20 @@ class _MapScreenNewState extends State<MapScreenNew> {
             CameraPosition(
                 target: LatLng(position.latitude, position.longitude),
                 zoom: 17)));
-
-        double distanceInMeters = await calculateDistanceInMeters(2, positionuser);
+        if(index!=null){
+        double distanceInMeters = await calculateDistanceInMeters(index, positionuser);
 
       setState(() {
         _distanceInMeters = distanceInMeters;
       });
-
+        }
+        if(_distanceInMeters<5){
+          setState(() {
+            _notification_Visible=true;
+          });
+          
+        }
+        
       });
 
 
@@ -211,11 +225,16 @@ class _MapScreenNewState extends State<MapScreenNew> {
     }
   }
 
+    void _stopTracking() {
+    _positionStreamSubscription?.cancel();
+  }
+
+
   BitmapDescriptor userIcon = BitmapDescriptor.defaultMarker;
 
   void setCustomMarkerIcon() {
     BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(size: const Size(64, 64)),
+            const ImageConfiguration(size: Size(200, 200)),
             'assets/icons/google_icon.png')
         .then(
       (icon) {
@@ -244,7 +263,6 @@ class _MapScreenNewState extends State<MapScreenNew> {
   @override
   void initState() {
     //initialize stuff here  also allow you to execute function without call
-    _determinePositionMoveCamera();
     setCustomMarkerIcon();
     super.initState();
   }
@@ -253,6 +271,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
   void dispose() {
     _googleMapController?.dispose();
     super.dispose();
+    _stopTracking();
   }
 
   @override
@@ -361,6 +380,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
             ),
           ),
           Visibility(visible: _nav_bar_Visible, child: NavBar()),
+          Visibility(visible: _notification_Visible, child: Unlock()),
 
           //Blur
           Positioned(
@@ -476,7 +496,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
           ),
           Positioned(
             left: 350 * fem,
-            top: 559 * fem,
+            top: topPosition * fem,
             child: Align(
               child: SizedBox(
                 width: 51 * fem,
@@ -526,11 +546,12 @@ class _MapScreenNewState extends State<MapScreenNew> {
                 itemCount: markers.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    leading: Icon(Icons.directions_bike),
+                    leading: const Icon(Icons.directions_bike),
                     title: Text(markers[index].infoWindow.title),
                     trailing: Text(markers[index].infoWindow.snippet),
                     onTap: () {
                       id = _getId(index);
+                      id_int = index ;
                       Navigator.pop(context);
                       takeBikeFromMarker(id);
                       showDialog(
@@ -543,8 +564,8 @@ class _MapScreenNewState extends State<MapScreenNew> {
                             title: Row(
                               children: [
                                 //Icon(Icons.error, color: Colors.red),
-                                Icon(Icons.check_circle, color: Colors.green),
-                                SizedBox(width: 8.0),
+                                const Icon(Icons.check_circle, color: Colors.green),
+                                const SizedBox(width: 8.0),
                                 Flexible(
                                   fit: FlexFit.loose,
                                   child: Text(
@@ -587,7 +608,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
             borderRadius: BorderRadius.circular(48),
           ),
           title: Row(
-            children: [
+            children: const [
               //Icon(Icons.error, color: Colors.red),
               Icon(Icons.notification_important, color: Colors.yellow),
               SizedBox(width: 8.0),
@@ -605,6 +626,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
                 returbBikeFromMarker(id);
                 Navigator.of(context).pop();
                 id = null;
+                id_int = null;
               },
               child: Text("NO"),
             ),
@@ -615,7 +637,12 @@ class _MapScreenNewState extends State<MapScreenNew> {
                   _nav_bar_Visible = !_nav_bar_Visible;
                 });
                 Navigator.of(context).pop();
-                // _determinePositionMoveCamera();
+                setState(() {
+                  topPosition=615;
+                });
+                //clear stack of screens == disable back button when starting a ride
+                 Navigator.popUntil(context, ModalRoute.withName('/'));
+                _determinePositionMoveCamera(id_int);
                 _distance_window = true;
                 _menu_window=false;
                 // await calculateDistanceInMeters(2, positionuser);
