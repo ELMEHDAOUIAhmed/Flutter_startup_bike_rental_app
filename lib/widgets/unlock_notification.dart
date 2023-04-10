@@ -29,6 +29,8 @@ class _UnlockState extends State<Unlock> {
   int pin = 1234;
   String bt = 'Loading ...';
 
+  // before executing check permission and enable them
+  
   Future<void> _checkBluetoothStatus() async {
     String status = await bluetoothService.getStatus(pin);
     setState(() {

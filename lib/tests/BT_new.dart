@@ -11,7 +11,7 @@ class BluetoothService {
       StreamController<String>.broadcast();
 
   String _receivedMessage = '';
-
+  
   Future<bool> _checkPermission() async {
     // Request Bluetooth permission
     await Permission.bluetooth.request();
