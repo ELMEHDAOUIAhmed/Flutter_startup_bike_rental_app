@@ -44,8 +44,6 @@ import '/tests/verification_screen.dart';
 import '/screens/verification.dart';
 import 'screens/message.dart';
 
-
-
 //Important
 //at the end execute A home: AuthPage(),
 //in Authpage show StartingPage(),
@@ -56,27 +54,43 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Request location permission
-  await Permission.location.request();
-  if (await Permission.location.isDenied) {
+//   // Request location permission
+//   await Permission.location.request();
+//   if (await Permission.location.isDenied) {
+//     SystemNavigator.pop();
+//   }
+
+//   // Request Bluetooth permission
+//   await Permission.bluetooth.request();
+//   if (await Permission.bluetooth.isDenied) {
+//     SystemNavigator.pop();
+//   }
+
+//   // Enable location service if it is disabled
+// if (!await Geolocator.isLocationServiceEnabled()) {
+//   await Geolocator.openLocationSettings();
+// }
+
+// // Enable Bluetooth if it is disabled
+// if (!(await FlutterBluetoothSerial.instance.isEnabled)) {
+//   await FlutterBluetoothSerial.instance.requestEnable();
+// }
+  
+
+  LocationPermission permission = await Geolocator.checkPermission();
+  
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
     SystemNavigator.pop();
-  }
+    }
 
-  // Request Bluetooth permission
-  await Permission.bluetooth.request();
-  if (await Permission.bluetooth.isDenied) {
-    SystemNavigator.pop();
-  }
-
-  // Enable location service if it is disabled
-if (!await Geolocator.isLocationServiceEnabled()) {
-  await Geolocator.openLocationSettings();
-}
-
-// Enable Bluetooth if it is disabled
-if (!(await FlutterBluetoothSerial.instance.isEnabled)) {
-  await FlutterBluetoothSerial.instance.requestEnable();
-}
+  if (permission == LocationPermission.deniedForever) {
+      // Permission permanently denied, open settings
+      await Geolocator.openAppSettings();
+      // Display a message asking the user to enable location
+      // You can use a package like fluttertoast or snackbar for this
+    }
+  
 
   runApp(MyApp());
 }
@@ -95,9 +109,8 @@ class MyApp extends StatelessWidget {
       // initialRoute: '/auth',
       // onGenerateRoute: RouteGenerator.generateRoute,
 
-      // //for testing 
+      // //for testing
       home: MapScreenNew(),
-      
     );
   }
 }

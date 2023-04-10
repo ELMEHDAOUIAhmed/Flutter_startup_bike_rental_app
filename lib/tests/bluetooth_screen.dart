@@ -11,6 +11,7 @@ class Bluetooth extends StatefulWidget {
 }
 
 class _BluetoothState extends State<Bluetooth> {
+
   final BluetoothService bluetoothService = BluetoothService();
   StreamSubscription<String> _subscription;
   String _message = '';
@@ -29,15 +30,6 @@ class _BluetoothState extends State<Bluetooth> {
   void initState() {
     super.initState();
     _checkBluetoothStatus();
-
-    // _subscription = bluetoothService.listenForMessages().listen((message) {
-    //   print('Received message: $message');
-    //   setState(() {
-    //     _message = message;
-    //   });
-    // }, onError: (error) {
-    //   print('Error: $error');
-    // });
   }
 
   @override

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class BluetoothService {
   bool isConnected = false;
@@ -11,6 +11,22 @@ class BluetoothService {
       StreamController<String>.broadcast();
 
   String _receivedMessage = '';
+
+  Future<bool> _checkPermission() async {
+    // Request Bluetooth permission
+    await Permission.bluetooth.request();
+    if (await Permission.bluetooth.isDenied) {
+      return false;
+    }
+    return true;
+  }
+
+  Future<void> _enablePermission() async {
+    // Enable Bluetooth if it is disabled
+    if (!(await FlutterBluetoothSerial.instance.isEnabled)) {
+      await FlutterBluetoothSerial.instance.requestEnable();
+    }
+  }
 
   Future<void> connectToDevice(BluetoothDevice device, int pin) async {
     try {
@@ -40,6 +56,9 @@ class BluetoothService {
       print('Error scanning for devices: ${e.toString()}');
     }
   }
+
+
+
 
   Future<String> send(String message) async {
     if (!isConnected) {
@@ -83,10 +102,6 @@ class BluetoothService {
     }
     return _messageController.stream;
   }
-
-
-
-
 
   void disconnect() {
     if (isConnected) {

@@ -213,8 +213,12 @@ class _MapScreenNewState extends State<MapScreenNew> {
           setState(() {
             _notification_Visible=true;
           });
-          
         }
+        if(_distanceInMeters>15){
+          setState(() {
+            _notification_Visible=false;
+          });
+        }        
         
       });
 
