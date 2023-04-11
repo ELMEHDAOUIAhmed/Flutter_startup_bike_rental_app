@@ -103,6 +103,8 @@ class BluetoothService {
     return _messageController.stream;
   }
 
+  
+
   void disconnect() {
     if (isConnected) {
       connection.finish();

@@ -54,35 +54,35 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-//   // Request location permission
-//   await Permission.location.request();
-//   if (await Permission.location.isDenied) {
-//     SystemNavigator.pop();
-//   }
+  // Request location permission
+  await Permission.location.request();
+  if (await Permission.location.isDenied) {
+    SystemNavigator.pop();
+  }
 
-//   // Request Bluetooth permission
-//   await Permission.bluetooth.request();
-//   if (await Permission.bluetooth.isDenied) {
-//     SystemNavigator.pop();
-//   }
+  // Request Bluetooth permission
+  await Permission.bluetooth.request();
+  if (await Permission.bluetooth.isDenied) {
+    SystemNavigator.pop();
+  }
 
-//   // Enable location service if it is disabled
-// if (!await Geolocator.isLocationServiceEnabled()) {
-//   await Geolocator.openLocationSettings();
-// }
+  // Enable location service if it is disabled
+if (!await Geolocator.isLocationServiceEnabled()) {
+  await Geolocator.openLocationSettings();
+}
 
-// // Enable Bluetooth if it is disabled
-// if (!(await FlutterBluetoothSerial.instance.isEnabled)) {
-//   await FlutterBluetoothSerial.instance.requestEnable();
-// }
+// Enable Bluetooth if it is disabled
+if (!(await FlutterBluetoothSerial.instance.isEnabled)) {
+  await FlutterBluetoothSerial.instance.requestEnable();
+}
   
 
   LocationPermission permission = await Geolocator.checkPermission();
   
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    SystemNavigator.pop();
-    }
+  // if (permission == LocationPermission.denied) {
+  //   permission = await Geolocator.requestPermission();
+  //   SystemNavigator.pop();
+  //   }
 
   if (permission == LocationPermission.deniedForever) {
       // Permission permanently denied, open settings
