@@ -14,6 +14,9 @@ import './settings.dart';
 import './starting_page.dart';
 import './profile_welcome.dart';
 import '/providers/auth_page.dart';
+import '/providers/auth_api.dart';
+import '/models/db.dart';
+
 
 // future improvements combine every button into one widget and then instead of writing same code over and over
 // write once , just like my_button.dart
@@ -22,6 +25,10 @@ class ProfileMenu extends StatelessWidget {
   // get info about the user
 
   final user = FirebaseAuth.instance.currentUser;
+
+  void signUserOutAPI() async {
+    await deleteToken();
+  }
 
   void signUserOut() {
     FirebaseAuth.instance.signOut(); // to sign out the user
@@ -96,7 +103,7 @@ class ProfileMenu extends StatelessWidget {
                               1 * fem, 0 * fem, 0 * fem, 0 * fem),
                           child: Text(
                             //modify after to show username not email
-                            user.email,
+                            '',
                             textAlign: TextAlign.center,
                             style: SafeGoogleFont(
                               'Montserrat',
@@ -425,8 +432,14 @@ class ProfileMenu extends StatelessWidget {
                             child: // use on tap maybe it will fix it
                                 TextButton(
                               onPressed: () {
-                                FirebaseAuth.instance.signOut();
-                                Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+                                // FirebaseAuth.instance.signOut();
+                                deleteToken;
+                                // Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AuthScreen()),
+                                );
                                 //
                               },
                               style: TextButton.styleFrom(

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/screens/signup.dart';
+import 'package:myapp/tests/home_page_new.dart';
 import 'package:myapp/utils.dart';
 
 // import 'package:flutter/gestures.dart';
@@ -11,6 +12,8 @@ import './signup.dart';
 import 'package:myapp/components/my_textfield.dart';
 import 'package:myapp/components/my_button.dart';
 import 'package:myapp/providers/auth_page.dart';
+import '/providers/user_api.dart';
+import '/models/db.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -21,6 +24,49 @@ class _LoginState extends State<Login> {
   // variables to hold user input
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  void signUserInAPI() async {
+    // show loading circle
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    try {
+      // Call the login function and wait for it to complete
+      final token = await login(emailController.text, passwordController.text);
+      // Save the token to the local database
+      await saveToken(token);
+
+      // // Navigate to the home screen
+      // Navigator.pop(context);
+      // Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+    } catch (error) {
+      
+      // Display an error message
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text(error.toString()),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   void SignUserIn() async {
     // show loading circule
@@ -259,7 +305,7 @@ class _LoginState extends State<Login> {
                     //TEXT FIELD HERE
                     MyTextField(
                       controller: emailController,
-                      labelText: 'Email',
+                      labelText: 'Username',
                       hintText: '',
                       obscureText: false,
                     ),
@@ -274,7 +320,7 @@ class _LoginState extends State<Login> {
                       margin: EdgeInsets.fromLTRB(
                           5 * fem, 80 * fem, 0 * fem, 20 * fem),
                       child: Text(
-                        'Log in with your e-mail and password',
+                        'Log in with your username and password',
                         textAlign: TextAlign.center,
                         style: SafeGoogleFont(
                           'Montserrat',
@@ -289,7 +335,7 @@ class _LoginState extends State<Login> {
                     // add button here as a container
                     MyButton(
                       text: 'Login',
-                      onTap: SignUserIn,
+                      onTap: signUserInAPI,
                     ),
                   ],
                 ),

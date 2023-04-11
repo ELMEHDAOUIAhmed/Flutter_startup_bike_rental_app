@@ -40,9 +40,9 @@ import 'tests/map_screen_new.dart';
 import 'tests/bluetooth_screen.dart';
 import 'screens/support.dart';
 
-import '/tests/verification_screen.dart';
 import '/screens/verification.dart';
 import 'screens/message.dart';
+import '/providers/auth_api.dart';
 
 //Important
 //at the end execute A home: AuthPage(),
@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
       // onGenerateRoute: RouteGenerator.generateRoute,
 
       // //for testing
-      home: MapScreenNew(),
+      home: AuthScreen(),
     );
   }
 }

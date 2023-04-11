@@ -146,7 +146,7 @@ class Profile_welcome extends StatelessWidget {
                               ),
                             ),
                             TextSpan(
-                              text: user.email,
+                              text: '',
                               style: SafeGoogleFont(
                                 'Montserrat',
                                 fontSize: 40 * ffem,

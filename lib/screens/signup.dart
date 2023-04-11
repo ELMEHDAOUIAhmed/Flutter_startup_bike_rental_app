@@ -3,20 +3,72 @@ import 'package:flutter/material.dart';
 // import 'dart:ui';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/utils.dart';
-
 import './login.dart';
 import 'package:myapp/components/my_textfield.dart';
 import 'package:myapp/components/my_button.dart';
+import '/providers/user_api.dart';
+import '/models/db.dart';
 
-class Signup extends StatelessWidget {
+class Signup extends StatefulWidget {
+  @override
+  State<Signup> createState() => _SignupState();
+}
+
+class _SignupState extends State<Signup> {
   // variables to hold user input
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final usernameController = TextEditingController();
+  final lastnameController = TextEditingController();
+  final firstnameController = TextEditingController();
   final matriculeController = TextEditingController();
 
   // sign user up method
-  void SignUserUp() {}
+  void signUserUpAPI() async {
+    // show loading circle
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    final matricule = matriculeController.text;
+    final lastName = lastnameController.text;
+    final firstName = firstnameController.text;
+    final userName = usernameController.text;
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    try {
+      final token = await signUp(
+          matricule, lastName, firstName, userName, email, password);
+      // Save the token to the local database
+      await saveToken(token);
+
+    } catch (error) {
+      // Display an error message
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text(error.toString()),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +100,7 @@ class Signup extends StatelessWidget {
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment(0.217, 1),
-                    end: Alignment(0.2, -1),
+                    end: Alignment(0.217, -1),
                     colors: <Color>[Color(0xff009efd), Color(0xff000000)],
                     stops: <double>[0, 1],
                   ),
@@ -113,13 +165,14 @@ class Signup extends StatelessWidget {
                       height: 6 * fem,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(3 * fem),
-                        color: Color(0xffffffff),
+                        color: const Color(0xffffffff),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
+            //i want these to be scrolable onp
             Positioned(
               // card6CV (1:1320)
               left: 0 * fem,
@@ -128,7 +181,7 @@ class Signup extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(
                     27 * fem, 46 * fem, 32 * fem, 353 * fem),
                 width: 414 * fem,
-                height: 1000 *
+                height: 1100 *
                     fem, // heigh of container that hold email ect to signup button
                 decoration: BoxDecoration(
                   color: Color(0xffffffff),
@@ -143,6 +196,19 @@ class Signup extends StatelessWidget {
                     MyTextField(
                       controller: matriculeController,
                       labelText: 'Matricule',
+                      hintText: '',
+                      obscureText: false,
+                      mode:'number',
+                    ),
+                    MyTextField(
+                      controller: lastnameController,
+                      labelText: 'Last name',
+                      hintText: '',
+                      obscureText: false,
+                    ),
+                    MyTextField(
+                      controller: firstnameController,
+                      labelText: 'First name',
                       hintText: '',
                       obscureText: false,
                     ),
@@ -168,7 +234,7 @@ class Signup extends StatelessWidget {
                     Container(
                       // signupwithyoureE9b (1:1324)
                       margin: EdgeInsets.fromLTRB(
-                          5 * fem, 80 * fem, 0 * fem, 20 * fem),
+                          5 * fem, 30 * fem, 0 * fem, 20 * fem),
                       child: Text(
                         'Sign up with your e-mail and password',
                         textAlign: TextAlign.center,
@@ -184,7 +250,7 @@ class Signup extends StatelessWidget {
                     ),
                     MyButton(
                       text: 'Sign Up',
-                      onTap: SignUserUp,
+                      onTap: signUserUpAPI,
                     ),
                   ],
                 ),

@@ -8,16 +8,6 @@ import 'package:myapp/utils.dart';
 import '/screens/profile_menu.dart';
 import '/widgets/nav_bar.dart';
 
-
-// to avoid confusion rename this file after
-// take a new ride
-// promotions
-
-//Tutorial Video names
-//main.dart
-
- 
-
 class Ride extends StatelessWidget {
 
   @override
