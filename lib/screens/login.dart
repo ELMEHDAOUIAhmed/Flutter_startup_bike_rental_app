@@ -21,6 +21,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  String username=''; //pass it in pushname as a parameter
   // variables to hold user input
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -39,12 +41,11 @@ class _LoginState extends State<Login> {
     try {
       // Call the login function and wait for it to complete
       final token = await login(emailController.text, passwordController.text);
+      username =emailController.text;
       // Save the token to the local database
       await saveToken(token);
-
-      // // Navigate to the home screen
-      // Navigator.pop(context);
-      // Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+      // Navigate to the home screen
+      Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
     } catch (error) {
       
       // Display an error message

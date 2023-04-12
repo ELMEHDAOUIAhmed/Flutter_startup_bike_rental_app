@@ -46,24 +46,52 @@ class _SignupState extends State<Signup> {
       final token = await signUp(
           matricule, lastName, firstName, userName, email, password);
       // Save the token to the local database
-      await saveToken(token);
+      // await saveToken(token);
+      // ignore: use_build_context_synchronously
+      showDialog(
+        //you need a statefull widget to show dialog
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(48),
+            ),
+            title: Row(
+              children: const [
+                //Icon(Icons.error, color: Colors.red),
+                Icon(Icons.check_box, color: Colors.green),
+                SizedBox(width: 8.0),
+                Text('Success!', style: TextStyle(fontSize: 16.0)),
+              ],
+            ),
+            // Other properties
+          );
+        },
+      ).then((value) {
+        // Wait for dialog to close before navigating to login screen
+        Navigator.pushNamed(context, '/login');
+      });
 
     } catch (error) {
       // Display an error message
       showDialog(
+        //you need a statefull widget to show dialog
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text('Error'),
-            content: Text(error.toString()),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('OK'),
-              ),
-            ],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(48),
+            ),
+            title: Row(
+              children: [
+                //Icon(Icons.error, color: Colors.red),
+                Icon(Icons.error, color: Colors.red),
+                SizedBox(width: 8.0),
+                Text('Error! \n' + error.toString(),
+                    style: TextStyle(fontSize: 16.0)),
+              ],
+            ),
+            // Other properties
           );
         },
       );
@@ -198,7 +226,7 @@ class _SignupState extends State<Signup> {
                       labelText: 'Matricule',
                       hintText: '',
                       obscureText: false,
-                      mode:'number',
+                      mode: 'number',
                     ),
                     MyTextField(
                       controller: lastnameController,

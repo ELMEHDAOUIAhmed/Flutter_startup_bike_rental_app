@@ -106,11 +106,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      // initialRoute: '/auth',
-      // onGenerateRoute: RouteGenerator.generateRoute,
+      initialRoute: '/auth',
+      onGenerateRoute: RouteGenerator.generateRoute,
 
-      // //for testing
-      home: AuthScreen(),
+      // // //for testing
+      // home: AuthScreen(),
     );
   }
 }

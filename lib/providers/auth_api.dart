@@ -18,13 +18,9 @@ class AuthScreen extends StatelessWidget {
             final token = snapshot.data;
             if (token is String && token.isNotEmpty) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                // Navigator.pushNamed(
-                //   context,
-                //   '/profilewelcome',
-                // );
-                Navigator.pushReplacement(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (context) => Profile_welcome()),
+                  '/profilewelcome',
                 );
               });
               return const SizedBox();

@@ -431,15 +431,15 @@ class ProfileMenu extends StatelessWidget {
                             top: 1 * fem,
                             child: // use on tap maybe it will fix it
                                 TextButton(
-                              onPressed: () {
+                              onPressed: () async{
                                 // FirebaseAuth.instance.signOut();
-                                deleteToken;
-                                // Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AuthScreen()),
-                                );
+                                await deleteToken();
+                                Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+                                // Navigator.pushReplacement(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) => AuthScreen()),
+                                // );
                                 //
                               },
                               style: TextButton.styleFrom(
