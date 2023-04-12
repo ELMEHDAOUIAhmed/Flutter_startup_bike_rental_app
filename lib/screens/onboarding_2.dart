@@ -10,7 +10,7 @@ class OnboardingTwo extends StatelessWidget {
       firstImage: 'assets/page-1/images/image-11.png',
       secondImage: 'assets/page-1/images/select_2.png',
       firstText: 'Unlock',
-      secondText: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.',
+      secondText: 'Go to that Station,Connect to our smart bike via Bluetooth ,swipe your card.', 
       onNextPressed: () {
         Navigator.pushNamed(context, '/onboarding_three');
       },

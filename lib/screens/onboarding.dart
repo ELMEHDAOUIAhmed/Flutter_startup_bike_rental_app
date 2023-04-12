@@ -10,7 +10,7 @@ class Onboarding extends StatelessWidget {
       firstImage: 'assets/page-1/images/image-23.png',
       secondImage: 'assets/page-1/images/select_1.png',
       firstText: 'Locate',
-      secondText: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.',
+      secondText:'Find a Station near your location on the map.\n',
       onNextPressed: () {
         Navigator.pushNamed(context, '/onboarding_two');
       },
