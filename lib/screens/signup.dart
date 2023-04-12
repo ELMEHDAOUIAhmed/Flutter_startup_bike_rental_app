@@ -46,7 +46,7 @@ class _SignupState extends State<Signup> {
       final token = await signUp(
           matricule, lastName, firstName, userName, email, password);
       // Save the token to the local database
-      // await saveToken(token);
+      await saveToken(token);
       // ignore: use_build_context_synchronously
       showDialog(
         //you need a statefull widget to show dialog
@@ -57,19 +57,19 @@ class _SignupState extends State<Signup> {
               borderRadius: BorderRadius.circular(48),
             ),
             title: Row(
-              children: const [
+              children: [
                 //Icon(Icons.error, color: Colors.red),
-                Icon(Icons.check_box, color: Colors.green),
-                SizedBox(width: 8.0),
-                Text('Success!', style: TextStyle(fontSize: 16.0)),
+                const Icon(Icons.check_box, color: Colors.green),
+                const SizedBox(width: 8.0),
+                Text('Success! \n Welcome to our APP "'+userName+'"', style: TextStyle(fontSize: 16.0)),
               ],
             ),
             // Other properties
           );
         },
       ).then((value) {
-        // Wait for dialog to close before navigating to login screen
-        Navigator.pushNamed(context, '/login');
+        // Wait for dialog to close before navigating to auth screen
+              Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
       });
 
     } catch (error) {

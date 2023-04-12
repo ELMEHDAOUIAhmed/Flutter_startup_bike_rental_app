@@ -16,6 +16,7 @@ import './profile_welcome.dart';
 import '/providers/auth_page.dart';
 import '/providers/auth_api.dart';
 import '/models/db.dart';
+import '/providers/user_api.dart';
 
 
 // future improvements combine every button into one widget and then instead of writing same code over and over
@@ -27,6 +28,8 @@ class ProfileMenu extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser;
 
   void signUserOutAPI() async {
+    String token = await getToken();
+    logout(token);
     await deleteToken();
   }
 
@@ -431,16 +434,10 @@ class ProfileMenu extends StatelessWidget {
                             top: 1 * fem,
                             child: // use on tap maybe it will fix it
                                 TextButton(
-                              onPressed: () async{
+                              onPressed: () {
                                 // FirebaseAuth.instance.signOut();
-                                await deleteToken();
+                                signUserOutAPI;
                                 Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
-                                // Navigator.pushReplacement(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) => AuthScreen()),
-                                // );
-                                //
                               },
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,

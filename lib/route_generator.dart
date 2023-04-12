@@ -5,6 +5,9 @@ import 'package:myapp/screens/starting_page.dart';
 import 'package:myapp/screens/profile_menu.dart';
 import 'package:myapp/providers/auth_page.dart';
 import 'package:myapp/providers/auth_api.dart';
+import '/screens/onboarding.dart';
+import '/screens/onboarding_2.dart';
+import '/screens/onboarding_3.dart';
 
 //https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -23,6 +26,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Profile_welcome());
       case '/profilemenu':
         return MaterialPageRoute(builder: (_) => ProfileMenu());
+      case '/onboarding':
+        return MaterialPageRoute(builder: (_) => const Onboarding());
+      case '/onboarding_two':
+        return MaterialPageRoute(builder: (_) => const OnboardingTwo());
+      case '/onboarding_three':
+        return MaterialPageRoute(builder: (_) => const OnboardingThree());
 
         return _errorRoute();
       default:

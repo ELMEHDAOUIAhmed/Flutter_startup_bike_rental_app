@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '/models/db.dart';
 
 Future<String> login(String username, String password) async {
 
@@ -36,6 +37,20 @@ Future<String> signUp(String matricule, String lastname, String firstname, Strin
     return token;
   } else {
     throw Exception('Failed to sign up');
+  }
+}
+
+Future<void> logout(String token) async {
+  final url = Uri.parse('http://192.168.100.7:8000/logout/');
+  final headers = {'Authorization': 'Token $token'};
+  final response = await http.post(url, headers: headers);
+
+  if (response.statusCode == 200) {
+    // Delete the token from the local database
+    await deleteToken();
+
+  } else {
+    throw Exception('Failed to logout: ${response.statusCode}');
   }
 }
 
