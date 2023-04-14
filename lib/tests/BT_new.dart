@@ -9,9 +9,9 @@ class BluetoothService {
   StreamSubscription<List<int>> _inputSubscription;
   StreamController<String> _messageController =
       StreamController<String>.broadcast();
+  String _messageBuffer = '';
+  String completeMessage;
 
-  String _receivedMessage = '';
-  
   Future<bool> _checkPermission() async {
     // Request Bluetooth permission
     await Permission.bluetooth.request();
@@ -33,10 +33,7 @@ class BluetoothService {
       connection = await BluetoothConnection.toAddress(device.address);
       isConnected = true;
       print('Connected to ${device.name}');
-      listenForMessages().listen((message) {
-        print('Received message: $message');
-        // Do whatever you need to do with the message here
-      });
+      listenForMessages();
     } catch (e) {
       print('Error connecting to ${device.name}: ${e.toString()}');
     }
@@ -56,9 +53,6 @@ class BluetoothService {
       print('Error scanning for devices: ${e.toString()}');
     }
   }
-
-
-
 
   Future<String> send(String message) async {
     if (!isConnected) {
@@ -89,21 +83,31 @@ class BluetoothService {
     }
   }
 
-  Stream<String> listenForMessages() {
+  String listenForMessages() {
     if (!isConnected) {
-      return Stream.empty();
+      return "BLUETOOTH NOT CONNECTED";
     }
     // ignore: prefer_conditional_assignment
     if (_inputSubscription == null) {
+      // ignore: void_checks
       _inputSubscription = connection.input.listen((data) {
-        String message = utf8.decode(data).trim();
-        _messageController.add(message);
+        String message = utf8.decode(data);
+        _messageBuffer += message;
+        if (_messageBuffer.contains('\n')) {
+          int newlineIndex = _messageBuffer.indexOf('\n');
+          completeMessage =
+              _messageBuffer.substring(0, newlineIndex + 1).trim();
+          _messageBuffer = _messageBuffer.substring(newlineIndex + 1);
+          // ignore: avoid_print
+          print('Received message: $completeMessage');
+          return completeMessage;
+          // Do whatever you need to do with the complete message here 
+        }
+        
       });
     }
-    return _messageController.stream;
+    return "ERROR";
   }
-
-  
 
   void disconnect() {
     if (isConnected) {
@@ -115,3 +119,25 @@ class BluetoothService {
     }
   }
 }
+
+//old code 
+  // Stream<String> listenForMessages() {
+  //   if (!isConnected) {
+  //     return Stream.empty();
+  //   }
+  //   // ignore: prefer_conditional_assignment
+  //   if (_inputSubscription == null) {
+  //     _inputSubscription = connection.input.listen((data) {
+  //       String message = utf8.decode(data).trim();
+  //       _messageController.add(message);
+  //     });
+  //   }
+  //   return _messageController.stream;
+  // }
+
+//its call
+      // listenForMessages().listen((message) {
+      //   //Started listening for incoming msgs
+      //   print('Received message: $message');
+      //   // Do whatever you need to do with the message here
+      // });

@@ -74,7 +74,7 @@ class _BluetoothState extends State<Bluetooth> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  String bt_bt = await bluetoothService.send('F7 6B A4 7A\n');
+                  String bt_bt = await bluetoothService.send('80 63 2B 32\n');
                   print(bt_bt);
                 },
                 child: Text('add uid'),
