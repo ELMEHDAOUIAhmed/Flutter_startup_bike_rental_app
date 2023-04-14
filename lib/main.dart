@@ -17,7 +17,7 @@ import 'firebase_options.dart';
 import 'screens/profile_welcome.dart';
 // import 'screens/onboarding_3.dart';
 // import 'screens/profile_menu.dart';
-// import 'screens/signup.dart';
+import 'screens/signup.dart';
 import 'screens/login.dart';
 //import 'screens/map_1.dart';
 //import 'screens/map1_new.dart';
@@ -43,6 +43,7 @@ import 'screens/support.dart';
 import '/screens/verification.dart';
 import 'screens/message.dart';
 import '/providers/auth_api.dart';
+import '/widgets/unlock_notification.dart';
 
 //Important
 //at the end execute A home: AuthPage(),
@@ -112,7 +113,7 @@ class MyApp extends StatelessWidget {
       // onGenerateRoute: RouteGenerator.generateRoute,
 
       // ***FOR TESTING ONLY***//
-      home: Bluetooth(),
+      home: Signup(),
     );
   }
 }

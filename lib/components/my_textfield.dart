@@ -16,7 +16,7 @@ class MyTextField extends StatelessWidget {
     @required this.labelText,
     @required this.hintText,
     @required this.obscureText,
-    @required this.mode,
+    this.mode,
     this.backgroundColor = Colors.white,
   }) : super(key: key);
 

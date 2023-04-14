@@ -37,10 +37,12 @@ class _LoginState extends State<Login> {
         );
       },
     );
-
+    String email =emailController.text;
+    String password = passwordController.text;
+    if (email != '' && password != ''){
     try {
       // Call the login function and wait for it to complete
-      final token = await login(emailController.text, passwordController.text);
+      final token = await login(email,password);
       username =emailController.text;
       // Save the token to the local database
       await saveToken(token);
@@ -63,6 +65,32 @@ class _LoginState extends State<Login> {
                 child: const Text('OK'),
               ),
             ],
+          );
+        },
+      );
+    }
+    }
+    else {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(48),
+            ),
+            title: Row(
+              children: const [
+                //Icon(Icons.error, color: Colors.red),
+                Icon(Icons.error, color: Colors.red),
+                SizedBox(width: 8.0),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: Text('All fields are required ! \n',
+                      style: TextStyle(fontSize: 16.0)),
+                ),
+              ],
+            ),
+            // Other properties
           );
         },
       );
