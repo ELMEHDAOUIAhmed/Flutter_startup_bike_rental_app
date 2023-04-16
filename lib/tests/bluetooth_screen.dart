@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import './BT_new.dart';
 
@@ -11,6 +10,7 @@ class Bluetooth extends StatefulWidget {
 }
 
 class _BluetoothState extends State<Bluetooth> {
+
 
   final BluetoothService bluetoothService = BluetoothService();
   StreamSubscription<String> _subscription;

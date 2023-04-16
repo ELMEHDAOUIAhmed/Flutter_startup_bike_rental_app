@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/utils.dart';
 import '/tests/BT_new.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 // mindstorm
 // add Visibility
@@ -19,8 +20,6 @@ class Unlock extends StatefulWidget {
 }
 
 class _UnlockState extends State<Unlock> {
-
-
   final BluetoothService bluetoothService = BluetoothService();
   StreamSubscription<String> _subscription;
   String _message = '';
@@ -29,8 +28,14 @@ class _UnlockState extends State<Unlock> {
   String bt = 'Loading ...';
 
   // before executing check permission and enable them
-  
+
   Future<void> _checkBluetoothStatus() async {
+    // Enable Bluetooth if it is disabled
+    if (!(await FlutterBluetoothSerial.instance.isEnabled)) {
+      await FlutterBluetoothSerial.instance.requestEnable();
+    }
+
+
     String status = await bluetoothService.getStatus(pin);
     setState(() {
       bluetoothStatus = status;

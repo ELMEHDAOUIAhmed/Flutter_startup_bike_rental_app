@@ -2,8 +2,23 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '/helpers/arduino.dart';
 
 class BluetoothService {
+
+
+  void processArduinoMessage(String message) {
+    var arduinoMessage = extractArduinoMessage(message);
+    if (arduinoMessage != null) {
+      print("Access: ${arduinoMessage.access}");
+      print("UID: ${arduinoMessage.uid}");
+      print("Status: ${arduinoMessage.status}");
+    } else {
+      print("Invalid access message!");
+    }
+  }
+  
+  
   bool isConnected = false;
   BluetoothConnection connection;
   StreamSubscription<List<int>> _inputSubscription;
@@ -100,10 +115,10 @@ class BluetoothService {
           _messageBuffer = _messageBuffer.substring(newlineIndex + 1);
           // ignore: avoid_print
           print('Received message: $completeMessage');
+          processArduinoMessage(completeMessage);
           return completeMessage;
-          // Do whatever you need to do with the complete message here 
+          // Do whatever you need to do with the complete message here
         }
-        
       });
     }
     return "ERROR";
@@ -120,24 +135,24 @@ class BluetoothService {
   }
 }
 
-//old code 
-  // Stream<String> listenForMessages() {
-  //   if (!isConnected) {
-  //     return Stream.empty();
-  //   }
-  //   // ignore: prefer_conditional_assignment
-  //   if (_inputSubscription == null) {
-  //     _inputSubscription = connection.input.listen((data) {
-  //       String message = utf8.decode(data).trim();
-  //       _messageController.add(message);
-  //     });
-  //   }
-  //   return _messageController.stream;
-  // }
+//old code
+// Stream<String> listenForMessages() {
+//   if (!isConnected) {
+//     return Stream.empty();
+//   }
+//   // ignore: prefer_conditional_assignment
+//   if (_inputSubscription == null) {
+//     _inputSubscription = connection.input.listen((data) {
+//       String message = utf8.decode(data).trim();
+//       _messageController.add(message);
+//     });
+//   }
+//   return _messageController.stream;
+// }
 
 //its call
-      // listenForMessages().listen((message) {
-      //   //Started listening for incoming msgs
-      //   print('Received message: $message');
-      //   // Do whatever you need to do with the message here
-      // });
+// listenForMessages().listen((message) {
+//   //Started listening for incoming msgs
+//   print('Received message: $message');
+//   // Do whatever you need to do with the message here
+// });

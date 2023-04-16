@@ -7,10 +7,6 @@ import 'package:myapp/utils.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
-//firebase
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-
 //screen and widgets
 // import 'package:myapp/providers/auth_page.dart';
 // import 'screens/starting_page.dart';
@@ -50,15 +46,19 @@ import '/widgets/unlock_notification.dart';
 //in Authpage show StartingPage(),
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
   // Request location permission
   await Permission.location.request();
   if (await Permission.location.isDenied) {
     SystemNavigator.pop();
+  }
+
+  // Enable location service if it is disabled
+  while (!await Geolocator.isLocationServiceEnabled()) {
+    await Geolocator.openLocationSettings();
+    
   }
 
   // Request Bluetooth permission
@@ -67,30 +67,25 @@ void main() async {
     SystemNavigator.pop();
   }
 
-  // Enable location service if it is disabled
-if (!await Geolocator.isLocationServiceEnabled()) {
-  await Geolocator.openLocationSettings();
-}
+  // Enable Bluetooth if it is disabled
+  while (!(await FlutterBluetoothSerial.instance.isEnabled)) {
+    await FlutterBluetoothSerial.instance.requestEnable();
 
-// Enable Bluetooth if it is disabled
-if (!(await FlutterBluetoothSerial.instance.isEnabled)) {
-  await FlutterBluetoothSerial.instance.requestEnable();
-}
-  
+  }
 
   LocationPermission permission = await Geolocator.checkPermission();
-  
+
   // if (permission == LocationPermission.denied) {
   //   permission = await Geolocator.requestPermission();
   //   SystemNavigator.pop();
   //   }
 
   if (permission == LocationPermission.deniedForever) {
-      // Permission permanently denied, open settings
-      await Geolocator.openAppSettings();
-      // Display a message asking the user to enable location
-      // You can use a package like fluttertoast or snackbar for this
-    }
+    // Permission permanently denied, open settings
+    await Geolocator.openAppSettings();
+    // Display a message asking the user to enable location
+    // You can use a package like fluttertoast or snackbar for this
+  }
   
 
   runApp(MyApp());
@@ -113,7 +108,7 @@ class MyApp extends StatelessWidget {
       // onGenerateRoute: RouteGenerator.generateRoute,
 
       // ***FOR TESTING ONLY***//
-      home: Signup(),
+      home: Bluetooth(),
     );
   }
 }

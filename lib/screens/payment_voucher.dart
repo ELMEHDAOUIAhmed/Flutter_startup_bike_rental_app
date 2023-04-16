@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/gestures.dart';
 // import 'dart:ui';
@@ -52,7 +53,7 @@ class PaymentVoucher extends StatelessWidget {
                         Container(
                           // iconchevronleftmP3 (I1:556;0:1425)
                           margin: EdgeInsets.fromLTRB(
-                              0 * fem, 0 * fem, 53 * fem, 109.72 * fem),
+                              0 * fem, 0 * fem, 53 * fem, 165 * fem),
                           child: TextButton(
                             //return
                             onPressed: () {},
@@ -62,10 +63,10 @@ class PaymentVoucher extends StatelessWidget {
                             child: Container(
                               width: 18.13 * fem,
                               height: 17.28 * fem,
-                              child: Image.asset(
-                                'assets/page-1/images/icon-chevron-left-2iH.png',
-                                width: 18.13 * fem,
-                                height: 17.28 * fem,
+                              child: const Icon(
+                                CupertinoIcons.back,
+                                color: Colors.white,
+                                size: 30,
                               ),
                             ),
                           ),
@@ -139,8 +140,9 @@ class PaymentVoucher extends StatelessWidget {
                   // jKB (5:343)
                   left: 27 * fem,
                   top: 674 * fem,
-                  child: MyButton(onTap: () {  }, text: 'Submit',
-
+                  child: MyButton(
+                    onTap: () {},
+                    text: 'Submit',
                   ),
                 ),
               ],
