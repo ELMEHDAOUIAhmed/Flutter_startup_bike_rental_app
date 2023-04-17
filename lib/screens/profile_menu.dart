@@ -429,7 +429,7 @@ class ProfileMenu extends StatelessWidget {
                             child: // use on tap maybe it will fix it
                                 TextButton(
                               onPressed: () {
-                                signUserOutAPI;
+                                signUserOutAPI();
                                 Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
                               },
                               style: TextButton.styleFrom(
