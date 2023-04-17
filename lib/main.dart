@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:myapp/providers/auth_page.dart';
 import 'package:myapp/route_generator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:myapp/utils.dart';
@@ -8,7 +7,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 //screen and widgets
-// import 'package:myapp/providers/auth_page.dart';
 // import 'screens/starting_page.dart';
 import 'screens/profile_welcome.dart';
 // import 'screens/onboarding_3.dart';
@@ -40,6 +38,8 @@ import '/screens/verification.dart';
 import 'screens/message.dart';
 import '/providers/auth_api.dart';
 import '/widgets/unlock_notification.dart';
+
+import '/tests/home_page_new.dart';
 
 //Important
 //at the end execute A home: AuthPage(),
@@ -104,11 +104,11 @@ class MyApp extends StatelessWidget {
 
       // ***IMPORTANT REMOVE BEFORE FINAL VERSION*** //
 
-      // initialRoute: '/auth',
-      // onGenerateRoute: RouteGenerator.generateRoute,
+      initialRoute: '/auth',
+      onGenerateRoute: RouteGenerator.generateRoute,
 
       // ***FOR TESTING ONLY***//
-      home: Bluetooth(),
+      //home: MapScreenNew(),
     );
   }
 }

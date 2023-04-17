@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 // import 'package:flutter/gestures.dart';
 // import 'dart:ui';
@@ -11,7 +10,6 @@ import '/tests/map_screen_new.dart';
 
 class Profile_welcome extends StatelessWidget {
 
-  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 // import 'package:flutter/gestures.dart';
 // import 'dart:ui';
@@ -13,7 +13,6 @@ import './support_request.dart';
 import './settings.dart';
 import './starting_page.dart';
 import './profile_welcome.dart';
-import '/providers/auth_page.dart';
 import '/providers/auth_api.dart';
 import '/models/db.dart';
 import '/providers/user_api.dart';
@@ -23,9 +22,7 @@ import '/providers/user_api.dart';
 // write once , just like my_button.dart
 
 class ProfileMenu extends StatelessWidget {
-  // get info about the user
 
-  final user = FirebaseAuth.instance.currentUser;
 
   void signUserOutAPI() async {
     String token = await getToken();
@@ -33,9 +30,6 @@ class ProfileMenu extends StatelessWidget {
     await deleteToken();
   }
 
-  void signUserOut() {
-    FirebaseAuth.instance.signOut(); // to sign out the user
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -435,7 +429,6 @@ class ProfileMenu extends StatelessWidget {
                             child: // use on tap maybe it will fix it
                                 TextButton(
                               onPressed: () {
-                                // FirebaseAuth.instance.signOut();
                                 signUserOutAPI;
                                 Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
                               },

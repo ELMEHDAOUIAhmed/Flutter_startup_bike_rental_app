@@ -3,11 +3,11 @@ import 'package:myapp/screens/login.dart';
 import 'package:myapp/screens/profile_welcome.dart';
 import 'package:myapp/screens/starting_page.dart';
 import 'package:myapp/screens/profile_menu.dart';
-import 'package:myapp/providers/auth_page.dart';
 import 'package:myapp/providers/auth_api.dart';
 import '/screens/onboarding.dart';
 import '/screens/onboarding_2.dart';
 import '/screens/onboarding_3.dart';
+import '/screens/payment_voucher.dart';
 
 //https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -32,6 +32,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const OnboardingTwo());
       case '/onboarding_three':
         return MaterialPageRoute(builder: (_) => const OnboardingThree());
+      case '/voucher':
+      return MaterialPageRoute(builder: (_) => PaymentVoucher());
 
         return _errorRoute();
       default:

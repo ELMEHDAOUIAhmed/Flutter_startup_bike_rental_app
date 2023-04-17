@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/screens/signup.dart';
 import 'package:myapp/tests/home_page_new.dart';
@@ -11,7 +10,6 @@ import 'package:myapp/utils.dart';
 import './signup.dart';
 import 'package:myapp/components/my_textfield.dart';
 import 'package:myapp/components/my_button.dart';
-import 'package:myapp/providers/auth_page.dart';
 import '/providers/user_api.dart';
 import '/models/db.dart';
 
@@ -97,43 +95,6 @@ class _LoginState extends State<Login> {
     }
   }
 
-  void SignUserIn() async {
-    // show loading circule
-    showDialog(
-      //you need a statefull widget to show dialog
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
-
-    // try sign in
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      //pop out circule
-      Navigator.pop(context);
-      Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
-    } on FirebaseAuthException catch (e) {
-      // WRONG EMAIL
-      if (e.code == 'user-not-found') {
-        //show error dialog to user
-        wrongEmailMessage();
-      }
-
-      // WRONG PASSWORD
-      if (e.code == 'wrong-password') {
-        //show error dialog to user
-        wrongPasswordMessage();
-      } else {
-        userNotFoundMessage();
-      }
-    }
-  }
 
   // wrong email message popup
   void wrongEmailMessage() {
