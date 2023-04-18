@@ -51,30 +51,9 @@ class PaymentVoucher extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          // iconchevronleftmP3 (I1:556;0:1425)
-                          margin: EdgeInsets.fromLTRB(
-                              0 * fem, 0 * fem, 53 * fem, 165 * fem),
-                          child: TextButton(
-                            //return
-                            onPressed: () {},
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                            ),
-                            child: Container(
-                              width: 18.13 * fem,
-                              height: 17.28 * fem,
-                              child: const Icon(
-                                CupertinoIcons.back,
-                                color: Colors.white,
-                                size: 30,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
                           // supportrequestyk1 (I1:556;0:1424)
                           margin: EdgeInsets.fromLTRB(
-                              0 * fem, 0 * fem, 0 * fem, 111 * fem),
+                              115 * fem, 0 * fem, 0 * fem, 111 * fem),
                           child: Text(
                             'USTHB Pay',
                             textAlign: TextAlign.center,

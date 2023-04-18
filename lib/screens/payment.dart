@@ -43,29 +43,26 @@ class Payment extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      // iconchevronleftmP3 (I1:556;0:1425)
+                      // iconchevronleftFSD (I1:489;0:1417)
                       margin: EdgeInsets.fromLTRB(
                           0 * fem, 0 * fem, 65.37 * fem, 124 * fem),
-                      child: TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                        ),
-                        child: Container(
-                          width: 18.13 * fem,
-                          height: 17.28 * fem,
-                          child: const Icon(
+                      width: 18.13 * fem,
+                      height: 17.28 * fem,
+                      child: GestureDetector(
+                        onTap: () {
+                      Navigator.pushNamed(context,'/wallet',);
+                        },
+                        child: const Icon(
                         CupertinoIcons.back,
                         color: Colors.white,
                         size: 30,
                       ),
-                        ),
                       ),
                     ),
                     Container(
                       // supportrequestyk1 (I1:556;0:1424)
                       margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 0 * fem, 111 * fem),
+                          45 * fem, 0 * fem, 0 * fem, 111 * fem),
                       child: Text(
                         'Payment',
                         textAlign: TextAlign.center,
@@ -120,6 +117,7 @@ class Payment extends StatelessWidget {
                     // payment button
                     onPressed: () {
                       //pushName VOUCHER
+                      Navigator.pushNamed(context,'/voucher',);
                     },
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,

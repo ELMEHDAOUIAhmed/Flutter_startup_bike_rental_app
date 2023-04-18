@@ -53,10 +53,7 @@ class Mystatistics extends StatelessWidget {
                       height: 17.28 * fem,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Profile_welcome()));
+                      Navigator.pushNamed(context,'/profilemenu',);
                         },
                         child: const Icon(
                         CupertinoIcons.back,

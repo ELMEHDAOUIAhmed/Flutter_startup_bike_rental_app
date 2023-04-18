@@ -102,13 +102,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      // ***IMPORTANT REMOVE BEFORE FINAL VERSION*** //
-
       initialRoute: '/auth',
       onGenerateRoute: RouteGenerator.generateRoute,
 
+
+      // ***IMPORTANT REMOVE BEFORE FINAL VERSION*** //
+
       // ***FOR TESTING ONLY***//
-      //home: MapScreenNew(),
+      // home: Payment(),
     );
   }
 }

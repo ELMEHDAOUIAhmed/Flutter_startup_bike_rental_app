@@ -8,6 +8,8 @@ import '/screens/onboarding.dart';
 import '/screens/onboarding_2.dart';
 import '/screens/onboarding_3.dart';
 import '/screens/payment_voucher.dart';
+import '/screens/payment.dart';
+import '/screens/my_wallet.dart';
 
 //https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -33,7 +35,11 @@ class RouteGenerator {
       case '/onboarding_three':
         return MaterialPageRoute(builder: (_) => const OnboardingThree());
       case '/voucher':
-      return MaterialPageRoute(builder: (_) => PaymentVoucher());
+        return MaterialPageRoute(builder: (_) => PaymentVoucher());
+      case '/payment':
+        return MaterialPageRoute(builder: (_) => Payment());
+      case '/wallet':
+        return MaterialPageRoute(builder: (_) => Mywallet());
 
         return _errorRoute();
       default:
