@@ -7,18 +7,8 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import '/tests/map_screen_new.dart';
 import '/components/my_button.dart';
 
-// mindstorm
-// add Visibility
-// First show same card but show : Looking for Bluetooth devices and show connected if error show button of connect
-// then when message get transfered succefully to phone and you receive from arduino success ,
-//hide 1 st widget
-// Show "pUT YOUR STUDENT ID CARD CLOSE TO THE LOCK"
-// if status sent to open , hide widget
-// all steps send http request to server time also
 
-
-
-//add wait
+//add wait before you close Connected to HC-05
 
 class Unlock extends StatefulWidget {
   @override
@@ -27,15 +17,23 @@ class Unlock extends StatefulWidget {
 
 class _UnlockState extends State<Unlock> {
   void endRideAPI() {
+    //add more check 
     if (_ride_stats) {
       stopTimer();
-      endRideAPI();
+      Duration elapsedTime = _stopwatch.elapsed;
+      print(elapsedTime);
+      DateTime now = DateTime.now();
+      print(now);
+      // Do something with elapsedTime and now
+      _stopwatch.reset();
+
     }
   }
 
   Stopwatch _stopwatch = Stopwatch();
 
   void startTimerDuration() {
+    _stopwatch.start();
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {});
     });
@@ -84,7 +82,6 @@ class _UnlockState extends State<Unlock> {
 
   @override
   void initState() {
-
     super.initState();
     _checkBluetoothStatus();
     startScanning(pin);
@@ -143,7 +140,6 @@ class _UnlockState extends State<Unlock> {
   @override
   Widget build(BuildContext context) {
     Duration duration = _stopwatch.elapsed;
-
     double baseWidth = 380;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -159,8 +155,8 @@ class _UnlockState extends State<Unlock> {
       Visibility(
         visible: _unlockSteps,
         child: Positioned(
-          left: 0,
-          right: 0,
+          left: 20,
+          right: 20,
           bottom: 240 * ffem,
           child: SizedBox(
             child: Container(
@@ -186,7 +182,7 @@ class _UnlockState extends State<Unlock> {
                 children: [
                   Positioned(
                     // haibikesdurofullse7SV (7:377)
-                    left: 64 * fem,
+                    left: 45 * fem,
                     top: 35 * fem,
                     child: Align(
                       child: SizedBox(
@@ -246,8 +242,8 @@ class _UnlockState extends State<Unlock> {
       Visibility(
         visible: _bluetoothSteps,
         child: Positioned(
-          left: 0,
-          right: 0,
+          left: 20,
+          right: 20,
           bottom: 315 * ffem,
           child: SizedBox(
             child: Container(
@@ -273,7 +269,7 @@ class _UnlockState extends State<Unlock> {
                 children: [
                   Positioned(
                     // haibikesdurofullse7SV (7:377)
-                    left: 64 * fem,
+                    left: 45 * fem,
                     top: 35 * fem,
                     child: Align(
                       child: SizedBox(
@@ -289,7 +285,7 @@ class _UnlockState extends State<Unlock> {
                             fontSize: 20 * ffem,
                             fontWeight: FontWeight.w700,
                             height: 1.2175 * ffem / fem,
-                            color: Color(0xfff7f0f0),
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -306,7 +302,7 @@ class _UnlockState extends State<Unlock> {
                   ),
                   Positioned(
                     // image33dJM (7:387)
-                    left: 110 * fem,
+                    left: 97 * fem,
                     top: 190 * fem,
                     child: Align(
                       child: SizedBox(
@@ -317,10 +313,10 @@ class _UnlockState extends State<Unlock> {
                           textAlign: TextAlign.center,
                           style: SafeGoogleFont(
                             'Montserrat',
-                            fontSize: 14 * ffem,
+                            fontSize: 18 * ffem,
                             fontWeight: FontWeight.w600,
                             height: 1.2189999989 * ffem / fem,
-                            color: Colors.black,
+                            color: Colors.white,
                             decoration: TextDecoration.none,
                           ),
                         ),
