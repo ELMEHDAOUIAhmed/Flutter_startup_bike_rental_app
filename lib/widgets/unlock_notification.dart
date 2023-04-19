@@ -35,10 +35,16 @@ class _UnlockState extends State<Unlock> {
       await FlutterBluetoothSerial.instance.requestEnable();
     }
 
-
     String status = await bluetoothService.getStatus(pin);
     setState(() {
       bluetoothStatus = status;
+    });
+  }
+
+  void startScanning(int pin) {
+    Timer.periodic(Duration(seconds: 10), (timer) {
+      bluetoothService.startScan(pin);
+      _checkBluetoothStatus();
     });
   }
 
@@ -46,6 +52,8 @@ class _UnlockState extends State<Unlock> {
   void initState() {
     super.initState();
     _checkBluetoothStatus();
+    startScanning(pin);
+    _startTimer();
   }
 
   @override
@@ -53,11 +61,33 @@ class _UnlockState extends State<Unlock> {
     super.dispose();
     _subscription?.cancel();
     bluetoothService.disconnect();
+    _timer?.cancel();
   }
 
   String title = '';
-  bool _unlockSteps = false;
-  bool _bluetoothSteps = true;
+  bool _bluetoothSteps = false; // true
+  bool _unlockSteps = false; // false
+  bool _ride_stats = true; // false
+
+  int _countdown = 10;
+  Timer _timer;
+
+  void _startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_countdown > 0) {
+          _countdown--;
+        } else {
+          _countdown = 10;
+        }
+      });
+      if (bluetoothStatus == 'Connected to HC-05') {
+        timer.cancel();
+        _bluetoothSteps = false;
+        _unlockSteps = true;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -220,26 +250,56 @@ class _UnlockState extends State<Unlock> {
                   ),
                   Positioned(
                     // image33dJM (7:387)
-                    left: 130 * fem,
+                    left: 110 * fem,
                     top: 190 * fem,
                     child: Align(
                       child: SizedBox(
-                        width: 120 * fem,
-                        height: 40 * fem,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white, // background color
+                        width: 150 * fem,
+                        height: 120 * fem,
+                        child: Text(
+                          'Retrying in\n' + _countdown.toString(),
+                          textAlign: TextAlign.center,
+                          style: SafeGoogleFont(
+                            'Montserrat',
+                            fontSize: 14 * ffem,
+                            fontWeight: FontWeight.w600,
+                            height: 1.2189999989 * ffem / fem,
+                            color: Colors.black,
+                            decoration: TextDecoration.none,
                           ),
-                          onPressed: () {
-                            bluetoothService.startScan(pin);
-                          },
-                          child: const Text('Retry!',
-                              style: TextStyle(color: Colors.black)),
                         ),
                       ),
                     ),
                   ),
                 ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      Visibility(
+        visible: _ride_stats,
+        child: Positioned(
+          left: 60 * fem,
+          top: 540 * fem,
+          right: 60 * fem,
+          bottom: 155 * fem,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: Text(
+              'Time: \nPrice: ',
+              textAlign: TextAlign.center,
+              style: SafeGoogleFont(
+                'Montserrat',
+                fontSize: 14 * ffem,
+                fontWeight: FontWeight.w600,
+                height: 1.2189999989 * ffem / fem,
+                color: Color(0xff000000),
+                decoration: TextDecoration.none,
               ),
             ),
           ),

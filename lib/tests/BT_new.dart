@@ -3,13 +3,16 @@ import 'dart:convert';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '/helpers/arduino.dart';
+import '/providers/control_access_api.dart';
 
 class BluetoothService {
-
+  int attempts = 0;
 
   void processArduinoMessage(String message) {
     var arduinoMessage = extractArduinoMessage(message);
     if (arduinoMessage != null) {
+      //api call
+      sendArduinoMessageToApi(arduinoMessage);
       print("Access: ${arduinoMessage.access}");
       print("UID: ${arduinoMessage.uid}");
       print("Status: ${arduinoMessage.status}");
@@ -17,8 +20,22 @@ class BluetoothService {
       print("Invalid access message!");
     }
   }
-  
-  
+
+  // find a way to do this and change bool values 
+  // String arduinoMessage.access;
+  // if(arduinoMessage.access=='Access denied'){
+  //   ++attempts;
+  //   if(attempts==3){
+  //     attempts=0;
+  //     //show dialog wrong card
+  //   }
+  // }
+
+  // if(arduinoMessage.access=='Access granted'){
+  // _ride_stats=true;
+  // _unlockSteps=false;
+  // }
+
   bool isConnected = false;
   BluetoothConnection connection;
   StreamSubscription<List<int>> _inputSubscription;
