@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:myapp/screens/signup.dart';
-import 'package:myapp/screens/support.dart';
 import 'package:myapp/utils.dart';
 
 // this button will be used for

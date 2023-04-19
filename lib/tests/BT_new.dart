@@ -5,7 +5,10 @@ import 'package:permission_handler/permission_handler.dart';
 import '/helpers/arduino.dart';
 import '/providers/control_access_api.dart';
 
+typedef AccessCallback = void Function(String access);
+
 class BluetoothService {
+  AccessCallback onAccessCallback;
   int attempts = 0;
 
   void processArduinoMessage(String message) {
@@ -16,12 +19,18 @@ class BluetoothService {
       print("Access: ${arduinoMessage.access}");
       print("UID: ${arduinoMessage.uid}");
       print("Status: ${arduinoMessage.status}");
+
+      // Call the callback function with the access value
+      if (onAccessCallback != null) {
+        onAccessCallback(arduinoMessage.access);
+      }
+      
     } else {
       print("Invalid access message!");
     }
   }
 
-  // find a way to do this and change bool values 
+  // find a way to do this and change bool values
   // String arduinoMessage.access;
   // if(arduinoMessage.access=='Access denied'){
   //   ++attempts;

@@ -4,6 +4,8 @@ import 'package:myapp/utils.dart';
 import '/tests/BT_new.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import '/tests/map_screen_new.dart';
+import '/components/my_button.dart';
 
 // mindstorm
 // add Visibility
@@ -14,12 +16,44 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 // if status sent to open , hide widget
 // all steps send http request to server time also
 
+
+
+//add wait
+
 class Unlock extends StatefulWidget {
   @override
   State<Unlock> createState() => _UnlockState();
 }
 
 class _UnlockState extends State<Unlock> {
+  void endRideAPI() {
+    if (_ride_stats) {
+      stopTimer();
+      endRideAPI();
+    }
+  }
+
+  Stopwatch _stopwatch = Stopwatch();
+
+  void startTimerDuration() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {});
+    });
+  }
+
+  void stopTimer() {
+    _timer.cancel();
+    _stopwatch.stop();
+  }
+
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String hours = twoDigits(duration.inHours);
+    String minutes = twoDigits(duration.inMinutes.remainder(60));
+    String seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$hours:$minutes:$seconds";
+  }
+
   final BluetoothService bluetoothService = BluetoothService();
   StreamSubscription<String> _subscription;
   String _message = '';
@@ -50,10 +84,22 @@ class _UnlockState extends State<Unlock> {
 
   @override
   void initState() {
+
     super.initState();
     _checkBluetoothStatus();
     startScanning(pin);
     _startTimer();
+    // Set the onAccessCallback to update the state when an access message is received
+    bluetoothService.onAccessCallback = (String access) {
+      if (access == 'Access granted') {
+        setState(() {
+          _blackscreen = false;
+          _unlockSteps = false;
+          _ride_stats = true;
+          startTimerDuration();
+        });
+      }
+    };
   }
 
   @override
@@ -65,9 +111,10 @@ class _UnlockState extends State<Unlock> {
   }
 
   String title = '';
-  bool _bluetoothSteps = false; // true
+  bool _bluetoothSteps = true; // true
   bool _unlockSteps = false; // false
-  bool _ride_stats = true; // false
+  bool _ride_stats = false; // false
+  bool _blackscreen = true; // true // hide it when we start ride false
 
   int _countdown = 10;
   Timer _timer;
@@ -89,16 +136,25 @@ class _UnlockState extends State<Unlock> {
     });
   }
 
+  // void hideDistance(){
+  //   MapScreenNew().distance_window=false;
+  // }
+
   @override
   Widget build(BuildContext context) {
+    Duration duration = _stopwatch.elapsed;
+
     double baseWidth = 380;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
     return Stack(children: [
-      Container(
-        width: double.infinity,
-        height: double.infinity,
-        color: Color.fromRGBO(0, 0, 0, 0.5),
+      Visibility(
+        visible: _blackscreen,
+        child: Container(
+          // width: double.infinity,
+          // height: double.infinity,
+          color: Color.fromRGBO(0, 0, 0, 0.5),
+        ),
       ),
       Visibility(
         visible: _unlockSteps,
@@ -279,30 +335,96 @@ class _UnlockState extends State<Unlock> {
       ),
       Visibility(
         visible: _ride_stats,
-        child: Positioned(
-          left: 60 * fem,
-          top: 540 * fem,
-          right: 60 * fem,
-          bottom: 155 * fem,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: Text(
-              'Time: \nPrice: ',
-              textAlign: TextAlign.center,
-              style: SafeGoogleFont(
-                'Montserrat',
-                fontSize: 14 * ffem,
-                fontWeight: FontWeight.w600,
-                height: 1.2189999989 * ffem / fem,
-                color: Color(0xff000000),
-                decoration: TextDecoration.none,
+        child: Stack(
+          children: [
+            Positioned(
+              left: 30 * fem,
+              top: 520 * fem,
+              right: 30 * fem,
+              bottom: 155 * fem,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 23, horizontal: 0),
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Duration\n',
+                        style: SafeGoogleFont(
+                          'Montserrat',
+                          fontSize: 14 * ffem,
+                          fontWeight: FontWeight.w400,
+                          height: 1.2189999989 * ffem / fem,
+                          color: Color(0xff000000),
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      TextSpan(
+                        text: formatDuration(duration),
+                        style: SafeGoogleFont(
+                          'Montserrat',
+                          fontSize: 17 * ffem,
+                          fontWeight: FontWeight.w600,
+                          height: 1.2189999989 * ffem / fem,
+                          color: Color(0xff000000),
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
+            Positioned(
+              left: 0 * fem,
+              top: 540 * fem,
+              right: 230 * fem,
+              bottom: 155 * fem,
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'per 30min\n',
+                      style: SafeGoogleFont(
+                        'Montserrat',
+                        fontSize: 14 * ffem,
+                        fontWeight: FontWeight.w400,
+                        height: 1.2189999989 * ffem / fem,
+                        color: Color(0xff000000),
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                    TextSpan(
+                      text: '\$0.50',
+                      style: SafeGoogleFont(
+                        'Montserrat',
+                        fontSize: 17 * ffem,
+                        fontWeight: FontWeight.w600,
+                        height: 1.2189999989 * ffem / fem,
+                        color: Color(0xff000000),
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+                left: 100 * fem,
+                top: 590 * fem,
+                right: 100 * fem,
+                bottom: 160 * fem,
+                child: MyButton(
+                  onTap: endRideAPI,
+                  text: 'End Ride!',
+                )),
+          ],
         ),
       ),
     ]);

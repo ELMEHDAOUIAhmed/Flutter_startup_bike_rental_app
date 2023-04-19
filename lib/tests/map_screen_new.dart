@@ -20,10 +20,11 @@ class MapScreenNew extends StatefulWidget {
 class _MapScreenNewState extends State<MapScreenNew> {
   //gps postion
   double topPosition = 559;
+  bool _gps = true;
 
   static double _distanceInMeters = 0.0;
-  bool _distance_window = false;
-  bool _menu_window=true;
+  bool distance_window = false;
+  bool _menu_window = true;
   String id;
   int id_int;
   String userDestStation = '';
@@ -81,7 +82,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
         title: 'Parking Enseignants',
-        snippet: 'Stock: Loading...',
+        snippet: 'Stock: 1',
       ),
     ),
     Marker(
@@ -90,7 +91,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
         title: 'Faculté De Mathematique',
-        snippet: 'Stock: Loading...',
+        snippet: 'Stock: 10',
       ),
     ),
     Marker(
@@ -99,7 +100,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
         title: 'Project Initiative Club',
-        snippet: 'Stock: Loading...',
+        snippet: 'Stock: 20',
       ),
     ),
     Marker(
@@ -108,7 +109,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
         title: 'Bibliothèque Universitaire',
-        snippet: 'Stock: Loading...',
+        snippet: 'Stock: 5',
       ),
     ),
     Marker(
@@ -117,7 +118,16 @@ class _MapScreenNewState extends State<MapScreenNew> {
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       infoWindow: InfoWindow(
         title: 'Nouveaux Blocs Salles TP',
-        snippet: 'Stock: Loading...',
+        snippet: 'Stock: 11',
+      ),
+    ),
+        Marker(
+      markerId: MarkerId('6'),
+      position: LatLng(36.725341, 3.025925),
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+      infoWindow: InfoWindow(
+        title: 'Home',
+        snippet: 'Stock: 1',
       ),
     ),
   ];
@@ -174,10 +184,11 @@ class _MapScreenNewState extends State<MapScreenNew> {
   }
 
   void _moveCamera(Position position) {
-    if(position!=null){
-    _googleMapController.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(
-            target: LatLng(position.latitude, position.longitude), zoom: 17)));
+    if (position != null) {
+      _googleMapController.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(
+              target: LatLng(position.latitude, position.longitude),
+              zoom: 17)));
     }
   }
 
@@ -188,7 +199,6 @@ class _MapScreenNewState extends State<MapScreenNew> {
   StreamSubscription<Position> _positionStreamSubscription;
 
   void _determinePositionMoveCamera(int index) async {
-    
     try {
       _positionStreamSubscription =
           Geolocator.getPositionStream().listen((position) async {
@@ -202,37 +212,35 @@ class _MapScreenNewState extends State<MapScreenNew> {
             CameraPosition(
                 target: LatLng(position.latitude, position.longitude),
                 zoom: 17)));
-        if(index!=null){
-        double distanceInMeters = await calculateDistanceInMeters(index, positionuser);
+        if (index != null) {
+          double distanceInMeters =
+              await calculateDistanceInMeters(index, positionuser);
 
-      setState(() {
-        _distanceInMeters = distanceInMeters;
-      });
-        }
-        if(_distanceInMeters<5){
           setState(() {
-            _notification_Visible=true;
+            _distanceInMeters = distanceInMeters;
           });
         }
-        if(_distanceInMeters>15){
+        if (_distanceInMeters < 5) {
           setState(() {
-            _notification_Visible=false;
+            _notification_Visible = true;
+            distance_window = false;
           });
-        }        
-        
+        }
+        if (_distanceInMeters > 15) {
+          setState(() {
+            _notification_Visible = false;
+            distance_window= true;
+          });
+        }
       });
-
-
-
     } catch (e) {
       // handle errors here
     }
   }
 
-    void _stopTracking() {
+  void _stopTracking() {
     _positionStreamSubscription?.cancel();
   }
-
 
   BitmapDescriptor userIcon = BitmapDescriptor.defaultMarker;
 
@@ -258,9 +266,8 @@ class _MapScreenNewState extends State<MapScreenNew> {
         marker.position.longitude,
       );
       return distanceInMeters;
-    }
-    else {
-    return 0.0;
+    } else {
+      return 0.0;
     }
   }
 
@@ -445,15 +452,20 @@ class _MapScreenNewState extends State<MapScreenNew> {
                       ),
                     ),
                   ),
-                  Divider(thickness: 0*ffem,color: Colors.transparent,),
-                  if (_distance_window)
-                    Container(
+                  Divider(
+                    thickness: 0 * ffem,
+                    color: Colors.transparent,
+                  ),
+                  // if (_distance_window)
+                  Visibility(
+                    visible: distance_window,
+                    child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 20),
                       child: Text(
                         '${_distanceInMeters.round()} m',
                         style: SafeGoogleFont(
@@ -466,59 +478,65 @@ class _MapScreenNewState extends State<MapScreenNew> {
                         ),
                       ),
                     ),
+                  ),
                 ],
               ),
             ),
           ),
-          if(_menu_window)
-          Positioned(
-            // image19YEy (1:44)
-            left: 28 * fem,
-            top: 49 * fem,
-            child: Align(
-              child: SizedBox(
-                width: 21 * fem,
-                height: 15 * fem,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ProfileMenu()));
-                  },
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                  ),
-                  child: Image.asset(
-                    //'assets/page-1/images/image-19.png',
-                    'assets/page-1/images/menu.png',
-                    fit: BoxFit.cover,
-                    width: 30,
-                    height: 30,
+          if (_menu_window)
+            Positioned(
+              // image19YEy (1:44)
+              left: 28 * fem,
+              top: 49 * fem,
+              child: Align(
+                child: SizedBox(
+                  width: 21 * fem,
+                  height: 15 * fem,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileMenu()));
+                    },
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                    ),
+                    child: Image.asset(
+                      //'assets/page-1/images/image-19.png',
+                      'assets/page-1/images/menu.png',
+                      fit: BoxFit.cover,
+                      width: 30,
+                      height: 30,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            left: 350 * fem,
-            top: topPosition * fem,
-            child: Align(
-              child: SizedBox(
-                width: 51 * fem,
-                height: 51 * fem,
-                child: TextButton(
-                  onPressed: () async {
-                    positionuser = await _determinePosition();
-                    _moveCamera(positionuser);
-                    setState(() {
-                      positionuser = positionuser;
-                    });
-                  },
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                  ),
-                  child: Image.asset(
-                    'assets/page-1/images/gps.png',
-                    fit: BoxFit.cover,
+          Visibility(
+            visible: _gps,
+            child: Positioned(
+              left: 350 * fem,
+              top: topPosition * fem,
+              child: Align(
+                child: SizedBox(
+                  width: 51 * fem,
+                  height: 51 * fem,
+                  child: TextButton(
+                    onPressed: () async {
+                      positionuser = await _determinePosition();
+                      _moveCamera(positionuser);
+                      setState(() {
+                        positionuser = positionuser;
+                      });
+                    },
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                    ),
+                    child: Image.asset(
+                      'assets/page-1/images/gps.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -555,7 +573,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
                     trailing: Text(markers[index].infoWindow.snippet),
                     onTap: () {
                       id = _getId(index);
-                      id_int = index ;
+                      id_int = index;
                       Navigator.pop(context);
                       takeBikeFromMarker(id);
                       showDialog(
@@ -568,7 +586,8 @@ class _MapScreenNewState extends State<MapScreenNew> {
                             title: Row(
                               children: [
                                 //Icon(Icons.error, color: Colors.red),
-                                const Icon(Icons.check_circle, color: Colors.green),
+                                const Icon(Icons.check_circle,
+                                    color: Colors.green),
                                 const SizedBox(width: 8.0),
                                 Flexible(
                                   fit: FlexFit.loose,
@@ -642,14 +661,17 @@ class _MapScreenNewState extends State<MapScreenNew> {
                 });
                 Navigator.of(context).pop();
                 setState(() {
-                  topPosition=615;
+                  topPosition = 615;
                 });
                 //clear stack of screens == disable back button when starting a ride
-                 Navigator.popUntil(context, ModalRoute.withName('/'));
+                Navigator.popUntil(context, ModalRoute.withName('/'));
                 _determinePositionMoveCamera(id_int);
-                _distance_window = true;
-                _menu_window=false;
+                distance_window = true;
+                _menu_window = false;
                 // await calculateDistanceInMeters(2, positionuser);
+
+                // hide gps because we dont need it
+                _gps = false;
               },
               child: Text("YES"),
             ),
