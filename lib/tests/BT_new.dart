@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '/helpers/arduino.dart';
 import '/providers/control_access_api.dart';
 
-typedef AccessCallback = void Function(String access);
+typedef AccessCallback = void Function(ArduinoMessage arduino);
 
 class BluetoothService {
   AccessCallback onAccessCallback;
@@ -22,9 +23,8 @@ class BluetoothService {
 
       // Call the callback function with the access value
       if (onAccessCallback != null) {
-        onAccessCallback(arduinoMessage.access);
+        onAccessCallback(arduinoMessage);
       }
-      
     } else {
       print("Invalid access message!");
     }
@@ -75,6 +75,7 @@ class BluetoothService {
       isConnected = true;
       print('Connected to ${device.name}');
       listenForMessages();
+
     } catch (e) {
       print('Error connecting to ${device.name}: ${e.toString()}');
     }
@@ -157,6 +158,7 @@ class BluetoothService {
       _inputSubscription?.cancel();
       _inputSubscription = null;
       _messageController.close();
+      print('Disconnected');
     }
   }
 }

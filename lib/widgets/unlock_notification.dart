@@ -6,7 +6,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import '/tests/map_screen_new.dart';
 import '/components/my_button.dart';
-
+import '/helpers/arduino.dart';
+import '/tests/map_screen_new.dart';
+import '/models/db.dart';
 
 //add wait before you close Connected to HC-05
 
@@ -16,8 +18,25 @@ class Unlock extends StatefulWidget {
 }
 
 class _UnlockState extends State<Unlock> {
+
+
+  int _attempts = 0;
+  String unlock = 'Put your Student\n Id Card\nclose to the lock';
+  int _trackUseropens = 0;
+  // variable to track user
+  // must not exceed 2 for access granted , when he opens and closes the lock
+
   void endRideAPI() {
-    //add more check 
+    //try to reconnect through bluetooth , in case we lost connection
+    //startScanning(pin);
+    //send status msg to bluetooth , handle msg and its need to be  "open"
+
+    //show use how to close meaning  _blackscreen=true ; _unlockSteps=true;
+
+    //send status msg to bluetooth , handle msg and its need to be  "close"
+
+    //give final price , stop track , and hide nav_bar and show ride
+
     if (_ride_stats) {
       stopTimer();
       Duration elapsedTime = _stopwatch.elapsed;
@@ -26,7 +45,6 @@ class _UnlockState extends State<Unlock> {
       print(now);
       // Do something with elapsedTime and now
       _stopwatch.reset();
-
     }
   }
 
@@ -59,6 +77,19 @@ class _UnlockState extends State<Unlock> {
   int pin = 1234;
   String bt = 'Loading ...';
 
+  void _sendMatricule() async{
+    String matricule = await getMatricule();
+    bluetoothService.send(matricule);
+  }
+
+  void _clear() async{
+    bluetoothService.send('clear');
+  }
+
+  void _status() async {
+    bluetoothService.send('status');
+  }
+
   // before executing check permission and enable them
 
   Future<void> _checkBluetoothStatus() async {
@@ -75,8 +106,8 @@ class _UnlockState extends State<Unlock> {
 
   void startScanning(int pin) {
     Timer.periodic(Duration(seconds: 10), (timer) {
+       _checkBluetoothStatus();
       bluetoothService.startScan(pin);
-      _checkBluetoothStatus();
     });
   }
 
@@ -86,15 +117,39 @@ class _UnlockState extends State<Unlock> {
     _checkBluetoothStatus();
     startScanning(pin);
     _startTimer();
+
     // Set the onAccessCallback to update the state when an access message is received
-    bluetoothService.onAccessCallback = (String access) {
-      if (access == 'Access granted') {
+    bluetoothService.onAccessCallback = (ArduinoMessage arduino) {
+      if (arduino.access == 'Access granted') {
         setState(() {
           _blackscreen = false;
           _unlockSteps = false;
           _ride_stats = true;
           startTimerDuration();
         });
+      }
+      if (arduino.access == 'Access denied') {
+        ++_attempts;
+        if (_attempts ==2) {
+          print('Error Use your own student id card!');
+          setState(() {
+            unlock = 'Access denied!\nuse your Student\n Id Card';
+          });
+        }
+        if (_attempts > 2) {
+          setState(() {
+            unlock = 'Put your Student\n Id Card\nclose to the lock';
+            _attempts=0;
+          });  
+        }
+      }
+      if (arduino.access == null) {
+        if (arduino.status == 'closed') {
+          print('Lock has been opened');
+        }
+        if (arduino.status == 'opened') {
+          print('Lock has been opened');
+        }
       }
     };
   }
@@ -189,7 +244,7 @@ class _UnlockState extends State<Unlock> {
                         width: 252 * fem,
                         height: 103 * fem,
                         child: Text(
-                          'Put your Student\n Id Card\nclose to the lock',
+                          unlock,
                           textAlign: TextAlign.center,
                           style: SafeGoogleFont(
                             'Montserrat',
