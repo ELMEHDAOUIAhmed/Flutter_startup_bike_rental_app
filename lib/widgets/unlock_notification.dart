@@ -29,6 +29,8 @@ class _UnlockState extends State<Unlock> {
   void endRideAPI() {
     //try to reconnect through bluetooth , in case we lost connection
     //startScanning(pin);
+    
+
     //send status msg to bluetooth , handle msg and its need to be  "open"
 
     //show use how to close meaning  _blackscreen=true ; _unlockSteps=true;
@@ -157,8 +159,8 @@ class _UnlockState extends State<Unlock> {
   @override
   void dispose() {
     super.dispose();
-    _subscription?.cancel();
-    bluetoothService.disconnect();
+    //_subscription?.cancel();
+    //bluetoothService.disconnect();
     _timer?.cancel();
   }
 

@@ -121,7 +121,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
         snippet: 'Stock: 11',
       ),
     ),
-        Marker(
+    Marker(
       markerId: MarkerId('6'),
       position: LatLng(36.725341, 3.025925),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
@@ -178,7 +178,6 @@ class _MapScreenNewState extends State<MapScreenNew> {
   Future<Position> _determinePosition() async {
     Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
-      timeLimit: const Duration(seconds: 5),
     );
     return position;
   }
@@ -197,11 +196,16 @@ class _MapScreenNewState extends State<MapScreenNew> {
   //add stop listening for gps after user finishes ride
 
   StreamSubscription<Position> _positionStreamSubscription;
+  final LocationSettings locationSettings = LocationSettings(
+    accuracy: LocationAccuracy.high,
+    distanceFilter: 1,
+  );
 
   void _determinePositionMoveCamera(int index) async {
     try {
       _positionStreamSubscription =
-          Geolocator.getPositionStream().listen((position) async {
+          Geolocator.getPositionStream(locationSettings: locationSettings)
+              .listen((position) async {
         setState(() {
           positionuser = position;
         });
@@ -226,10 +230,10 @@ class _MapScreenNewState extends State<MapScreenNew> {
             distance_window = false;
           });
         }
-        if (_distanceInMeters > 15) {
+        if (_distanceInMeters > 5000) { // was 15
           setState(() {
             _notification_Visible = false;
-            distance_window= true;
+            distance_window = true;
           });
         }
       });

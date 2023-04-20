@@ -60,6 +60,13 @@ class BluetoothService {
       isConnected = true;
       print('Connected to ${device.name}');
       listenForMessages();
+
+      // Listen for disconnection
+      _inputSubscription?.onDone(() {
+        print('Disconnected from ${device.name}');
+        disconnect();
+      });
+
     } catch (e) {
       print('Error connecting to ${device.name}: ${e.toString()}');
     }
@@ -142,7 +149,6 @@ class BluetoothService {
       _inputSubscription?.cancel();
       _inputSubscription = null;
       _messageController.close();
-      print('Disconnected');
     }
   }
 }
