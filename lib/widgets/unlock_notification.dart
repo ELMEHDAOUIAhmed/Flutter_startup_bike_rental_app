@@ -29,9 +29,12 @@ class _UnlockState extends State<Unlock> {
   void endRideAPI() {
     //try to reconnect through bluetooth , in case we lost connection
     //startScanning(pin);
-    
-
+    //already handeled
+    setState(() {
+      _unlockSteps=true;
+    });
     //send status msg to bluetooth , handle msg and its need to be  "open"
+    _status();
 
     //show use how to close meaning  _blackscreen=true ; _unlockSteps=true;
 
@@ -40,6 +43,9 @@ class _UnlockState extends State<Unlock> {
     //give final price , stop track , and hide nav_bar and show ride
 
     if (_ride_stats) {
+      setState(() {
+        _ride_stats=false;
+      });
       stopTimer();
       Duration elapsedTime = _stopwatch.elapsed;
       print(elapsedTime);
@@ -147,7 +153,7 @@ class _UnlockState extends State<Unlock> {
       }
       if (arduino.access == null) {
         if (arduino.status == 'closed') {
-          print('Lock has been opened');
+          print('Lock has been closed');
         }
         if (arduino.status == 'opened') {
           print('Lock has been opened');
