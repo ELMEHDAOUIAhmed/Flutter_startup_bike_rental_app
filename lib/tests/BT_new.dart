@@ -30,21 +30,6 @@ class BluetoothService {
     }
   }
 
-  // find a way to do this and change bool values
-  // String arduinoMessage.access;
-  // if(arduinoMessage.access=='Access denied'){
-  //   ++attempts;
-  //   if(attempts==3){
-  //     attempts=0;
-  //     //show dialog wrong card
-  //   }
-  // }
-
-  // if(arduinoMessage.access=='Access granted'){
-  // _ride_stats=true;
-  // _unlockSteps=false;
-  // }
-
   bool isConnected = false;
   BluetoothConnection connection;
   StreamSubscription<List<int>> _inputSubscription;
@@ -75,7 +60,6 @@ class BluetoothService {
       isConnected = true;
       print('Connected to ${device.name}');
       listenForMessages();
-
     } catch (e) {
       print('Error connecting to ${device.name}: ${e.toString()}');
     }
@@ -162,25 +146,3 @@ class BluetoothService {
     }
   }
 }
-
-//old code
-// Stream<String> listenForMessages() {
-//   if (!isConnected) {
-//     return Stream.empty();
-//   }
-//   // ignore: prefer_conditional_assignment
-//   if (_inputSubscription == null) {
-//     _inputSubscription = connection.input.listen((data) {
-//       String message = utf8.decode(data).trim();
-//       _messageController.add(message);
-//     });
-//   }
-//   return _messageController.stream;
-// }
-
-//its call
-// listenForMessages().listen((message) {
-//   //Started listening for incoming msgs
-//   print('Received message: $message');
-//   // Do whatever you need to do with the message here
-// });
