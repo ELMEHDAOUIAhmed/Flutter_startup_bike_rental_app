@@ -2,14 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:myapp/utils.dart';
 import '/tests/BT_new.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import '/tests/map_screen_new.dart';
 import '/components/my_button.dart';
 import '/helpers/arduino.dart';
-import '/tests/map_screen_new.dart';
 import '/models/db.dart';
-import '/widgets/nav_bar.dart';
 
 //add wait before you close Connected to HC-05
 
@@ -19,40 +15,62 @@ class Unlock extends StatefulWidget {
 }
 
 class _UnlockState extends State<Unlock> {
-
   int _attempts = 0;
   String unlock = 'Put your Student\n Id Card\nclose to the lock';
-  int _trackUseropens = 0;
-  // variable to track user
-  // must not exceed 2 for access granted , when he opens and closes the lock
+
+  bool _lockStatusOpen = false;
+  bool _lockCleared = false;
+  //check if lock is open before trying to close it ,
 
   void endRideAPI() {
-    //try to reconnect through bluetooth , in case we lost connection
-    //startScanning(pin);
-    //already handeled
+
     setState(() {
       _unlockSteps = true;
+      _ride_stats = false;
+      _blackscreen = true;
     });
-    //send status msg to bluetooth , handle msg and its need to be  "open"
-    _status();
 
-    //show use how to close meaning  _blackscreen=true ; _unlockSteps=true;
-
-    //send status msg to bluetooth , handle msg and its need to be  "close"
-
-    //give final price , stop track , and hide nav_bar and show ride
-
-    if (_ride_stats) {
+    _status(); //check if lock is open
+    if (_lockStatusOpen) {
       setState(() {
-        _ride_stats = false;
+        unlock = 'Put Bike into Station\nClose the lock!';
+      });
+      
+      //do more tests before hiding and stopping 
+     _status(); //check if lock is closed
+    if (!_lockStatusOpen)
+    {
+      setState(() {
+        _unlockSteps = false;
+        _blackscreen = false;
       });
       stopTimer();
       Duration elapsedTime = _stopwatch.elapsed;
       print(elapsedTime);
       DateTime now = DateTime.now();
       print(now);
+
       // Do something with elapsedTime and now
       _stopwatch.reset();
+
+      // calculate price => deduct from user wallet => send http request
+
+      _clear();
+      if (_lockCleared) {
+        // issue its not going inside the check
+        bluetoothService.disconnect();
+        //Navigator.of(context).pop();
+        // Navigate to the map screen
+        Navigator.pushNamedAndRemoveUntil(context, '/map', (route) => false);
+      }
+    }
+    } else {
+      setState(() {
+        unlock = 'Open the lock!\nbefore trying to close it';
+      _unlockSteps = false;
+      _ride_stats = true;
+      _blackscreen = false;
+      });
     }
   }
 
@@ -87,15 +105,15 @@ class _UnlockState extends State<Unlock> {
 
   void _sendMatricule() async {
     String matricule = await getMatricule();
-    bluetoothService.send(matricule);
+    await bluetoothService.send(matricule);
   }
 
   void _clear() async {
-    bluetoothService.send('clear');
+    await bluetoothService.send('clear\n');
   }
 
   void _status() async {
-    bluetoothService.send('status');
+    await bluetoothService.send('status\n');
   }
 
   // before executing check permission and enable them
@@ -151,30 +169,38 @@ class _UnlockState extends State<Unlock> {
           });
         }
       }
-      if (arduino.access == null) {
+      // if (arduino.access == null) {
         if (arduino.status == 'closed') {
           print('Lock has been closed');
+          setState(() {
+            _lockStatusOpen = false;
+          });
         }
         if (arduino.status == 'opened') {
           print('Lock has been opened');
+          setState(() {
+            _lockStatusOpen = true;
+          });
         }
-      }
+        if (arduino.status == 'Added') {
+          print('matricule has been added');
+        }
+        if (arduino.status == 'cleared') {
+          print('matricule has been Cleared');
+          setState(() {
+            _lockCleared = true;
+          });
+        }
+      //}
     };
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    //_subscription?.cancel();
-    //bluetoothService.disconnect();
-    _timer?.cancel();
-  }
 
   String title = '';
-  bool _bluetoothSteps = false; // true
+  bool _bluetoothSteps = true; // true
   bool _unlockSteps = false; // false
-  bool _ride_stats = true; // false
-  bool _blackscreen = false; // true // hide it when we start ride false
+  bool _ride_stats = false; // false
+  bool _blackscreen = true; // true // hide it when we start ride false
 
   int _countdown = 10;
   Timer _timer;
@@ -196,9 +222,14 @@ class _UnlockState extends State<Unlock> {
     });
   }
 
-  // void hideDistance(){
-  //   MapScreenNew().distance_window=false;
-  // }
+
+    @override
+  void dispose() {
+    super.dispose();
+    //_subscription?.cancel();
+    //bluetoothService.disconnect();
+    _timer?.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {

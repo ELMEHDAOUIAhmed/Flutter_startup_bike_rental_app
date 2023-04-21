@@ -61,6 +61,11 @@ class BluetoothService {
       print('Connected to ${device.name}');
       listenForMessages();
 
+      //get matricule from DB
+
+      //send it
+      send('80 63 2B 32\n');
+
       // Listen for disconnection
       _inputSubscription?.onDone(() {
         print('Disconnected from ${device.name}');

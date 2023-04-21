@@ -230,7 +230,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
             distance_window = false;
           });
         }
-        if (_distanceInMeters > 15) { 
+        if (_distanceInMeters > 15) {
           setState(() {
             _notification_Visible = false;
             distance_window = true;
@@ -667,8 +667,14 @@ class _MapScreenNewState extends State<MapScreenNew> {
                 setState(() {
                   topPosition = 615;
                 });
+
+                //ERROR 
+                
                 //clear stack of screens == disable back button when starting a ride
-                Navigator.popUntil(context, ModalRoute.withName('/'));
+                //Navigator.popUntil(context, ModalRoute.withName('/map'));
+                //find another way to pop stack with out causing black screen
+
+
                 _determinePositionMoveCamera(id_int);
                 distance_window = true;
                 _menu_window = false;

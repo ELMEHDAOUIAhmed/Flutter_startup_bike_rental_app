@@ -10,6 +10,7 @@ import '/screens/onboarding_3.dart';
 import '/screens/payment_voucher.dart';
 import '/screens/payment.dart';
 import '/screens/my_wallet.dart';
+import '/tests/map_screen_new.dart';
 
 //https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -40,6 +41,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Payment());
       case '/wallet':
         return MaterialPageRoute(builder: (_) => Mywallet());
+      case '/map':
+        return MaterialPageRoute(builder: (_) => MapScreenNew());
 
         return _errorRoute();
       default:

@@ -87,7 +87,7 @@ class _NavBarState extends State<NavBar> {
                 ),
               ],
               currentIndex: _selectedIndex,
-              onTap: null,
+              onTap: _onItemTapped,
               // onTap: _onItemTapped,
             ),
           ),
