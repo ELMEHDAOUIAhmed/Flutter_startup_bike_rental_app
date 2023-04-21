@@ -41,20 +41,10 @@ https://www.figma.com/file/SO2VnAVSZdmTCXAhR5YJZh/Untitled?node-id=0%3A1&t=1dRxv
 
 
 
+//ERROR 
 
+CTRL + F 
 
-  // //using Location Plugin 
-  // //user location
-  // Location location = new Location();
-  // LocationData _locationData;
+//ERROR 
 
-  // // create getLocation function
-
-  // Future<dynamic> getLocation()async{
-  //   await location.requestService();
-  //   _locationData = await location.getLocation();
-  //   return _locationData;
-  // }
-
-//// ignore: avoid_print
-// getLocation().then((value) => print(value) ); // value hold lat & long of user
+to find code you need to fix
