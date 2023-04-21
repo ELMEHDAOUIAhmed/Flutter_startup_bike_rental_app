@@ -12,8 +12,6 @@ class _NavBarState extends State<NavBar> {
   List<double> _iconScales = [1.5, 1.0, 1.0];
 
   void _onItemTapped(int index) {
-    // after we disable tap
-    // nav bar in this case it used for better UX 
     setState(() {
       _selectedIndex = index;
       _iconScales = [1.0, 1.0, 1.0];
@@ -24,7 +22,8 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     double baseWidth = 414.0024414062;
-    double fem = MediaQuery.of(context).size.width / baseWidth; // fetch phone screen size
+    double fem = MediaQuery.of(context).size.width /
+        baseWidth; // fetch phone screen size
     double ffem = fem * 0.97;
     return Container(
       // add shadow after
@@ -49,7 +48,7 @@ class _NavBarState extends State<NavBar> {
                     scale: _iconScales[
                         0], // set the scale value based on the selected state
                     child: Image.asset(
-                          _selectedIndex == 0
+                      _selectedIndex == 0
                           ? 'assets/page-1/images/location_selected.png'
                           : 'assets/page-1/images/location_not_selected.png',
                       width: 38,

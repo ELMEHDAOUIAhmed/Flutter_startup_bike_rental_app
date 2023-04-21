@@ -9,6 +9,7 @@ import '/components/my_button.dart';
 import '/helpers/arduino.dart';
 import '/tests/map_screen_new.dart';
 import '/models/db.dart';
+import '/widgets/nav_bar.dart';
 
 //add wait before you close Connected to HC-05
 
@@ -18,7 +19,6 @@ class Unlock extends StatefulWidget {
 }
 
 class _UnlockState extends State<Unlock> {
-
 
   int _attempts = 0;
   String unlock = 'Put your Student\n Id Card\nclose to the lock';
@@ -31,7 +31,7 @@ class _UnlockState extends State<Unlock> {
     //startScanning(pin);
     //already handeled
     setState(() {
-      _unlockSteps=true;
+      _unlockSteps = true;
     });
     //send status msg to bluetooth , handle msg and its need to be  "open"
     _status();
@@ -44,7 +44,7 @@ class _UnlockState extends State<Unlock> {
 
     if (_ride_stats) {
       setState(() {
-        _ride_stats=false;
+        _ride_stats = false;
       });
       stopTimer();
       Duration elapsedTime = _stopwatch.elapsed;
@@ -85,12 +85,12 @@ class _UnlockState extends State<Unlock> {
   int pin = 1234;
   String bt = 'Loading ...';
 
-  void _sendMatricule() async{
+  void _sendMatricule() async {
     String matricule = await getMatricule();
     bluetoothService.send(matricule);
   }
 
-  void _clear() async{
+  void _clear() async {
     bluetoothService.send('clear');
   }
 
@@ -114,7 +114,7 @@ class _UnlockState extends State<Unlock> {
 
   void startScanning(int pin) {
     Timer.periodic(Duration(seconds: 10), (timer) {
-       _checkBluetoothStatus();
+      _checkBluetoothStatus();
       bluetoothService.startScan(pin);
     });
   }
@@ -138,7 +138,7 @@ class _UnlockState extends State<Unlock> {
       }
       if (arduino.access == 'Access denied') {
         ++_attempts;
-        if (_attempts ==2) {
+        if (_attempts == 2) {
           print('Error Use your own student id card!');
           setState(() {
             unlock = 'Access denied!\nuse your Student\n Id Card';
@@ -147,8 +147,8 @@ class _UnlockState extends State<Unlock> {
         if (_attempts > 2) {
           setState(() {
             unlock = 'Put your Student\n Id Card\nclose to the lock';
-            _attempts=0;
-          });  
+            _attempts = 0;
+          });
         }
       }
       if (arduino.access == null) {
@@ -171,10 +171,10 @@ class _UnlockState extends State<Unlock> {
   }
 
   String title = '';
-  bool _bluetoothSteps = true; // true
+  bool _bluetoothSteps = false; // true
   bool _unlockSteps = false; // false
-  bool _ride_stats = false; // false
-  bool _blackscreen = true; // true // hide it when we start ride false
+  bool _ride_stats = true; // false
+  bool _blackscreen = false; // true // hide it when we start ride false
 
   int _countdown = 10;
   Timer _timer;

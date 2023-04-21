@@ -230,7 +230,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
             distance_window = false;
           });
         }
-        if (_distanceInMeters > 5000) { // was 15
+        if (_distanceInMeters > 15) { 
           setState(() {
             _notification_Visible = false;
             distance_window = true;
