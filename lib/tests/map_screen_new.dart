@@ -75,7 +75,8 @@ class _MapScreenNewState extends State<MapScreenNew> {
   }
 
 //Polygons & Functions
-//USTHB
+//USTHB 
+//Leave it const
   List<LatLng> polygonPoints = const [ 
     LatLng(36.714482, 3.189251),
     LatLng(36.712855, 3.187641),
