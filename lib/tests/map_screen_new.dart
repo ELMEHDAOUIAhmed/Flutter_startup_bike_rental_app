@@ -6,11 +6,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/screens/profile_menu.dart';
-
 import './buttons.dart';
 import './nav_bar_new.dart';
 import 'dart:async';
 import 'package:myapp/widgets/unlock_notification.dart';
+import 'package:maps_toolkit/maps_toolkit.dart' as map_tool;
 
 class MapScreenNew extends StatefulWidget {
   @override
@@ -21,13 +21,21 @@ class _MapScreenNewState extends State<MapScreenNew> {
   //gps postion
   double topPosition = 559;
   bool _gps = true;
-
   static double _distanceInMeters = 0.0;
   bool distance_window = false;
   bool _menu_window = true;
   String id;
   int id_int;
   String userDestStation = '';
+  Position _dest, _userDest;
+  String _selectedStationName;
+  bool _ride_Visible = true;
+  bool _nav_bar_Visible = false;
+  bool _notification_Visible = false;
+  String _selectedMarkerId = '';
+  GoogleMapController _googleMapController;
+  Marker _user;
+  int stock = 10; // the initial stock value retreive this from DB
 
   //Starting location
   static const _initialCameraPosition = CameraPosition(
@@ -35,19 +43,10 @@ class _MapScreenNewState extends State<MapScreenNew> {
     zoom: 14.5,
   );
 
-  GoogleMapController _googleMapController;
-  Marker _user;
-
   Position positionuser = Position(
     latitude: 0.0,
     longitude: 0.0,
   );
-  Position _dest, _userDest;
-  String _selectedStationName;
-  bool _ride_Visible = true;
-  bool _nav_bar_Visible = false;
-  bool _notification_Visible = false;
-  String _selectedMarkerId = '';
 
   void _stationNotSelected() {
     showDialog(
@@ -75,6 +74,44 @@ class _MapScreenNewState extends State<MapScreenNew> {
     );
   }
 
+//Polygons & Functions
+//USTHB
+  List<LatLng> polygonPoints = const [ 
+    LatLng(36.714482, 3.189251),
+    LatLng(36.712855, 3.187641),
+    LatLng(36.711687, 3.188853),
+    LatLng(36.705791, 3.177370),
+    LatLng(36.708044, 3.173349),
+    LatLng(36.709850, 3.171937),
+    LatLng(36.712574, 3.173075),
+    LatLng(36.718905, 3.181284),
+    LatLng(36.716142, 3.186227),
+    LatLng(36.714526, 3.189002),
+  ];
+
+//Add more stations and make test in the function  _determinePositionMoveCamera();
+
+  bool isInUSTHBArea;
+
+
+
+  void CheckUpdatedLocation(Position Position) {
+    //convert position into LatLng
+    LatLng pointLatLng = LatLng(Position.latitude, Position.longitude);
+
+    List <map_tool.LatLng>convertedPolygonPoints = polygonPoints
+        .map((point) => map_tool.LatLng(point.latitude, point.longitude))
+        .toList();
+    setState(() {
+      isInUSTHBArea = map_tool.PolygonUtil.containsLocation(
+          map_tool.LatLng(pointLatLng.latitude, pointLatLng.longitude),
+          convertedPolygonPoints,
+          false);
+    });
+  }
+  LatLng userLocation;
+
+// Markers & Functions
   List<Marker> markers = [
     Marker(
       markerId: MarkerId('1'),
@@ -132,8 +169,6 @@ class _MapScreenNewState extends State<MapScreenNew> {
     ),
   ];
 
-  int stock = 10; // the initial stock value retreive this from DB
-
   Marker updateMarkerStock(int index, int stock) {
     Marker marker = markers[index];
     return Marker(
@@ -173,6 +208,19 @@ class _MapScreenNewState extends State<MapScreenNew> {
     });
   }
 
+  BitmapDescriptor userIcon = BitmapDescriptor.defaultMarker;
+
+  void setCustomMarkerIcon() {
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(size: Size(200, 200)),
+            'assets/icons/google_icon.png')
+        .then(
+      (icon) {
+        userIcon = icon;
+      },
+    );
+  }
+
   // ONE TIME CALLS
 
   Future<Position> _determinePosition() async {
@@ -193,7 +241,6 @@ class _MapScreenNewState extends State<MapScreenNew> {
 
   // Only start executing this when the user has started his ride
   //Every 20 sec send http request of this information
-  //add stop listening for gps after user finishes ride
 
   StreamSubscription<Position> _positionStreamSubscription;
   final LocationSettings locationSettings = LocationSettings(
@@ -209,7 +256,11 @@ class _MapScreenNewState extends State<MapScreenNew> {
         setState(() {
           positionuser = position;
         });
-        //send positionuser via http in 20sec intervals
+
+        CheckUpdatedLocation(positionuser);
+        print('Is the USER INSIDE USTHB ? :$isInUSTHBArea');
+
+        //start sending positionuser via http in 20sec intervals
 
         // move camera to new position here
         _googleMapController.animateCamera(CameraUpdate.newCameraPosition(
@@ -244,19 +295,6 @@ class _MapScreenNewState extends State<MapScreenNew> {
 
   void _stopTracking() {
     _positionStreamSubscription?.cancel();
-  }
-
-  BitmapDescriptor userIcon = BitmapDescriptor.defaultMarker;
-
-  void setCustomMarkerIcon() {
-    BitmapDescriptor.fromAssetImage(
-            const ImageConfiguration(size: Size(200, 200)),
-            'assets/icons/google_icon.png')
-        .then(
-      (icon) {
-        userIcon = icon;
-      },
-    );
   }
 
   Future<double> calculateDistanceInMeters(
@@ -319,7 +357,15 @@ class _MapScreenNewState extends State<MapScreenNew> {
                 ),
                 ...Set.from(markers)
               },
-              onCameraMove: (position) {}),
+              onCameraMove: (position) {},
+              polygons: {
+                Polygon(
+                  polygonId: PolygonId('USTHB'),
+                  points: polygonPoints,
+                  fillColor: Color(0xFF006491).withOpacity(0.2),
+                  strokeWidth: 1,
+                ),
+              }),
 
           Visibility(
             visible: _ride_Visible,
@@ -668,12 +714,11 @@ class _MapScreenNewState extends State<MapScreenNew> {
                   topPosition = 615;
                 });
 
-                //ERROR 
-                
+                //ERROR
+
                 //clear stack of screens == disable back button when starting a ride
                 //Navigator.popUntil(context, ModalRoute.withName('/map'));
                 //find another way to pop stack with out causing black screen
-
 
                 _determinePositionMoveCamera(id_int);
                 distance_window = true;
