@@ -90,9 +90,10 @@ class _MapScreenNewState extends State<MapScreenNew> {
   ];
 
 //Add more stations and make test in the function  _determinePositionMoveCamera();
+// add function call back to listen to isInUSTHBArea changes , so when its true 
+// we can allow user to close lock in unlock_notification.dart;
 
   bool isInUSTHBArea;
-
 
 
   void CheckUpdatedLocation(Position Position) {
