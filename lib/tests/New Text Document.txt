@@ -33,7 +33,7 @@ class ProfileMenu extends StatelessWidget {
     double ffem = fem * 0.97;
     return Scaffold(
       body: SizedBox(
-        width: double.infinity,
+        width: 320 * fem,
         child: Container(
           // profilemenuKbj (6:585)
           width: double.infinity,
@@ -67,23 +67,27 @@ class ProfileMenu extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      TextButton(
-                        // image42DqX (6:661)
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Profile_welcome()));
-                        },
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                        ),
-                        child: Container(
-                          width: 139 * fem,
-                          height: 139 * fem,
-                          child: Image.asset(
-                            'assets/page-1/images/profile.png',
-                            fit: BoxFit.cover,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(
+                            45 * fem, 10 * fem, 150 * fem, 0 * fem),
+                        child: TextButton(
+                          // image42DqX (6:661)
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Profile_welcome()));
+                          },
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Container(
+                            width: 109 * fem,
+                            height: 109 * fem,
+                            child: Image.asset(
+                              'assets/page-1/images/profile.png',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
@@ -93,10 +97,10 @@ class ProfileMenu extends StatelessWidget {
                           Container(
                             // lucassimes8Sh (6:615)
                             margin: EdgeInsets.fromLTRB(
-                                1 * fem, 0 * fem, 0 * fem, 0 * fem),
+                                45 * fem, 10 * fem, 150 * fem, 0 * fem),
                             child: Text(
-                              //modify after to show username not email
-                              '',
+                              //modify after to show username 
+                              'Ahmed',
                               textAlign: TextAlign.center,
                               style: SafeGoogleFont(
                                 'Montserrat',
@@ -179,7 +183,7 @@ class ProfileMenu extends StatelessWidget {
                             ),
                             Positioned(
                               // DeV (6:631)
-                              left: 255.1999511719 * fem,
+                              left: 165 * fem,
                               top: 0 * fem,
                               child: Align(
                                 child: SizedBox(

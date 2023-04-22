@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/utils.dart';
-import 'package:myapp/route_generator.dart';
 
 class OnboardingWidget extends StatelessWidget {
   final String firstImage;

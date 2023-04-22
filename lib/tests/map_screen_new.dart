@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/screens/promotion.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/screens/profile_menu.dart';
-import './buttons.dart';
 import './nav_bar_new.dart';
 import 'dart:async';
 import 'package:myapp/widgets/unlock_notification.dart';
 import 'package:maps_toolkit/maps_toolkit.dart' as map_tool;
+
+
 
 class MapScreenNew extends StatefulWidget {
   @override
@@ -43,6 +42,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
     zoom: 14.5,
   );
 
+  //initialize user location to avoid null value in widgets
   Position positionuser = Position(
     latitude: 0.0,
     longitude: 0.0,
@@ -75,9 +75,9 @@ class _MapScreenNewState extends State<MapScreenNew> {
   }
 
 //Polygons & Functions
-//USTHB 
+//USTHB
 //Leave it const
-  List<LatLng> polygonPoints = const [ 
+  List<LatLng> polygonPoints = const [
     LatLng(36.714482, 3.189251),
     LatLng(36.712855, 3.187641),
     LatLng(36.711687, 3.188853),
@@ -91,17 +91,16 @@ class _MapScreenNewState extends State<MapScreenNew> {
   ];
 
 //Add more stations and make test in the function  _determinePositionMoveCamera();
-// add function call back to listen to isInUSTHBArea changes , so when its true 
+// add function call back to listen to isInUSTHBArea changes , so when its true
 // we can allow user to close lock in unlock_notification.dart;
 
   bool isInUSTHBArea;
-
 
   void CheckUpdatedLocation(Position Position) {
     //convert position into LatLng
     LatLng pointLatLng = LatLng(Position.latitude, Position.longitude);
 
-    List <map_tool.LatLng>convertedPolygonPoints = polygonPoints
+    List<map_tool.LatLng> convertedPolygonPoints = polygonPoints
         .map((point) => map_tool.LatLng(point.latitude, point.longitude))
         .toList();
     setState(() {
@@ -111,6 +110,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
           false);
     });
   }
+
   LatLng userLocation;
 
 // Markers & Functions
@@ -362,7 +362,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
               onCameraMove: (position) {},
               polygons: {
                 Polygon(
-                  polygonId: PolygonId('USTHB'),
+                  polygonId: PolygonId('usthb'),
                   points: polygonPoints,
                   fillColor: Color(0xFF006491).withOpacity(0.2),
                   strokeWidth: 1,

@@ -14,9 +14,9 @@ class Profile_welcome extends StatelessWidget {
     double baseWidth = 414.0024414062;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    return Container(
-      width: double.infinity,
-      child: Container(
+    return Scaffold(
+      //width: double.infinity,
+      body: Container(
         // welcomeQYu (1:1265)
         padding:
             EdgeInsets.fromLTRB(19.5 * fem, 45.5 * fem, 24.5 * fem, 40 * fem),

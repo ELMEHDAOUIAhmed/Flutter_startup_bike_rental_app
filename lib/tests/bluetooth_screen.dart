@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import './BT_new.dart';
+import '/helpers/bluetooth.dart';
 
 class Bluetooth extends StatefulWidget {
   const Bluetooth({Key key}) : super(key: key);

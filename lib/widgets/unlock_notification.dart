@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:myapp/utils.dart';
-import '/tests/BT_new.dart';
+import '../tests/map_screen_new.dart';
+import '/helpers/bluetooth.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import '/components/my_button.dart';
 import '/helpers/arduino.dart';
 import '/models/db.dart';
 
-//add wait before you close Connected to HC-05
 
 class Unlock extends StatefulWidget {
   @override
@@ -23,7 +23,6 @@ class _UnlockState extends State<Unlock> {
   //check if lock is open before trying to close it ,
 
   void endRideAPI() {
-
     setState(() {
       _unlockSteps = true;
       _ride_stats = false;
@@ -35,41 +34,40 @@ class _UnlockState extends State<Unlock> {
       setState(() {
         unlock = 'Put Bike into Station\nClose the lock!';
       });
-      
-      //do more tests before hiding and stopping 
-     _status(); //check if lock is closed
-    if (!_lockStatusOpen)
-    {
-      setState(() {
-        _unlockSteps = false;
-        _blackscreen = false;
-      });
-      stopTimer();
-      Duration elapsedTime = _stopwatch.elapsed;
-      print(elapsedTime);
-      DateTime now = DateTime.now();
-      print(now);
 
-      // Do something with elapsedTime and now
-      _stopwatch.reset();
+      //do more tests before hiding and stopping
+      _status(); //check if lock is closed
+      if (!_lockStatusOpen) {
+        setState(() {
+          _unlockSteps = false;
+          _blackscreen = false;
+        });
+        stopTimer();
+        Duration elapsedTime = _stopwatch.elapsed;
+        print(elapsedTime);
+        DateTime now = DateTime.now();
+        print(now);
 
-      // calculate price => deduct from user wallet => send http request
+        // Do something with elapsedTime and now
+        _stopwatch.reset();
 
-      _clear();
-      if (_lockCleared) {
-        // issue its not going inside the check
-        bluetoothService.disconnect();
-        //Navigator.of(context).pop();
-        // Navigate to the map screen
-        Navigator.pushNamedAndRemoveUntil(context, '/map', (route) => false);
+        // calculate price => deduct from user wallet => send http request
+
+        _clear();
+        if (_lockCleared) {
+          // issue its not going inside the check
+          bluetoothService.disconnect();
+          //Navigator.of(context).pop();
+          // Navigate to the map screen
+          Navigator.pushNamedAndRemoveUntil(context, '/map', (route) => false);
+        }
       }
-    }
     } else {
       setState(() {
         unlock = 'Open the lock!\nbefore trying to close it';
-      _unlockSteps = false;
-      _ride_stats = true;
-      _blackscreen = false;
+        _unlockSteps = false;
+        _ride_stats = true;
+        _blackscreen = false;
       });
     }
   }
@@ -97,6 +95,8 @@ class _UnlockState extends State<Unlock> {
   }
 
   final BluetoothService bluetoothService = BluetoothService();
+  final MapScreenNew mapService = MapScreenNew();
+
   StreamSubscription<String> _subscription;
   String _message = '';
   String bluetoothStatus = 'NOT CONNECTED';
@@ -170,31 +170,30 @@ class _UnlockState extends State<Unlock> {
         }
       }
       // if (arduino.access == null) {
-        if (arduino.status == 'closed') {
-          print('Lock has been closed');
-          setState(() {
-            _lockStatusOpen = false;
-          });
-        }
-        if (arduino.status == 'opened') {
-          print('Lock has been opened');
-          setState(() {
-            _lockStatusOpen = true;
-          });
-        }
-        if (arduino.status == 'Added') {
-          print('matricule has been added');
-        }
-        if (arduino.status == 'cleared') {
-          print('matricule has been Cleared');
-          setState(() {
-            _lockCleared = true;
-          });
-        }
+      if (arduino.status == 'closed') {
+        print('Lock has been closed');
+        setState(() {
+          _lockStatusOpen = false;
+        });
+      }
+      if (arduino.status == 'opened') {
+        print('Lock has been opened');
+        setState(() {
+          _lockStatusOpen = true;
+        });
+      }
+      if (arduino.status == 'Added') {
+        print('matricule has been added');
+      }
+      if (arduino.status == 'cleared') {
+        print('matricule has been Cleared');
+        setState(() {
+          _lockCleared = true;
+        });
+      }
       //}
     };
   }
-
 
   String title = '';
   bool _bluetoothSteps = true; // true
@@ -222,8 +221,7 @@ class _UnlockState extends State<Unlock> {
     });
   }
 
-
-    @override
+  @override
   void dispose() {
     super.dispose();
     //_subscription?.cancel();

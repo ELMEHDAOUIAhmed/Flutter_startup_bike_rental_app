@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter/gestures.dart';
-// import 'dart:ui';
-// import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/utils.dart';
 import './profile_welcome.dart';
-
 import 'package:myapp/components/my_button.dart';
 
 class Mystatistics extends StatelessWidget {
