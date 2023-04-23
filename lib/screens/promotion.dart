@@ -27,7 +27,7 @@ class Promotion extends StatelessWidget {
               left: 0*fem,
               top: 0*fem,
               child: Container(
-                padding: EdgeInsets.fromLTRB(32*fem, 64*fem, 32*fem, 64*fem),
+                padding: EdgeInsets.fromLTRB(32*fem, 64*fem, 32*fem, 164*fem),
                 width: 414*fem,
                 height: 255*fem,
                 decoration: const BoxDecoration (

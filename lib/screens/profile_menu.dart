@@ -67,6 +67,7 @@ class ProfileMenu extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Divider(),
                       TextButton(
                         // image42DqX (6:661)
                         onPressed: () {
@@ -79,8 +80,8 @@ class ProfileMenu extends StatelessWidget {
                           padding: EdgeInsets.zero,
                         ),
                         child: Container(
-                          width: 139 * fem,
-                          height: 139 * fem,
+                          width: 120 * fem,
+                          height: 120 * fem,
                           child: Image.asset(
                             'assets/page-1/images/profile.png',
                             fit: BoxFit.cover,

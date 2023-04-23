@@ -94,13 +94,13 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Bike Rental App',
       debugShowCheckedModeBanner: false,
-      scrollBehavior: MyCustomScrollBehavior(),
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      //scrollBehavior: MyCustomScrollBehavior(),
+      // theme: ThemeData(
+      //   primarySwatch: Colors.blue,
+      // ),
 
       initialRoute: '/auth',
       onGenerateRoute: RouteGenerator.generateRoute,

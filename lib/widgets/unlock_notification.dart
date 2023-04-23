@@ -239,8 +239,8 @@ class _UnlockState extends State<Unlock> {
       Visibility(
         visible: _blackscreen,
         child: Container(
-          // width: double.infinity,
-          // height: double.infinity,
+          width: double.infinity,
+          height: double.infinity,
           color: Color.fromRGBO(0, 0, 0, 0.5),
         ),
       ),
