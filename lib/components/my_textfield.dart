@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myapp/utils.dart';
 
-class MyTextField extends StatelessWidget {
+class MyTextField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
   final String labelText;
   final Color backgroundColor;
   final String mode;
+  final bool showPassword; // added showPassword boolean parameter
 
   MyTextField({
     Key key,
@@ -17,8 +18,22 @@ class MyTextField extends StatelessWidget {
     @required this.hintText,
     @required this.obscureText,
     this.mode,
+    this.showPassword = false, // default value is false
     this.backgroundColor = Colors.white,
   }) : super(key: key);
+
+  @override
+  _MyTextFieldState createState() => _MyTextFieldState();
+}
+
+class _MyTextFieldState extends State<MyTextField> {
+  bool _obscureText;
+
+  @override
+  void initState() {
+    _obscureText = widget.obscureText;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +45,7 @@ class MyTextField extends StatelessWidget {
       child: Container(
         width: 350 * fem,
         height: 80 * fem,
-        color: backgroundColor,
+        color: widget.backgroundColor,
         child: Container(
           margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 24 * fem, 14 * fem),
           width: 326 * fem,
@@ -40,19 +55,32 @@ class MyTextField extends StatelessWidget {
             width: 264 * fem,
             height: double.infinity,
             child: TextField(
-              controller: controller,
-              obscureText: obscureText,
+              controller: widget.controller,
+              obscureText: _obscureText,
               keyboardType:
-                  mode == 'number' ? TextInputType.number : TextInputType.text,
-              inputFormatters: mode == 'text'
+                  widget.mode == 'number' ? TextInputType.number : TextInputType.text,
+              inputFormatters: widget.mode == 'text'
                   ? <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(12),
                     ]
                   : null,
               decoration: InputDecoration(
-                labelText: labelText,
-                hintText: hintText,
+                labelText: widget.labelText,
+                hintText: widget.hintText,
+                suffixIcon: widget.obscureText // added suffixIcon widget
+                    ? IconButton(
+                        icon: Icon(
+                          _obscureText ? Icons.visibility : Icons.visibility_off,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+                      )
+                    : null,
               ),
               style: SafeGoogleFont(
                 'Montserrat',

@@ -24,6 +24,15 @@ class _SignupState extends State<Signup> {
   final matriculeController = TextEditingController();
   final confirmpasswordController = TextEditingController();
 
+  // create a FocusNode instance
+  final FocusNode _matriculeFocusNode = FocusNode();
+  final FocusNode _lastnameFocusNode = FocusNode();
+  final FocusNode _firstnameFocusNode = FocusNode();
+  final FocusNode _usernameFocusNode = FocusNode();
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+  final FocusNode _confirmpasswordFocusNode = FocusNode();
+
   // sign user up method
   void signUserUpAPI() async {
     // show loading circle
@@ -161,6 +170,11 @@ class _SignupState extends State<Signup> {
         },
       );
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -359,9 +373,13 @@ class _SignupState extends State<Signup> {
                             ),
                           ),
                         ),
-                        MyButton(
-                          text: 'Sign Up',
-                          onTap: signUserUpAPI,
+                        Container(
+                          padding: EdgeInsets.fromLTRB(
+                              0 * fem, 0 * fem, 0 * fem, 350 * fem),
+                          child: MyButton(
+                            text: 'Sign Up',
+                            onTap: signUserUpAPI,
+                          ),
                         ),
                       ],
                     ),

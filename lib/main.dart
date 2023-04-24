@@ -94,7 +94,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Bike Rental App',
       debugShowCheckedModeBanner: false,
       //scrollBehavior: MyCustomScrollBehavior(),
@@ -102,14 +102,14 @@ class MyApp extends StatelessWidget {
       //   primarySwatch: Colors.blue,
       // ),
 
-      initialRoute: '/auth',
-      onGenerateRoute: RouteGenerator.generateRoute,
+      // initialRoute: '/auth',
+      // onGenerateRoute: RouteGenerator.generateRoute,
 
 
       // ***IMPORTANT REMOVE BEFORE FINAL VERSION*** //
 
       // ***FOR TESTING ONLY***//
-      //home: ProfileMenu(),
+      home: Signup(),
     );
   }
 }
