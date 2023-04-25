@@ -23,26 +23,41 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const AuthScreen());
       case '/':
         return MaterialPageRoute(builder: (_) => StartingPage());
-      case '/login':
-        return MaterialPageRoute(builder: (_) => Login());
-      case '/profilewelcome':
-        return MaterialPageRoute(builder: (_) => Profile_welcome());
-      case '/profilemenu':
-        return MaterialPageRoute(builder: (_) => ProfileMenu());
       case '/onboarding':
         return MaterialPageRoute(builder: (_) => const Onboarding());
       case '/onboarding_two':
         return MaterialPageRoute(builder: (_) => const OnboardingTwo());
       case '/onboarding_three':
         return MaterialPageRoute(builder: (_) => const OnboardingThree());
+      case '/login':
+        return MaterialPageRoute(builder: (_) => Login());
+      case '/signup':
+        return MaterialPageRoute(builder: (_) => MapScreenNew());
+      case '/profilewelcome':
+        return MaterialPageRoute(builder: (_) => Profile_welcome());
+      case '/profilemenu':
+        return MaterialPageRoute(builder: (_) => ProfileMenu());
       case '/voucher':
         return MaterialPageRoute(builder: (_) => PaymentVoucher());
       case '/payment':
         return MaterialPageRoute(builder: (_) => Payment());
       case '/wallet':
         return MaterialPageRoute(builder: (_) => Mywallet());
+      case '/promotion':
+        return MaterialPageRoute(builder: (_) => MapScreenNew());
+      case '/ride_history':
+        return MaterialPageRoute(builder: (_) => MapScreenNew());
+      case '/settings':
+        return MaterialPageRoute(builder: (_) => MapScreenNew());
+      case '/support_request':
+        return MaterialPageRoute(builder: (_) => MapScreenNew());
+      case '/support':
+        return MaterialPageRoute(builder: (_) => MapScreenNew());
+      case '/verification':
+        return MaterialPageRoute(builder: (_) => MapScreenNew());
       case '/map':
         return MaterialPageRoute(builder: (_) => MapScreenNew());
+
 
         return _errorRoute();
       default:
