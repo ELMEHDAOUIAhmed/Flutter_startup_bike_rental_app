@@ -22,6 +22,48 @@ class _UnlockState extends State<Unlock> {
 
   bool _lockStatusOpen = false;
   bool _lockCleared = false;
+
+  void _confirmCancelRide() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(48),
+          ),
+          title: Row(
+            children: const [
+              Icon(Icons.notification_important, color: Colors.yellow),
+              SizedBox(width: 8.0),
+              Flexible(
+                fit: FlexFit.loose,
+                child: Text('Alert!\nAre you sure you want to stop your Ride ?.',
+                    style: TextStyle(fontSize: 16.0)),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop();
+                //No
+              },
+              child: Text("NO"),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop();
+                endRideAPI();
+                //Yes
+              },
+              child: Text("YES"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   //check if lock is open before trying to close it ,
 
   void endRideAPI() {
@@ -36,34 +78,30 @@ class _UnlockState extends State<Unlock> {
       setState(() {
         unlock = 'Put Bike into Station\nClose the lock!';
       });
+      setState(() {
+        _unlockSteps = false;
+        _blackscreen = false;
+      });
+      stopTimer();
+      Duration elapsedTime = _stopwatch.elapsed;
+      print(elapsedTime);
+      DateTime now = DateTime.now();
+      print(now);
 
-      //do more tests before hiding and stopping
-      _status(); //check if lock is closed
-      if (!_lockStatusOpen) {
-        setState(() {
-          _unlockSteps = false;
-          _blackscreen = false;
-        });
-        stopTimer();
-        Duration elapsedTime = _stopwatch.elapsed;
-        print(elapsedTime);
-        DateTime now = DateTime.now();
-        print(now);
+      // Do something with elapsedTime and now
+      _stopwatch.reset();
 
-        // Do something with elapsedTime and now
-        _stopwatch.reset();
+      // calculate price => deduct from user wallet => send http request
 
-        // calculate price => deduct from user wallet => send http request
-
-        _clear();
-        if (_lockCleared) {
-          // issue its not going inside the check
-          bluetoothService.disconnect();
-          //Navigator.of(context).pop();
-          // Navigate to the map screen
-          Navigator.pushNamedAndRemoveUntil(context, '/map', (route) => false);
-        }
+      _clear();
+      if (_lockCleared) {
+        // issue its not going inside the check
+        bluetoothService.disconnect();
+        //Navigator.of(context).pop();
+        // Navigate to the map screen
+        Navigator.pushNamedAndRemoveUntil(context, '/map', (route) => false);
       }
+
     } else {
       setState(() {
         unlock = 'Open the lock!\nbefore trying to close it';
@@ -511,7 +549,7 @@ class _UnlockState extends State<Unlock> {
                 right: 100 * fem,
                 bottom: 160 * fem,
                 child: MyButton(
-                  onTap: endRideAPI,
+                  onTap: _confirmCancelRide,
                   text: 'End Ride!',
                 )),
           ],

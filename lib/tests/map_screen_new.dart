@@ -9,8 +9,6 @@ import 'dart:async';
 import 'package:myapp/widgets/unlock_notification.dart';
 import 'package:maps_toolkit/maps_toolkit.dart' as map_tool;
 
-
-
 class MapScreenNew extends StatefulWidget {
   @override
   State<MapScreenNew> createState() => _MapScreenNewState();

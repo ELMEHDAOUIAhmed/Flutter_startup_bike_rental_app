@@ -1,16 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter/gestures.dart';
-// import 'dart:ui';
-// import 'package:google_fonts/google_fonts.dart';
+
 import 'package:myapp/utils.dart';
 import './ride_history.dart';
 import 'profile_menu.dart';
-import '/tests/map_screen_new.dart';
+import 'package:intl/intl.dart';
+import '/providers/weather_api.dart';
 
-class Profile_welcome extends StatelessWidget {
+class Profile_welcome extends StatefulWidget {
+  @override
+  State<Profile_welcome> createState() => _Profile_welcomeState();
+}
+
+class _Profile_welcomeState extends State<Profile_welcome> {
+  
+  TextEditingController _temperatureController = TextEditingController();
+  TextEditingController _weatherConditionController = TextEditingController();
+
+  void _updateWeather(double lat, double lon) async {
+    final weatherData = await WeatherAPI.getWeather(lat, lon);
+    setState(() {
+      _temperatureController.text = weatherData.temperature.toString();
+      _weatherConditionController.text = weatherData.weatherCondition;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _updateWeather(36.711903, 3.180181);
+  }
+
   @override
   Widget build(BuildContext context) {
+    //Retreive and formate Date
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('d MMMM, EEEE').format(now);
+
     double baseWidth = 414.0024414062;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -142,7 +168,7 @@ class Profile_welcome extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: '',
+                            text: 'Ahmed',
                             style: SafeGoogleFont(
                               'Montserrat',
                               fontSize: 40 * ffem,
@@ -239,7 +265,7 @@ class Profile_welcome extends StatelessWidget {
                                       margin: EdgeInsets.fromLTRB(
                                           0 * fem, 0 * fem, 12 * fem, 0 * fem),
                                       child: Text(
-                                        '8º',
+                                        _temperatureController.text,
                                         textAlign: TextAlign.center,
                                         style: SafeGoogleFont(
                                           'Montserrat',
@@ -256,7 +282,7 @@ class Profile_welcome extends StatelessWidget {
                                       margin: EdgeInsets.fromLTRB(
                                           0 * fem, 0 * fem, 0 * fem, 3 * fem),
                                       child: Text(
-                                        'Cloudly',
+                                        _weatherConditionController.text,
                                         textAlign: TextAlign.center,
                                         style: SafeGoogleFont(
                                           'Montserrat',
@@ -273,7 +299,7 @@ class Profile_welcome extends StatelessWidget {
                               ),
                               Text(
                                 // marbelladr4Rj (1:1280)
-                                'Tixeraine Alger',
+                                'Bab Ezzouar Alger',
                                 style: SafeGoogleFont(
                                   'Montserrat',
                                   fontSize: 18 * ffem,
@@ -306,7 +332,7 @@ class Profile_welcome extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        '5 February, Sunday',
+                        formattedDate,
                         textAlign: TextAlign.center,
                         style: SafeGoogleFont(
                           'Montserrat',
@@ -382,7 +408,7 @@ class Profile_welcome extends StatelessWidget {
                   Container(
                     // distanceZ33 (1:1270)
                     margin: EdgeInsets.fromLTRB(
-                        0 * fem, 0 * fem, 84 * fem, 0 * fem),
+                        0 * fem, 50 * fem, 84 * fem, 0 * fem),
                     child: TextButton(
                       onPressed: () {
                         Navigator.of(context).pushNamed('/map');
