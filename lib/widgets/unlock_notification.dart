@@ -8,6 +8,8 @@ import '/components/my_button.dart';
 import '/helpers/arduino.dart';
 import '/models/db.dart';
 
+//you have switched between closed and open status becareful
+// error _unlockSteps not showing
 
 class Unlock extends StatefulWidget {
   @override
