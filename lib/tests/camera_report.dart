@@ -60,21 +60,39 @@ class _CameraReportState extends State<CameraReport> {
 
     // Show camera preview if photo not yet captured
     return Container(
-      margin: EdgeInsets.fromLTRB(50 * fem, 80 * fem, 50 * fem, 80 * fem),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: _cameraController != null
-            ? CameraPreview(_cameraController)
-            : Container(color: Colors.black),
-            
-        floatingActionButton: FloatingActionButton(
-          onPressed: takePicture,
-          backgroundColor: Colors.white
-              .withOpacity(1), // Make button semi-transparent white
-          child: Icon(Icons.camera_outlined, size: 55.0,
-              color: Colors.black), // Set icon color to black
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      margin: EdgeInsets.fromLTRB(25 * fem, 120 * fem, 25 * fem, 120 * fem),
+      child: Stack(
+        children: [
+          _cameraController != null
+              ? SizedBox.expand(
+                  child: AspectRatio(
+                    aspectRatio: _cameraController.value.aspectRatio,
+                    child: CameraPreview(_cameraController),
+                  ),
+                )
+              : Container(color: Colors.black),
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 50),
+                child: ElevatedButton(
+                  onPressed: takePicture,
+                  style: ElevatedButton.styleFrom(
+                    shape: CircleBorder(),
+                    padding: EdgeInsets.all(5),
+                    primary: Colors.white.withOpacity(0.8),
+                  ),
+                  child: Icon(
+                    Icons.camera_outlined,
+                    size: 55.0,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
