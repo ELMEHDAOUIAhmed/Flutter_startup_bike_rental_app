@@ -13,22 +13,30 @@ class Profile_welcome extends StatefulWidget {
 }
 
 class _Profile_welcomeState extends State<Profile_welcome> {
-  
-  TextEditingController _temperatureController = TextEditingController();
-  TextEditingController _weatherConditionController = TextEditingController();
 
-  void _updateWeather(double lat, double lon) async {
-    final weatherData = await WeatherAPI.getWeather(lat, lon);
-    setState(() {
-      _temperatureController.text = weatherData.temperature.toString();
-      _weatherConditionController.text = weatherData.weatherCondition;
-    });
+
+  String _temperature = '';
+  String _condition = '';
+
+  Map<String, dynamic> _weatherData = {};
+
+  Future<void> _fetchData() async {
+    try {
+      final data = await fetchWeatherData();
+      setState(() {
+        _weatherData = data;
+        _temperature = _weatherData['current']['temp_c']?.toString() ?? "";
+        _condition = _weatherData['current']['condition']['text'] ?? "";
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    _updateWeather(36.711903, 3.180181);
+    _fetchData();
   }
 
   @override
@@ -227,7 +235,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                   Container(
                     // autogroupje7w7b3 (NErwvBjsLg6WZptEPyJE7w)
                     margin: EdgeInsets.fromLTRB(
-                        24 * fem, 0 * fem, 58 * fem, 18.95 * fem),
+                        10 * fem, 0 * fem, 10 * fem, 18.95 * fem),
                     width: double.infinity,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -239,7 +247,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                           width: 125.84 * fem,
                           height: 95.05 * fem,
                           child: Image.asset(
-                            'assets/page-1/images/cloudly.png',
+                            'assets/page-1/images/cloudly.png', // nchalh nchofo wash ndirolak
                             width: 125.84 * fem,
                             height: 95.05 * fem,
                           ),
@@ -248,14 +256,15 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                           // autogrouppjavU4D (NErx4rA6rQ5WGmCAQZPjaV)
                           margin: EdgeInsets.fromLTRB(
                               0 * fem, 0 * fem, 0 * fem, 3.05 * fem),
-                          width: 134 * fem,
+                          width: 193 *
+                              fem, // size of conrainer that holds temp and condition
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
                                 // autogroupztwvyFs (NErxC6T2YKbttgS3itzTWV)
                                 margin: EdgeInsets.fromLTRB(
-                                    6 * fem, 0 * fem, 14 * fem, 5 * fem),
+                                    0 * fem, 0 * fem, 15 * fem, 10 * fem),
                                 width: double.infinity,
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -265,7 +274,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                                       margin: EdgeInsets.fromLTRB(
                                           0 * fem, 0 * fem, 12 * fem, 0 * fem),
                                       child: Text(
-                                        _temperatureController.text,
+                                        _temperature.isNotEmpty ? '${_temperature}°C' : '',
                                         textAlign: TextAlign.center,
                                         style: SafeGoogleFont(
                                           'Montserrat',
@@ -282,7 +291,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                                       margin: EdgeInsets.fromLTRB(
                                           0 * fem, 0 * fem, 0 * fem, 3 * fem),
                                       child: Text(
-                                        _weatherConditionController.text,
+                                        _condition.isNotEmpty ? _condition : '',
                                         textAlign: TextAlign.center,
                                         style: SafeGoogleFont(
                                           'Montserrat',
