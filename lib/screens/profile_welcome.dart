@@ -13,7 +13,6 @@ class Profile_welcome extends StatefulWidget {
 }
 
 class _Profile_welcomeState extends State<Profile_welcome> {
-
   //https://rapidapi.com/studio
   String _temperature = '';
   String _condition = '';
@@ -274,7 +273,9 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                                       margin: EdgeInsets.fromLTRB(
                                           0 * fem, 0 * fem, 12 * fem, 0 * fem),
                                       child: Text(
-                                        _temperature.isNotEmpty ? '${_temperature}°C' : '',
+                                        _temperature.isNotEmpty
+                                            ? '${_temperature}°C'
+                                            : '',
                                         textAlign: TextAlign.center,
                                         style: SafeGoogleFont(
                                           'Montserrat',
@@ -306,16 +307,20 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                                   ],
                                 ),
                               ),
-                              Text(
-                                // marbelladr4Rj (1:1280)
-                                'Bab Ezzouar Alger',
-                                style: SafeGoogleFont(
-                                  'Montserrat',
-                                  fontSize: 18 * ffem,
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.2175 * ffem / fem,
-                                  color: Color(0xffffffff),
-                                  decoration: TextDecoration.none,
+                              Container(
+                                margin: EdgeInsets.fromLTRB(
+                                    0 * fem, 0 * fem, 35 * fem, 0 * fem), // 35 , 25 *fem
+                                child: Text(
+                                  // marbelladr4Rj (1:1280)
+                                  'Bab Ezzouar Alger',
+                                  style: SafeGoogleFont(
+                                    'Montserrat',
+                                    fontSize: 18 * ffem,
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.2175 * ffem / fem,
+                                    color: Color(0xffffffff),
+                                    decoration: TextDecoration.none,
+                                  ),
                                 ),
                               ),
                             ],

@@ -362,7 +362,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
                 Polygon(
                   polygonId: PolygonId('usthb'),
                   points: polygonPoints,
-                  fillColor: Color(0xFF006491).withOpacity(0.2),
+                  fillColor: Color(0xFF006491).withOpacity(0),
                   strokeWidth: 1,
                 ),
               }),

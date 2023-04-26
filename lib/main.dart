@@ -39,6 +39,7 @@ import 'screens/message.dart';
 import '/providers/auth_api.dart';
 import '/widgets/unlock_notification.dart';
 import '/screens/profile_menu.dart';
+import '/tests/camera_report.dart';
 
 
 //Important
@@ -102,14 +103,14 @@ class MyApp extends StatelessWidget {
       //   primarySwatch: Colors.blue,
       // ),
 
-      initialRoute: '/auth',
-      onGenerateRoute: RouteGenerator.generateRoute,
+      // initialRoute: '/auth',
+      // onGenerateRoute: RouteGenerator.generateRoute,
 
 
       // ***IMPORTANT REMOVE BEFORE FINAL VERSION*** //
 
       // ***FOR TESTING ONLY***//
-      // home: Signup(),
+      home: CameraReport(),
     );
   }
 }
