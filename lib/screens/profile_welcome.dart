@@ -275,7 +275,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                                       child: Text(
                                         _temperature.isNotEmpty
                                             ? '${_temperature}°C'
-                                            : '',
+                                            : 'unable to retrieve temperature',
                                         textAlign: TextAlign.center,
                                         style: SafeGoogleFont(
                                           'Montserrat',
@@ -292,7 +292,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                                       margin: EdgeInsets.fromLTRB(
                                           0 * fem, 0 * fem, 0 * fem, 3 * fem),
                                       child: Text(
-                                        _condition.isNotEmpty ? _condition : '',
+                                        _condition.isNotEmpty ? _condition : 'unable to retrieve temperature condition',
                                         textAlign: TextAlign.center,
                                         style: SafeGoogleFont(
                                           'Montserrat',

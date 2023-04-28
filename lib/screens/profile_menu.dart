@@ -19,6 +19,8 @@ import '/providers/user_api.dart';
 // future improvements combine every button into one widget and then instead of writing same code over and over
 // write once , just like my_button.dart
 
+String username;
+
 class ProfileMenu extends StatelessWidget {
   void signUserOutAPI() async {
     String token = await getToken();
@@ -97,7 +99,7 @@ class ProfileMenu extends StatelessWidget {
                                 1 * fem, 0 * fem, 0 * fem, 0 * fem),
                             child: Text(
                               //modify after to show username not email
-                              '',
+                              username.isNotEmpty ? username : '',
                               textAlign: TextAlign.center,
                               style: SafeGoogleFont(
                                 'Montserrat',
