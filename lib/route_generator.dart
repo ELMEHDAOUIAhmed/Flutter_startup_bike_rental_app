@@ -11,6 +11,7 @@ import '/screens/payment_voucher.dart';
 import '/screens/payment.dart';
 import '/screens/my_wallet.dart';
 import '/tests/map_screen_new.dart';
+import '/screens/signup.dart';
 
 //https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -32,7 +33,7 @@ class RouteGenerator {
       case '/login':
         return MaterialPageRoute(builder: (_) => Login());
       case '/signup':
-        return MaterialPageRoute(builder: (_) => MapScreenNew());
+        return MaterialPageRoute(builder: (_) => Signup());
       case '/profilewelcome':
         return MaterialPageRoute(builder: (_) => Profile_welcome());
       case '/profilemenu':
@@ -43,18 +44,18 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Payment());
       case '/wallet':
         return MaterialPageRoute(builder: (_) => Mywallet());
-      case '/promotion':
-        return MaterialPageRoute(builder: (_) => MapScreenNew());
-      case '/ride_history':
-        return MaterialPageRoute(builder: (_) => MapScreenNew());
-      case '/settings':
-        return MaterialPageRoute(builder: (_) => MapScreenNew());
-      case '/support_request':
-        return MaterialPageRoute(builder: (_) => MapScreenNew());
-      case '/support':
-        return MaterialPageRoute(builder: (_) => MapScreenNew());
-      case '/verification':
-        return MaterialPageRoute(builder: (_) => MapScreenNew());
+      // case '/promotion':
+      //   return MaterialPageRoute(builder: (_) => MapScreenNew());
+      // case '/ride_history':
+      //   return MaterialPageRoute(builder: (_) => MapScreenNew());
+      // case '/settings':
+      //   return MaterialPageRoute(builder: (_) => MapScreenNew());
+      // case '/support_request':
+      //   return MaterialPageRoute(builder: (_) => MapScreenNew());
+      // case '/support':
+      //   return MaterialPageRoute(builder: (_) => MapScreenNew());
+      // case '/verification':
+      //   return MaterialPageRoute(builder: (_) => MapScreenNew());
       case '/map':
         return MaterialPageRoute(builder: (_) => MapScreenNew());
 

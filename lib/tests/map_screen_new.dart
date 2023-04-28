@@ -34,12 +34,13 @@ class _MapScreenNewState extends State<MapScreenNew> {
   String _selectedMarkerId = '';
   GoogleMapController _googleMapController;
   Marker _user;
-  int stock = 10; // the initial stock value retreive this from DB
+  int stock; // the initial stock value retreive this from DB
+  String token = '';
 
   //Starting location
   static const _initialCameraPosition = CameraPosition(
     target: LatLng(36.71228369662267, 3.1805848553156153),
-    zoom: 14.5,
+    zoom: 14.8,
   );
 
   //initialize user location to avoid null value in widgets
@@ -113,14 +114,32 @@ class _MapScreenNewState extends State<MapScreenNew> {
 
   LatLng userLocation;
 
+  List<Marker> markers = [];
+  var incircles;
 
-List<Marker> markers = []; 
+// void _deletetoken () async {
+//   deleteToken();
+// }
 
-void fetchAll()async {
-  markers = await fetchStations();
+void fetchAll() async {
+  String token = await getToken();
+  markers = await fetchStations(token);
   setState(() {});
 }
 
+  // Create a Circle for each marker
+  void drawCircles() {
+    incircles = markers
+        .map((marker) => Circle(
+              circleId: CircleId(marker.markerId.value),
+              center: marker.position,
+              radius: 15,
+              fillColor: Color(0xFF006491).withOpacity(0.2),
+              strokeColor: Colors.black,
+              strokeWidth: 1,
+            ))
+        .toSet();
+  }
 
 // Markers & Functions
 
@@ -181,7 +200,12 @@ void fetchAll()async {
   //   ),
   // ];
 
+  void _getToken() async {
+    token = await getToken();
+  }
+
   Marker updateMarkerStock(int index, int stock) {
+    //takeBike(index,token);
     Marker marker = markers[index];
     return Marker(
       markerId: marker.markerId,
@@ -195,14 +219,22 @@ void fetchAll()async {
   }
 
   void takeBikeFromMarker(String markerId) {
+    //retreive updated stations
+    fetchAll();
     setState(() {
       final index =
           markers.indexWhere((marker) => marker.markerId.value == markerId);
       if (index >= 0) {
+        //&& stock > 0
         final marker = markers[index];
-        final newStock = stock - 1;
-        stock = newStock;
-        markers[index] = updateMarkerStock(index, newStock);
+
+        // final stockSnippet = marker.infoWindow.snippet;
+        // final stockString =
+        // stockSnippet.substring(stockSnippet.indexOf(':') + 1).trim();
+        // final int stock = int.tryParse(stockString) ?? 0;
+
+        //final newStock = stock - 1;
+        //markers[index] = updateMarkerStock(index, newStock);
       }
     });
   }
@@ -331,6 +363,7 @@ void fetchAll()async {
     setCustomMarkerIcon();
     super.initState();
     fetchAll();
+    _getToken();
   }
 
   @override
@@ -345,167 +378,192 @@ void fetchAll()async {
     double baseWidth = 414;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        GoogleMap(
+            //mapType: MapType.normal,
+            //https://github.com/afgprogrammer/Flutter-google-map-example
+            myLocationButtonEnabled: false,
+            zoomControlsEnabled: false,
+            initialCameraPosition: _initialCameraPosition,
+            onMapCreated: (controller) {
+              _googleMapController = controller;
+            },
+            //place markers on the screen
+            markers: {
+              Marker(
+                markerId: const MarkerId('User'),
+                infoWindow: const InfoWindow(title: 'You'),
+                icon: userIcon,
+                position: LatLng(positionuser.latitude, positionuser.longitude),
+              ),
+              ...Set.from(markers),
+            },
+            
+            circles: incircles?.toSet() ?? {},
+            onCameraMove: (position) {},
+            polygons: {
+              Polygon(
+                polygonId: PolygonId('usthb'),
+                points: polygonPoints,
+                fillColor: Color(0xFF006491).withOpacity(0),
+                strokeWidth: 1,
+              ),
+            }),
 
-    return Scaffold(
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          GoogleMap(
-              //mapType: MapType.normal,
-              //https://github.com/afgprogrammer/Flutter-google-map-example
-              myLocationButtonEnabled: false,
-              zoomControlsEnabled: false,
-              initialCameraPosition: _initialCameraPosition,
-              onMapCreated: (controller) {
-                _googleMapController = controller;
-              },
-              //place markers on the screen
-              markers: {
-                Marker(
-                  markerId: const MarkerId('User'),
-                  infoWindow: const InfoWindow(title: 'You'),
-                  icon: userIcon,
-                  position:
-                      LatLng(positionuser.latitude, positionuser.longitude),
-                ),
-               ...Set.from(markers)
-
-              },
-              onCameraMove: (position) {},
-              polygons: {
-                Polygon(
-                  polygonId: PolygonId('usthb'),
-                  points: polygonPoints,
-                  fillColor: Color(0xFF006491).withOpacity(0),
-                  strokeWidth: 1,
-                ),
-              }),
-
-          Visibility(
-            visible: _ride_Visible,
-            child: Container(
-              child: Positioned(
-                // cardsgZ (1:99)
-                left: 1 * fem,
-                top: 625 * fem,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(
-                      14 * fem, 26 * fem, 14 * fem, 81 * fem),
-                  width: 414 * fem,
-                  height: 271 * fem,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(48 * fem),
-                    ),
+        Visibility(
+          visible: _ride_Visible,
+          child: Container(
+            child: Positioned(
+              // cardsgZ (1:99)
+              left: 1 * fem,
+              top: 625 * fem,
+              child: Container(
+                padding:
+                    EdgeInsets.fromLTRB(14 * fem, 26 * fem, 14 * fem, 81 * fem),
+                width: 414 * fem,
+                height: 271 * fem,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(48 * fem),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        // image327L1 (1:80)
-                        margin: EdgeInsets.fromLTRB(
-                            0 * fem, 0 * fem, 0 * fem, 15 * fem),
-                        child: TextButton(
-                          onPressed: () {
-                            //Start sending user location
-                            //take a ride button
-                            stationSelection();
-                          },
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                          ),
-                          child: Container(
-                            width: 386 * fem,
-                            height: 56 * fem,
-                            child: Image.asset(
-                              //'assets/page-1/images/image-32.png',
-                              'assets/page-1/images/takeride_button.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        // image35nh3 (1:120)
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      // image327L1 (1:80)
+                      margin: EdgeInsets.fromLTRB(
+                          0 * fem, 0 * fem, 0 * fem, 15 * fem),
+                      child: TextButton(
                         onPressed: () {
-                          //promotion button
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Promotion()));
+                          //Start sending user location
+                          //take a ride button
+                          stationSelection();
+                          drawCircles();
                         },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
                         ),
                         child: Container(
                           width: 386 * fem,
-                          height: 93 * fem,
+                          height: 56 * fem,
                           child: Image.asset(
-                            //'assets/page-1/images/image-35.png',
-                            'assets/page-1/images/promotion.png',
+                            //'assets/page-1/images/image-32.png',
+                            'assets/page-1/images/takeride_button.png',
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Visibility(visible: _nav_bar_Visible, child: NavBar()),
-          Visibility(visible: _notification_Visible, child: Unlock()),
-
-          //Blur
-          Positioned(
-            // top blur
-            top: 0 * fem,
-            child: Align(
-              child: SizedBox(
-                width: 414 * fem,
-                height: 107 * fem,
-                child: Image.asset(
-                  'assets/page-1/images/blur_screen.png',
-                  // top blur
-                  // width: 414 * fem,
-                  // height: 129 * fem,
-                ),
-              ),
-            ),
-          ),
-
-          Positioned(
-            // group143Hnu (1:39)
-            left: 0 * fem,
-            top: 42 * fem,
-            child: Container(
-              width: 414 * fem,
-              height: 90 * fem,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    // haibikesdurofullseP5F (1:41)
-                    margin: EdgeInsets.fromLTRB(
-                        0 * fem, 0 * fem, 1 * fem, 10 * fem),
-                    child: Text(
-                      'Your location >',
-                      style: SafeGoogleFont(
-                        'Montserrat',
-                        fontSize: 14 * ffem,
-                        fontWeight: FontWeight.w400,
-                        height: 1.2189999989 * ffem / fem,
-                        color: Color(0xff000000),
-                        decoration: TextDecoration.none,
+                    ),
+                    TextButton(
+                      // image35nh3 (1:120)
+                      onPressed: () {
+                        //promotion button
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Promotion()));
+                      },
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                      ),
+                      child: Container(
+                        width: 386 * fem,
+                        height: 93 * fem,
+                        child: Image.asset(
+                          //'assets/page-1/images/image-35.png',
+                          'assets/page-1/images/promotion.png',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        Visibility(visible: _nav_bar_Visible, child: NavBar()),
+        Visibility(visible: _notification_Visible, child: Unlock()),
+
+        //Blur
+        Positioned(
+          // top blur
+          top: 0 * fem,
+          child: Align(
+            child: SizedBox(
+              width: 414 * fem,
+              height: 107 * fem,
+              child: Image.asset(
+                'assets/page-1/images/blur_screen.png',
+                // top blur
+                // width: 414 * fem,
+                // height: 129 * fem,
+              ),
+            ),
+          ),
+        ),
+
+        Positioned(
+          // group143Hnu (1:39)
+          left: 0 * fem,
+          top: 42 * fem,
+          child: Container(
+            width: 414 * fem,
+            height: 90 * fem,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  // haibikesdurofullseP5F (1:41)
+                  margin:
+                      EdgeInsets.fromLTRB(0 * fem, 0 * fem, 1 * fem, 10 * fem),
+                  child: Text(
+                    'Your location >',
+                    style: SafeGoogleFont(
+                      'Montserrat',
+                      fontSize: 14 * ffem,
+                      fontWeight: FontWeight.w400,
+                      height: 1.2189999989 * ffem / fem,
+                      color: Color(0xff000000),
+                      decoration: TextDecoration.none,
+                    ),
                   ),
-                  Flexible(
-                    flex: 2,
-                    fit: FlexFit.loose,
+                ),
+                Flexible(
+                  flex: 2,
+                  fit: FlexFit.loose,
+                  child: Text(
+                    '${positionuser.latitude},${positionuser.longitude}',
+                    style: SafeGoogleFont(
+                      'Montserrat',
+                      fontSize: 14 * ffem,
+                      fontWeight: FontWeight.w600,
+                      height: 1.2189999989 * ffem / fem,
+                      color: Color(0xff000000),
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                ),
+                Divider(
+                  thickness: 0 * ffem,
+                  color: Colors.transparent,
+                ),
+                // if (_distance_window)
+                Visibility(
+                  visible: distance_window,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                     child: Text(
-                      '${positionuser.latitude},${positionuser.longitude}',
+                      '${_distanceInMeters.round()} m',
                       style: SafeGoogleFont(
                         'Montserrat',
                         fontSize: 14 * ffem,
@@ -516,98 +574,69 @@ void fetchAll()async {
                       ),
                     ),
                   ),
-                  Divider(
-                    thickness: 0 * ffem,
-                    color: Colors.transparent,
-                  ),
-                  // if (_distance_window)
-                  Visibility(
-                    visible: distance_window,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 20),
-                      child: Text(
-                        '${_distanceInMeters.round()} m',
-                        style: SafeGoogleFont(
-                          'Montserrat',
-                          fontSize: 14 * ffem,
-                          fontWeight: FontWeight.w600,
-                          height: 1.2189999989 * ffem / fem,
-                          color: Color(0xff000000),
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          if (_menu_window)
-            Positioned(
-              // image19YEy (1:44)
-              left: 28 * fem,
-              top: 49 * fem,
-              child: Align(
-                child: SizedBox(
-                  width: 21 * fem,
-                  height: 15 * fem,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfileMenu()));
-                    },
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                    ),
-                    child: Image.asset(
-                      //'assets/page-1/images/image-19.png',
-                      'assets/page-1/images/menu.png',
-                      fit: BoxFit.cover,
-                      width: 30,
-                      height: 30,
-                    ),
+        ),
+        if (_menu_window)
+          Positioned(
+            // image19YEy (1:44)
+            left: 28 * fem,
+            top: 49 * fem,
+            child: Align(
+              child: SizedBox(
+                width: 21 * fem,
+                height: 15 * fem,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfileMenu()));
+                  },
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
                   ),
-                ),
-              ),
-            ),
-          Visibility(
-            visible: _gps,
-            child: Positioned(
-              left: 350 * fem,
-              top: topPosition * fem,
-              child: Align(
-                child: SizedBox(
-                  width: 51 * fem,
-                  height: 51 * fem,
-                  child: TextButton(
-                    onPressed: () async {
-                      positionuser = await _determinePosition();
-                      _moveCamera(positionuser);
-                      setState(() {
-                        positionuser = positionuser;
-                      });
-                    },
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                    ),
-                    child: Image.asset(
-                      'assets/page-1/images/gps.png',
-                      fit: BoxFit.cover,
-                    ),
+                  child: Image.asset(
+                    //'assets/page-1/images/image-19.png',
+                    'assets/page-1/images/menu.png',
+                    fit: BoxFit.cover,
+                    width: 30,
+                    height: 30,
                   ),
                 ),
               ),
             ),
           ),
-        ],
-      ),
+        Visibility(
+          visible: _gps,
+          child: Positioned(
+            left: 350 * fem,
+            top: topPosition * fem,
+            child: Align(
+              child: SizedBox(
+                width: 51 * fem,
+                height: 51 * fem,
+                child: TextButton(
+                  onPressed: () async {
+                    positionuser = await _determinePosition();
+                    _moveCamera(positionuser);
+                    setState(() {
+                      positionuser = positionuser;
+                    });
+                  },
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                  ),
+                  child: Image.asset(
+                    'assets/page-1/images/gps.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
