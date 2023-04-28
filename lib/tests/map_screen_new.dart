@@ -8,6 +8,8 @@ import './nav_bar_new.dart';
 import 'dart:async';
 import 'package:myapp/widgets/unlock_notification.dart';
 import 'package:maps_toolkit/maps_toolkit.dart' as map_tool;
+import '/helpers/station.dart';
+import '/models/db.dart';
 
 class MapScreenNew extends StatefulWidget {
   @override
@@ -111,63 +113,73 @@ class _MapScreenNewState extends State<MapScreenNew> {
 
   LatLng userLocation;
 
+
+List<Marker> markers = []; 
+
+void fetchAll()async {
+  markers = await fetchStations();
+  setState(() {});
+}
+
+
 // Markers & Functions
-  List<Marker> markers = [
-    Marker(
-      markerId: MarkerId('1'),
-      position: LatLng(36.715957, 3.186346),
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-      infoWindow: InfoWindow(
-        title: 'Parking Enseignants',
-        snippet: 'Stock: 1',
-      ),
-    ),
-    Marker(
-      markerId: MarkerId('2'),
-      position: LatLng(36.717171, 3.183816),
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-      infoWindow: InfoWindow(
-        title: 'Faculté De Mathematique',
-        snippet: 'Stock: 10',
-      ),
-    ),
-    Marker(
-      markerId: MarkerId('3'),
-      position: LatLng(36.713483, 3.176465),
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-      infoWindow: InfoWindow(
-        title: 'Project Initiative Club',
-        snippet: 'Stock: 20',
-      ),
-    ),
-    Marker(
-      markerId: MarkerId('4'),
-      position: LatLng(36.713716, 3.180834),
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-      infoWindow: InfoWindow(
-        title: 'Bibliothèque Universitaire',
-        snippet: 'Stock: 5',
-      ),
-    ),
-    Marker(
-      markerId: MarkerId('5'),
-      position: LatLng(36.709513, 3.181112),
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-      infoWindow: InfoWindow(
-        title: 'Nouveaux Blocs Salles TP',
-        snippet: 'Stock: 11',
-      ),
-    ),
-    Marker(
-      markerId: MarkerId('6'),
-      position: LatLng(36.725341, 3.025925),
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-      infoWindow: InfoWindow(
-        title: 'Home',
-        snippet: 'Stock: 1',
-      ),
-    ),
-  ];
+
+  // List<Marker> markers = [
+  //   Marker(
+  //     markerId: MarkerId('1'),
+  //     position: LatLng(36.715957, 3.186346),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Parking Enseignants',
+  //       snippet: 'Stock: 1',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('2'),
+  //     position: LatLng(36.717171, 3.183816),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Faculté De Mathematique',
+  //       snippet: 'Stock: 10',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('3'),
+  //     position: LatLng(36.713483, 3.176465),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Project Initiative Club',
+  //       snippet: 'Stock: 20',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('4'),
+  //     position: LatLng(36.713716, 3.180834),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Bibliothèque Universitaire',
+  //       snippet: 'Stock: 5',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('5'),
+  //     position: LatLng(36.709513, 3.181112),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Nouveaux Blocs Salles TP',
+  //       snippet: 'Stock: 11',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('6'),
+  //     position: LatLng(36.725341, 3.025925),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Home',
+  //       snippet: 'Stock: 1',
+  //     ),
+  //   ),
+  // ];
 
   Marker updateMarkerStock(int index, int stock) {
     Marker marker = markers[index];
@@ -318,6 +330,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
     //initialize stuff here  also allow you to execute function without call
     setCustomMarkerIcon();
     super.initState();
+    fetchAll();
   }
 
   @override
@@ -355,7 +368,8 @@ class _MapScreenNewState extends State<MapScreenNew> {
                   position:
                       LatLng(positionuser.latitude, positionuser.longitude),
                 ),
-                ...Set.from(markers)
+               ...Set.from(markers)
+
               },
               onCameraMove: (position) {},
               polygons: {
