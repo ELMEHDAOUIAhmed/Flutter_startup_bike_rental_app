@@ -111,7 +111,7 @@ class MyApp extends StatelessWidget {
       // ***IMPORTANT REMOVE BEFORE FINAL VERSION*** //
 
       // ***FOR TESTING ONLY***//
-      home: PaymentVoucher(),
+      home: MapScreenNew(),
     );
   }
 }
