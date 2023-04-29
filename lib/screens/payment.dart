@@ -5,7 +5,21 @@ import 'package:flutter/cupertino.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/utils.dart';
 
-class Payment extends StatelessWidget {
+class Payment extends StatefulWidget {
+  @override
+  State<Payment> createState() => _PaymentState();
+}
+
+class _PaymentState extends State<Payment> {
+
+  Map<String, dynamic> user;
+
+  // Text('Matricule: ${user['matricule']}'),
+  // Text('Last Name: ${user['lastname']}'),
+  // Text('First Name: ${user['firstname']}'),
+  // Text('Email: ${user['email']}'),
+  // Text('Sold: ${user['sold']}'),
+  
   @override
   Widget build(BuildContext context) {
     double baseWidth = 414;
@@ -50,13 +64,16 @@ class Payment extends StatelessWidget {
                       height: 17.28 * fem,
                       child: GestureDetector(
                         onTap: () {
-                      Navigator.pushNamed(context,'/wallet',);
+                          Navigator.pushNamed(
+                            context,
+                            '/wallet',
+                          );
                         },
                         child: const Icon(
-                        CupertinoIcons.back,
-                        color: Colors.white,
-                        size: 30,
-                      ),
+                          CupertinoIcons.back,
+                          color: Colors.white,
+                          size: 30,
+                        ),
                       ),
                     ),
                     Container(
@@ -117,7 +134,10 @@ class Payment extends StatelessWidget {
                     // payment button
                     onPressed: () {
                       //pushName VOUCHER
-                      Navigator.pushNamed(context,'/voucher',);
+                      Navigator.pushNamed(
+                        context,
+                        '/voucher',
+                      );
                     },
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,

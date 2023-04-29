@@ -19,9 +19,22 @@ import '/providers/user_api.dart';
 // future improvements combine every button into one widget and then instead of writing same code over and over
 // write once , just like my_button.dart
 
-String username='';
+class ProfileMenu extends StatefulWidget {
+  @override
+  State<ProfileMenu> createState() => _ProfileMenuState();
+}
 
-class ProfileMenu extends StatelessWidget {
+class _ProfileMenuState extends State<ProfileMenu> {
+  
+  Map<String, dynamic> user;
+
+  // Text('Matricule: ${user['matricule']}'),
+  // Text('Last Name: ${user['lastname']}'),
+  // Text('First Name: ${user['firstname']}'),
+  // Text('Email: ${user['email']}'),
+  // Text('Sold: ${user['sold']}'),
+  String username = '';
+
   void signUserOutAPI() async {
     String token = await getToken();
     logout(token);

@@ -13,6 +13,15 @@ class Profile_welcome extends StatefulWidget {
 }
 
 class _Profile_welcomeState extends State<Profile_welcome> {
+
+  Map<String, dynamic> user;
+
+  // Text('Matricule: ${user['matricule']}'),
+  // Text('Last Name: ${user['lastname']}'),
+  // Text('First Name: ${user['firstname']}'),
+  // Text('Email: ${user['email']}'),
+  // Text('Sold: ${user['sold']}'),
+
   //https://rapidapi.com/studio
   String _temperature = '';
   String _condition = '';
@@ -308,8 +317,8 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.fromLTRB(
-                                    0 * fem, 0 * fem, 35 * fem, 0 * fem), // 35 , 25 *fem
+                                margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem,
+                                    35 * fem, 0 * fem), // 35 , 25 *fem
                                 child: Text(
                                   // marbelladr4Rj (1:1280)
                                   'Bab Ezzouar Alger',

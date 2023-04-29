@@ -7,7 +7,21 @@ import 'package:myapp/utils.dart';
 
 import './payment.dart';
 
-class Mywallet extends StatelessWidget {
+class Mywallet extends StatefulWidget {
+  @override
+  State<Mywallet> createState() => _MywalletState();
+}
+
+class _MywalletState extends State<Mywallet> {
+
+  Map<String, dynamic> user;
+
+  // Text('Matricule: ${user['matricule']}'),
+  // Text('Last Name: ${user['lastname']}'),
+  // Text('First Name: ${user['firstname']}'),
+  // Text('Email: ${user['email']}'),
+  // Text('Sold: ${user['sold']}'),
+  
   @override
   Widget build(BuildContext context) {
     double baseWidth = 414;
@@ -91,7 +105,6 @@ class Mywallet extends StatelessWidget {
                 ),
               ),
             ),
-            
             Positioned(
               // paymente1T (1:613)
               left: 32 * fem,
