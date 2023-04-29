@@ -21,3 +21,7 @@ Set the minSdkVersion in android/app/build.gradle:
 line 50 was 
 
 minSdkVersion flutter.minSdkVersion
+
+
+
+  sdk: ">=2.7.0 <3.0.0"

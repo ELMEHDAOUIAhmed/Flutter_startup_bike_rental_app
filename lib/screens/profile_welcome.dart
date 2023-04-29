@@ -8,20 +8,26 @@ import 'package:intl/intl.dart';
 import '/providers/weather_api.dart';
 
 class Profile_welcome extends StatefulWidget {
+  final Map<String, dynamic> user;
+  const Profile_welcome({Key key, this.user}) : super(key: key);
+
   @override
   State<Profile_welcome> createState() => _Profile_welcomeState();
 }
 
 class _Profile_welcomeState extends State<Profile_welcome> {
-
-  Map<String, dynamic> user;
-
   // Text('Matricule: ${user['matricule']}'),
   // Text('Last Name: ${user['lastname']}'),
   // Text('First Name: ${user['firstname']}'),
   // Text('Email: ${user['email']}'),
   // Text('Sold: ${user['sold']}'),
-
+  String username='';
+  String matricule='';
+  String lastname='';
+  String firstname='';
+  String email='';
+  double sold=0.0;
+  
   //https://rapidapi.com/studio
   String _temperature = '';
   String _condition = '';
@@ -49,6 +55,10 @@ class _Profile_welcomeState extends State<Profile_welcome> {
 
   @override
   Widget build(BuildContext context) {
+    if(widget.user!=null){
+      username = widget.user['username'];
+
+    }
     //Retreive and formate Date
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('d MMMM, EEEE').format(now);
@@ -154,7 +164,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
               // group144hTT (1:1294)
               margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 47 * fem, 40 * fem),
               //here to adjust the container that holds everything
-              width: 290 * fem,
+              width: 414 * fem,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -184,7 +194,8 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                             ),
                           ),
                           TextSpan(
-                            text: 'Ahmed',
+                            //username
+                            text: username,
                             style: SafeGoogleFont(
                               'Montserrat',
                               fontSize: 40 * ffem,
@@ -272,53 +283,50 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                               Container(
                                 // autogroupztwvyFs (NErxC6T2YKbttgS3itzTWV)
                                 margin: EdgeInsets.fromLTRB(
-                                    0 * fem, 0 * fem, 15 * fem, 10 * fem),
+                                    0 * fem, 0 * fem, 0 * fem, 0 * fem),
                                 width: double.infinity,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      // 5Ju (1:1282)
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 0 * fem, 12 * fem, 0 * fem),
-                                      child: Text(
-                                        _temperature.isNotEmpty
-                                            ? '${_temperature}°C'
-                                            : '',
-                                        textAlign: TextAlign.center,
-                                        style: SafeGoogleFont(
-                                          'Montserrat',
-                                          fontSize: 32 * ffem,
-                                          fontWeight: FontWeight.w400,
-                                          height: 1.2175 * ffem / fem,
-                                          color: Color(0xffffffff),
-                                          decoration: TextDecoration.none,
-                                        ),
-                                      ),
+
+                                child: Container(
+                                  // 5Ju (1:1282)
+                                  margin: EdgeInsets.fromLTRB(
+                                      0 * fem, 0 * fem, 95 * fem, 0 * fem),
+                                      width: double.infinity,
+                                  child: Text(
+                                    _temperature.isNotEmpty
+                                        ? '${_temperature}°C'
+                                        : '',
+                                    textAlign: TextAlign.center,
+                                    style: SafeGoogleFont(
+                                      'Montserrat',
+                                      fontSize: 32 * ffem,
+                                      fontWeight: FontWeight.w400,
+                                      height: 1.2175 * ffem / fem,
+                                      color: Color(0xffffffff),
+                                      decoration: TextDecoration.none,
                                     ),
-                                    Container(
-                                      // cloudlyZUy (1:1281)
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 0 * fem, 0 * fem, 3 * fem),
-                                      child: Text(
-                                        _condition.isNotEmpty ? _condition : '',
-                                        textAlign: TextAlign.center,
-                                        style: SafeGoogleFont(
-                                          'Montserrat',
-                                          fontSize: 18 * ffem,
-                                          fontWeight: FontWeight.w400,
-                                          height: 1.2175 * ffem / fem,
-                                          color: Color(0xffffffff),
-                                          decoration: TextDecoration.none,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                // cloudlyZUy (1:1281)
+                                margin: EdgeInsets.fromLTRB(
+                                    0 * fem, 0 * fem, 45 * fem, 20 * fem),
+                                child: Text(
+                                  _condition.isNotEmpty ? _condition : '',
+                                  textAlign: TextAlign.center,
+                                  style: SafeGoogleFont(
+                                    'Montserrat',
+                                    fontSize: 18 * ffem,
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.2175 * ffem / fem,
+                                    color: Color(0xffffffff),
+                                    decoration: TextDecoration.none,
+                                  ),
                                 ),
                               ),
                               Container(
                                 margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem,
-                                    35 * fem, 0 * fem), // 35 , 25 *fem
+                                    0 * fem, 0 * fem), // 35 , 25 *fem
                                 child: Text(
                                   // marbelladr4Rj (1:1280)
                                   'Bab Ezzouar Alger',
@@ -431,7 +439,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                   Container(
                     // distanceZ33 (1:1270)
                     margin: EdgeInsets.fromLTRB(
-                        0 * fem, 50 * fem, 84 * fem, 0 * fem),
+                        0 * fem, 0 * fem, 84 * fem, 0 * fem),
                     child: TextButton(
                       onPressed: () {
                         Navigator.of(context).pushNamed('/map');

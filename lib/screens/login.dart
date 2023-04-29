@@ -12,8 +12,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
-  String username=''; //pass it in pushname as a parameter
+  String username = ''; //pass it in pushname as a parameter
   // variables to hold user input
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -28,40 +27,52 @@ class _LoginState extends State<Login> {
         );
       },
     );
-    String email =emailController.text;
+    String email = emailController.text;
     String password = passwordController.text;
-    if (email != '' && password != ''){
-    try {
-      // Call the login function and wait for it to complete
-      final token = await login(email,password);
-      username =emailController.text;
-      // Save the token to the local database
-      await saveToken(token);
-      // Navigate to the home screen
-      Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
-    } catch (error) {
-      
-      // Display an error message
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Error'),
-            content: Text(error.toString()),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    }
-    }
-    else {
+    if (email != '' && password != '') {
+      try {
+        // Call the login function and wait for it to complete
+        final token = await login(email, password);
+        username = emailController.text;
+        // Save the token to the local database
+        await saveToken(token);
+        // Navigate to the home screen
+        //Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+        Navigator.of(context).pushNamed('/profilewelcome', arguments: {
+          'matricule': '12121',
+          'lastname': 'ahmed',
+          'firstname': 'zin',
+          'email': 'email@test.com',
+          'sold': 20.0
+        });
+
+        // Text('Matricule: ${user['matricule']}'),
+        // Text('Last Name: ${user['lastname']}'),
+        // Text('First Name: ${user['firstname']}'),
+        // Text('Email: ${user['email']}'),
+        // Text('Sold: ${user['sold']}'),
+        
+      } catch (error) {
+        // Display an error message
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: Text(error.toString()),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } else {
       showDialog(
         context: context,
         builder: (context) {
@@ -87,7 +98,6 @@ class _LoginState extends State<Login> {
       );
     }
   }
-
 
   // wrong email message popup
   void wrongEmailMessage() {

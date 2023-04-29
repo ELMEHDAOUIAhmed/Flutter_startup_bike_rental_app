@@ -17,10 +17,15 @@ class AuthScreen extends StatelessWidget {
             final token = snapshot.data;
             if (token is String && token.isNotEmpty) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.pushNamed(
-                  context,
-                  '/profilewelcome',
-                );
+                Navigator.pushNamed(context, '/profilewelcome', arguments: {
+                  'matricule': '12121',
+                  'lastname': 'ahmed',
+                  'firstname': 'zin',
+                  'username': 'Mourad ahmed',
+                  'email': 'email@test.com',
+                  'sold': 20.0
+                });
+                //get this from api
               });
               return const SizedBox();
             }

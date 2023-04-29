@@ -21,21 +21,26 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/auth':
-        return MaterialPageRoute(builder: (_) => const AuthScreen());
+        return MaterialPageRoute(builder: (_) => AuthScreen());
       case '/':
         return MaterialPageRoute(builder: (_) => StartingPage());
       case '/onboarding':
-        return MaterialPageRoute(builder: (_) => const Onboarding());
+        return MaterialPageRoute(builder: (_) => Onboarding());
       case '/onboarding_two':
-        return MaterialPageRoute(builder: (_) => const OnboardingTwo());
+        return MaterialPageRoute(builder: (_) => OnboardingTwo());
       case '/onboarding_three':
-        return MaterialPageRoute(builder: (_) => const OnboardingThree());
+        return MaterialPageRoute(builder: (_) => OnboardingThree());
       case '/login':
         return MaterialPageRoute(builder: (_) => Login());
       case '/signup':
         return MaterialPageRoute(builder: (_) => Signup());
       case '/profilewelcome':
-        return MaterialPageRoute(builder: (_) => Profile_welcome());
+        // if (args is Map<String, dynamic>) {
+          return MaterialPageRoute(
+              builder: (_) => Profile_welcome(
+                    user: args,
+                  ));
+        // }break;
       case '/profilemenu':
         return MaterialPageRoute(builder: (_) => ProfileMenu());
       case '/voucher':
@@ -58,7 +63,6 @@ class RouteGenerator {
       //   return MaterialPageRoute(builder: (_) => MapScreenNew());
       case '/map':
         return MaterialPageRoute(builder: (_) => MapScreenNew());
-
 
         return _errorRoute();
       default:
