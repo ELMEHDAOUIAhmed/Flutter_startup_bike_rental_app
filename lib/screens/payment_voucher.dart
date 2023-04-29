@@ -144,9 +144,21 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
+                          // iconchevronleftmcH (I1:308;0:1417)
+                          margin: EdgeInsets.fromLTRB(
+                              0* fem, 0 * fem, 0 * fem, 120 * fem),
+                          width: 18.13 * fem,
+                          height: 17.28 * fem,
+                          child: const Icon(
+                            CupertinoIcons.back,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                        Container(
                           // supportrequestyk1 (I1:556;0:1424)
                           margin: EdgeInsets.fromLTRB(
-                              115 * fem, 0 * fem, 0 * fem, 111 * fem),
+                              95 * fem, 0 * fem, 0 * fem, 111 * fem),
                           child: Text(
                             'USTHB Pay',
                             textAlign: TextAlign.center,

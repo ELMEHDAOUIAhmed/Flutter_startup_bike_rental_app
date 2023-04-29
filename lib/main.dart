@@ -40,6 +40,7 @@ import '/providers/auth_api.dart';
 import '/widgets/unlock_notification.dart';
 import '/screens/profile_menu.dart';
 import '/tests/camera_report.dart';
+import 'screens/my_wallet.dart';
 
 
 //Important
