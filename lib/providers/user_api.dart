@@ -53,17 +53,3 @@ Future<void> logout(String token) async {
   }
 }
 
-Future<double> getSold(String token) async {
-  final url = Uri.parse('http://192.168.100.7:8000/Users/');
-  final headers = {'Authorization': 'Token $token'};
-  final response = await http.post(url, headers: headers);
-
-  if (response.statusCode == 200) {
-    final data = jsonDecode(response.body);
-    final double solde = data['sold'];
-    // return new sold
-    return solde;
-  } else {
-    throw Exception('Failed to retreive sold : ${response.statusCode}');
-  }
-}

@@ -6,10 +6,87 @@ import 'package:flutter/material.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/components/my_textfield.dart';
 import 'package:myapp/components/my_button.dart';
+import '../providers/payment_api.dart';
+import '/models/db.dart';
 
-class PaymentVoucher extends StatelessWidget {
+class PaymentVoucher extends StatefulWidget {
+  @override
+  State<PaymentVoucher> createState() => _PaymentVoucherState();
+}
+
+class _PaymentVoucherState extends State<PaymentVoucher> {
+
+
 // variables to hold user input
   final voucherController = TextEditingController();
+
+  void refillsolde() async {
+    // show loading circle
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    String token = await getToken();
+    String voucher = voucherController.text;
+    try {
+      final solde = await refillSold(token, voucher);
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(48),
+            ),
+            title: Row(
+              children: [
+                //Icon(Icons.error, color: Colors.red),
+                const Icon(Icons.check_box, color: Colors.green),
+                const SizedBox(width: 8.0),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: Text('Success! \n Your new solde :$solde',
+                      style: TextStyle(fontSize: 16.0)),
+                ),
+              ],
+            ),
+            // Other properties
+          );
+        },
+      );
+    } catch (error) {
+      // Display an error message
+      // ignore: use_build_context_synchronously
+      showDialog(
+        //you need a statefull widget to show dialog
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(48),
+            ),
+            title: Row(
+              children: const [
+                Icon(Icons.error, color: Colors.red),
+                SizedBox(width: 8.0),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: Text('Error! \nInvalid or User Voucher',
+                      style: TextStyle(fontSize: 16.0)),
+                ),
+              ],
+            ),
+            // Other properties
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +197,7 @@ class PaymentVoucher extends StatelessWidget {
                   left: 27 * fem,
                   top: 674 * fem,
                   child: MyButton(
-                    onTap: () {},
+                    onTap: refillsolde,
                     text: 'Submit',
                   ),
                 ),
