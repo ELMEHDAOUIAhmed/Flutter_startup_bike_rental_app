@@ -1,5 +1,8 @@
 
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
 
+                  to hide alert dialog and Circular loading 
 
 
 # very widget in flutter needs to extend "Stateless widget or stateful widget"
