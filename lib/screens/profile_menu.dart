@@ -25,14 +25,6 @@ class ProfileMenu extends StatefulWidget {
 }
 
 class _ProfileMenuState extends State<ProfileMenu> {
-  
-  Map<String, dynamic> user;
-
-  // Text('Matricule: ${user['matricule']}'),
-  // Text('Last Name: ${user['lastname']}'),
-  // Text('First Name: ${user['firstname']}'),
-  // Text('Email: ${user['email']}'),
-  // Text('Sold: ${user['sold']}'),
   String username = '';
 
   void signUserOutAPI() async {

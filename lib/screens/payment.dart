@@ -12,14 +12,6 @@ class Payment extends StatefulWidget {
 
 class _PaymentState extends State<Payment> {
 
-  Map<String, dynamic> user;
-
-  // Text('Matricule: ${user['matricule']}'),
-  // Text('Last Name: ${user['lastname']}'),
-  // Text('First Name: ${user['firstname']}'),
-  // Text('Email: ${user['email']}'),
-  // Text('Sold: ${user['sold']}'),
-  
   @override
   Widget build(BuildContext context) {
     double baseWidth = 414;

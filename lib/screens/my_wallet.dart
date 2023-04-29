@@ -14,14 +14,6 @@ class Mywallet extends StatefulWidget {
 
 class _MywalletState extends State<Mywallet> {
 
-  Map<String, dynamic> user;
-
-  // Text('Matricule: ${user['matricule']}'),
-  // Text('Last Name: ${user['lastname']}'),
-  // Text('First Name: ${user['firstname']}'),
-  // Text('Email: ${user['email']}'),
-  // Text('Sold: ${user['sold']}'),
-  
   @override
   Widget build(BuildContext context) {
     double baseWidth = 414;
