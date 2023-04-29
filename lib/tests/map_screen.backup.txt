@@ -146,10 +146,23 @@ void fetchAll() async {
   }
 
 
-  void updateMarkerStock() {
-    fetchAll();
-  }
+  // void updateMarkerStock() {
+  //   fetchAll();
+  // }
 
+  Marker updateMarkerStock(int index, int stock) {
+    //takeBike(index,token);
+    Marker marker = markers[index];
+    return Marker(
+      markerId: marker.markerId,
+      position: marker.position,
+      icon: marker.icon,
+      infoWindow: InfoWindow(
+        title: marker.infoWindow.title,
+        snippet: 'Stock: $stock',
+      ),
+    );
+  }
 
   void takeBikeFromMarker(String markerId) {
     //retreive updated stations
@@ -157,36 +170,30 @@ void fetchAll() async {
     setState(() {
       final index =
           markers.indexWhere((marker) => marker.markerId.value == markerId);
-          
       if (index >= 0) {
-
+        //&& stock > 0
         final marker = markers[index];
-        final stockSnippet = marker.infoWindow.snippet;
-        final stockString =
-        stockSnippet.substring(stockSnippet.indexOf(':') + 1).trim();
-        final int stock = int.tryParse(stockString) ?? 0;
 
-        print('STOCK IS : $stock');
-        
-        if(stock >0){
+        // final stockSnippet = marker.infoWindow.snippet;
+        // final stockString =
+        // stockSnippet.substring(stockSnippet.indexOf(':') + 1).trim();
+        // final int stock = int.tryParse(stockString) ?? 0;
 
-        //api to remove velo from that marker
-
-        fetchAll();
-        }
+        //final newStock = stock - 1;
+        //markers[index] = updateMarkerStock(index, newStock);
       }
     });
   }
 
-  //get markerid of the station you want to return
   void returbBikeFromMarker(String markerId) {
     setState(() {
       final index =
           markers.indexWhere((marker) => marker.markerId.value == markerId);
       if (index >= 0) {
-        // api to add velo to marker
-
-        fetchAll();
+        final marker = markers[index];
+        final newStock = stock + 1;
+        stock = newStock;
+        markers[index] = updateMarkerStock(index, newStock);
       }
     });
   }
@@ -295,8 +302,6 @@ void fetchAll() async {
       return 0.0;
     }
   }
-
-  
 
   @override
   void initState() {

@@ -1,4 +1,60 @@
-D:\New\Documents\GitHub\Flutter_bike_rental_app\Flutter_bike_app_works
+markers 
+// Markers & Functions
 
 
-path of app
+  // List<Marker> markers = [
+  //   Marker(
+  //     markerId: MarkerId('1'),
+  //     position: LatLng(36.715957, 3.186346),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Parking Enseignants',
+  //       snippet: 'Stock: 1',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('2'),
+  //     position: LatLng(36.717171, 3.183816),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Faculté De Mathematique',
+  //       snippet: 'Stock: 10',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('3'),
+  //     position: LatLng(36.713483, 3.176465),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Project Initiative Club',
+  //       snippet: 'Stock: 20',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('4'),
+  //     position: LatLng(36.713716, 3.180834),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Bibliothèque Universitaire',
+  //       snippet: 'Stock: 5',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('5'),
+  //     position: LatLng(36.709513, 3.181112),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Nouveaux Blocs Salles TP',
+  //       snippet: 'Stock: 11',
+  //     ),
+  //   ),
+  //   Marker(
+  //     markerId: MarkerId('6'),
+  //     position: LatLng(36.725341, 3.025925),
+  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //     infoWindow: InfoWindow(
+  //       title: 'Home',
+  //       snippet: 'Stock: 1',
+  //     ),
+  //   ),
+  // ];
