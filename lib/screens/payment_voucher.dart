@@ -15,8 +15,6 @@ class PaymentVoucher extends StatefulWidget {
 }
 
 class _PaymentVoucherState extends State<PaymentVoucher> {
-
-
 // variables to hold user input
   final voucherController = TextEditingController();
 
@@ -56,6 +54,15 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
               ],
             ),
             // Other properties
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                child: Text("Continue"),
+              ),
+            ],
           );
         },
       );
@@ -76,12 +83,21 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
                 SizedBox(width: 8.0),
                 Flexible(
                   fit: FlexFit.loose,
-                  child: Text('Error! \nInvalid or User Voucher',
+                  child: Text('Error! \n\nInvalid or User Voucher',
                       style: TextStyle(fontSize: 16.0)),
                 ),
               ],
             ),
             // Other properties
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                child: Text("Continue"),
+              ),
+            ],
           );
         },
       );
