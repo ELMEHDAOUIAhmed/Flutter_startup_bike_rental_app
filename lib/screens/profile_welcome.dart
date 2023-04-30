@@ -184,7 +184,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                         ),
                         children: [
                           TextSpan(
-                            text: 'Hello, \n',
+                            text: 'Hello,\n  ',
                             style: SafeGoogleFont(
                               'Montserrat',
                               fontSize: 32 * ffem,

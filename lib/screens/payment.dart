@@ -6,14 +6,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:myapp/utils.dart';
 
 class Payment extends StatefulWidget {
+  final Map<String, dynamic> user;
+  const Payment({Key key, this.user}) : super(key: key);
   @override
   State<Payment> createState() => _PaymentState();
 }
 
 class _PaymentState extends State<Payment> {
-
+  double sold = 0.0;
   @override
   Widget build(BuildContext context) {
+    if (widget.user != null) {
+      sold = widget.user['sold'];
+    }
     double baseWidth = 414;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -180,73 +185,6 @@ class _PaymentState extends State<Payment> {
               ),
             ),
             Positioned(
-              // paymente1T (1:613)
-              left: 32 * fem,
-              top: 440 * fem,
-              child: TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                ),
-                child: Container(
-                  padding:
-                      EdgeInsets.fromLTRB(0 * fem, 23 * fem, 0 * fem, 0 * fem),
-                  width: 350 * fem,
-                  height: 70 * fem,
-                  child: TextButton(
-                    // payment button
-                    onPressed: () {
-                      //pushName VOUCHER
-                    },
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                    ),
-                    child: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: Container(
-                        // autogroupwqb7221 (NErhNGei9GhxzqJYo1WQB7)
-                        width: 346 * fem,
-                        height: 26 * fem,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              // contentKG1 (I1:614;0:1316)
-                              margin: EdgeInsets.fromLTRB(
-                                  0 * fem, 0 * fem, 160 * fem, 0 * fem),
-                              child: Text(
-                                'Payment options',
-                                style: SafeGoogleFont(
-                                  'Montserrat',
-                                  fontSize: 21 * ffem,
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.2175 * ffem / fem,
-                                  color: Color(0xff000000),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              // pathoBB (1:615)
-                              margin: EdgeInsets.fromLTRB(
-                                  0 * fem, 0 * fem, 0 * fem, 20 * fem),
-                              width: 6 * fem,
-                              height: 12 * fem,
-                              child: const Icon(
-                                CupertinoIcons.forward,
-                                color: Colors.grey,
-                                size: 30,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
               // image73x9 (5:331)
               left: 0 * fem,
               top: 99 * fem,
@@ -263,14 +201,14 @@ class _PaymentState extends State<Payment> {
             ),
             Positioned(
               // jKB (5:343)
-              left: 57 * fem,
-              top: 286 * fem,
+              left: 57 * fem, //57
+              top: 286 * fem, //286
               child: Align(
                 child: SizedBox(
-                  width: 34 * fem,
-                  height: 35 * fem,
+                  width: 350 * fem, //34
+                  height: 35 * fem, //35
                   child: Text(
-                    '\$5',
+                    '\$ $sold',
                     style: SafeGoogleFont(
                       'Montserrat',
                       fontSize: 28 * ffem,

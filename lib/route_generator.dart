@@ -12,6 +12,7 @@ import '/screens/payment.dart';
 import '/screens/my_wallet.dart';
 import '/tests/map_screen_new.dart';
 import '/screens/signup.dart';
+import '/screens/settings.dart';
 
 //https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -49,15 +50,24 @@ class RouteGenerator {
       case '/voucher':
         return MaterialPageRoute(builder: (_) => PaymentVoucher());
       case '/payment':
-        return MaterialPageRoute(builder: (_) => Payment());
+        return MaterialPageRoute(
+            builder: (_) => Payment(
+                  user: args,
+                ));
       case '/wallet':
-        return MaterialPageRoute(builder: (_) => Mywallet());
+        return MaterialPageRoute(
+            builder: (_) => Mywallet(
+                  user: args,
+                ));
       // case '/promotion':
       //   return MaterialPageRoute(builder: (_) => MapScreenNew());
       // case '/ride_history':
       //   return MaterialPageRoute(builder: (_) => MapScreenNew());
-      // case '/settings':
-      //   return MaterialPageRoute(builder: (_) => MapScreenNew());
+      case '/settings':
+        return MaterialPageRoute(
+            builder: (_) => Settings(
+                  user: args,
+                ));
       // case '/support_request':
       //   return MaterialPageRoute(builder: (_) => MapScreenNew());
       // case '/support':

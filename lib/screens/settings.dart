@@ -6,16 +6,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:myapp/utils.dart';
 
 class Settings extends StatefulWidget {
+  final Map<String, dynamic> user;
+  const Settings({Key key, this.user}) : super(key: key);
   @override
   State<Settings> createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
+  String username = '';
+  String first_name = '';
+  String last_name = '';
+  String matricule = '';
+  String email = '';
+
   String buttonon = 'assets/page-1/images/buttonon.png';
   String buttonoff = 'assets/page-1/images/buttonoff.png';
 
   @override
   Widget build(BuildContext context) {
+    if (widget.user != null) {
+      first_name = widget.user['first_name'];
+      last_name = widget.user['last_name'];
+      matricule = widget.user['matricule'];
+      email = widget.user['email'];
+    }
+
     double baseWidth = 414;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -98,337 +113,195 @@ class _SettingsState extends State<Settings> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    TextButton(
-                      // phonenumberK9w (1:327)
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(
-                            0 * fem, 0 * fem, 0 * fem, 20 * fem),
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              // contentykH (1:329)
-                              'Phone Number',
-                              style: SafeGoogleFont(
-                                'Montserrat',
-                                fontSize: 21 * ffem,
-                                fontWeight: FontWeight.w400,
-                                height: 1.2175 * ffem / fem,
-                                color: Color(0xff000000),
-                              ),
-                            ),
-                            Container(
-                              // autogroupeiysu1f (NErcx4gHFkJ9vucy7KEiys)
-                              margin: EdgeInsets.fromLTRB(
-                                  0 * fem, 0 * fem, 1 * fem, 19 * fem),
-                              width: double.infinity,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    // Zru (1:330)
-                                    margin: EdgeInsets.fromLTRB(
-                                        0 * fem, 5 * fem, 194 * fem, 0 * fem),
-                                    child: Text(
-                                      '406 765 43 92',
-                                      style: SafeGoogleFont(
-                                        'Montserrat',
-                                        fontSize: 21 * ffem,
-                                        fontWeight: FontWeight.w600,
-                                        height: 1.2175 * ffem / fem,
-                                        color: Color(0xff000000),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    // pathrb7 (1:328)
-                                    width: 6 * fem,
-                                    height: 12 * fem,
-                                    child: Image.asset(
-                                      'assets/page-1/images/path.png',
-                                      width: 6 * fem,
-                                      height: 12 * fem,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20 * fem,
-                    ),
-                    TextButton(
-                      // favouriteaddressiNR (1:322)
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(
-                            0 * fem, 0 * fem, 0 * fem, 20 * fem),
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              // contentcopymbb (1:324)
-                              'Favourite Address',
-                              style: SafeGoogleFont(
-                                'Montserrat',
-                                fontSize: 21 * ffem,
-                                fontWeight: FontWeight.w400,
-                                height: 1.2175 * ffem / fem,
-                                color: Color(0xff000000),
-                              ),
-                            ),
-                            Container(
-                              // autogroupjtzqgCm (NErcfpeLvGL3EQHr6DJtzq)
-                              margin: EdgeInsets.fromLTRB(
-                                  0 * fem, 0 * fem, 1 * fem, 19 * fem),
-                              width: double.infinity,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    // marbellaZXT (1:325)
-                                    margin: EdgeInsets.fromLTRB(
-                                        0 * fem, 5 * fem, 249 * fem, 0 * fem),
-                                    child: Text(
-                                      'Marbella',
-                                      style: SafeGoogleFont(
-                                        'Montserrat',
-                                        fontSize: 21 * ffem,
-                                        fontWeight: FontWeight.w600,
-                                        height: 1.2175 * ffem / fem,
-                                        color: Color(0xff000000),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    // pathcopyFQH (1:323)
-                                    width: 6 * fem,
-                                    height: 12 * fem,
-                                    child: Image.asset(
-                                      'assets/page-1/images/path-copy.png',
-                                      width: 6 * fem,
-                                      height: 12 * fem,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20 * fem,
-                    ),
-                    TextButton(
-                      // languageYeH (1:317)
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(
-                            0 * fem, 0 * fem, 0 * fem, 20 * fem),
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              // contentcopy21nm (1:319)
-                              'Language',
-                              style: SafeGoogleFont(
-                                'Montserrat',
-                                fontSize: 21 * ffem,
-                                fontWeight: FontWeight.w400,
-                                height: 1.2175 * ffem / fem,
-                                color: Color(0xff000000),
-                              ),
-                            ),
-                            Container(
-                              // autogrouphs498Mb (NErcQARmZzfhgnaWXvHs49)
-                              margin: EdgeInsets.fromLTRB(
-                                  0 * fem, 0 * fem, 1 * fem, 19 * fem),
-                              width: double.infinity,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    // englishqG1 (1:320)
-                                    margin: EdgeInsets.fromLTRB(
-                                        0 * fem, 5 * fem, 262 * fem, 0 * fem),
-                                    child: Text(
-                                      'English',
-                                      style: SafeGoogleFont(
-                                        'Montserrat',
-                                        fontSize: 21 * ffem,
-                                        fontWeight: FontWeight.w600,
-                                        height: 1.2175 * ffem / fem,
-                                        color: Color(0xff000000),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    // pathcopyFQH (1:323)
-                                    width: 6 * fem,
-                                    height: 12 * fem,
-                                    child: Image.asset(
-                                      'assets/page-1/images/path-copy.png',
-                                      width: 6 * fem,
-                                      height: 12 * fem,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20 * fem,
-                    ),
                     Container(
-                      // notificationsCVs (1:314)
+                      padding: EdgeInsets.fromLTRB(
+                          0 * fem, 0 * fem, 0 * fem, 20 * fem),
                       width: double.infinity,
-                      height: 50 * fem,
-                      child: Stack(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Positioned(
-                            // inputwhiteshadow1vwf (1:315)
-                            left: 0 * fem,
-                            top: 3 * fem,
-                            child: TextButton(
-                              onPressed: () {},
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                              ),
-                              child: Container(
-                                width: 350 * fem,
-                                height: 47 * fem,
-                                child: Container(
-                                  // autogroup6rc9DA5 (NErc9fqvC9cvSx6juF6RC9)
+                          Text(
+                            // contentcopymbb (1:324)
+                            'Email address',
+                            style: SafeGoogleFont(
+                              'Montserrat',
+                              fontSize: 21 * ffem,
+                              fontWeight: FontWeight.w400,
+                              height: 1.2175 * ffem / fem,
+                              color: Color(0xff000000),
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          Container(
+                            // autogroupjtzqgCm (NErcfpeLvGL3EQHr6DJtzq)
+                            margin: EdgeInsets.fromLTRB(
+                                0 * fem, 0 * fem, 1 * fem, 19 * fem),
+                            width: double.infinity,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  // marbellaZXT (1:325)
                                   margin: EdgeInsets.fromLTRB(
-                                      0 * fem, 0 * fem, 24 * fem, 0 * fem),
-                                  width: 326 * fem,
-                                  height: 26 * fem,
+                                      0 * fem, 5 * fem, 0 * fem, 0 * fem),
                                   child: Text(
-                                    'Notifications',
+                                    email,
                                     style: SafeGoogleFont(
                                       'Montserrat',
                                       fontSize: 21 * ffem,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.w600,
                                       height: 1.2175 * ffem / fem,
                                       color: Color(0xff000000),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            // controlstableviewrowxaccessory (1:316)
-                            left: 299 * fem,
-                            top: 0 * fem,
-                            child: Align(
-                              child: SizedBox(
-                                width: 51 * fem,
-                                height: 31 * fem,
-                                child: Image.asset(
-                                  buttonoff,
-                                  width: 51 * fem,
-                                  height: 31 * fem,
-                                ),
-                              ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 20 * fem,
-                    ),
                     Container(
-                      // trafficFky (1:311)
+                      padding: EdgeInsets.fromLTRB(
+                          0 * fem, 0 * fem, 0 * fem, 20 * fem),
                       width: double.infinity,
-                      height: 50 * fem,
-                      child: Stack(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Positioned(
-                            // inputwhiteshadow1nku (1:312)
-                            left: 0 * fem,
-                            top: 3 * fem,
-                            child: TextButton(
-                              onPressed: () {},
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                              ),
-                              child: Container(
-                                width: 350 * fem,
-                                height: 47 * fem,
-                                child: Container(
-                                  // autogroupnbyorEy (NErbrBM4bnRZrFbE2ynbyo)
+                          Text(
+                            // contentcopymbb (1:324)
+                            'Last name',
+                            style: SafeGoogleFont(
+                              'Montserrat',
+                              fontSize: 21 * ffem,
+                              fontWeight: FontWeight.w400,
+                              height: 1.2175 * ffem / fem,
+                              color: Color(0xff000000),
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          Container(
+                            // autogroupjtzqgCm (NErcfpeLvGL3EQHr6DJtzq)
+                            margin: EdgeInsets.fromLTRB(
+                                0 * fem, 0 * fem, 1 * fem, 19 * fem),
+                            width: double.infinity,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  // marbellaZXT (1:325)
                                   margin: EdgeInsets.fromLTRB(
-                                      0 * fem, 0 * fem, 24 * fem, 21 * fem),
-                                  width: 326 * fem,
-                                  height: 26 * fem,
+                                      0 * fem, 5 * fem, 0 * fem, 0 * fem),
                                   child: Text(
-                                    'Traffic',
+                                    last_name,
                                     style: SafeGoogleFont(
                                       'Montserrat',
                                       fontSize: 21 * ffem,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.w600,
                                       height: 1.2175 * ffem / fem,
                                       color: Color(0xff000000),
                                     ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
-                          Positioned(
-                            // controlstableviewrowxaccessory (1:313)
-                            left: 299 * fem,
-                            top: 0 * fem,
-                            child: Align(
-                              child: SizedBox(
-                                width: 51 * fem,
-                                height: 31 * fem,
-                                child: Image.asset(
-                                  buttonoff,
-                                  width: 51 * fem,
-                                  height: 31 * fem,
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(
+                          0 * fem, 0 * fem, 0 * fem, 20 * fem),
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            // contentcopymbb (1:324)
+                            'First name',
+                            style: SafeGoogleFont(
+                              'Montserrat',
+                              fontSize: 21 * ffem,
+                              fontWeight: FontWeight.w400,
+                              height: 1.2175 * ffem / fem,
+                              color: Color(0xff000000),
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          Container(
+                            // autogroupjtzqgCm (NErcfpeLvGL3EQHr6DJtzq)
+                            margin: EdgeInsets.fromLTRB(
+                                0 * fem, 0 * fem, 1 * fem, 19 * fem),
+                            width: double.infinity,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  // marbellaZXT (1:325)
+                                  margin: EdgeInsets.fromLTRB(
+                                      0 * fem, 5 * fem, 0 * fem, 0 * fem),
+                                  child: Text(
+                                    first_name,
+                                    style: SafeGoogleFont(
+                                      'Montserrat',
+                                      fontSize: 21 * ffem,
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.2175 * ffem / fem,
+                                      color: Color(0xff000000),
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
-                          // Positioned(
-                          //   // controlstableviewrowxaccessory (5:354)
-                          //   left: 299*fem,
-                          //   top: 0*fem,
-                          //   child: Align(
-                          //     child: SizedBox(
-                          //       width: 51*fem,
-                          //       height: 31*fem,
-                          //       child: Image.asset(
-                          //         'assets/page-1/images/controls-table-view-row-x-accessory-right-dark-switch-off-qnV.png',
-                          //         width: 51*fem,
-                          //         height: 31*fem,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(
+                          0 * fem, 0 * fem, 0 * fem, 20 * fem),
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            // contentcopy21nm (1:319)
+                            'Matricule',
+                            style: SafeGoogleFont(
+                              'Montserrat',
+                              fontSize: 21 * ffem,
+                              fontWeight: FontWeight.w400,
+                              height: 1.2175 * ffem / fem,
+                              color: Color(0xff000000),
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          Container(
+                            // autogrouphs498Mb (NErcQARmZzfhgnaWXvHs49)
+                            margin: EdgeInsets.fromLTRB(
+                                0 * fem, 0 * fem, 1 * fem, 19 * fem),
+                            width: double.infinity,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  // englishqG1 (1:320)
+                                  margin: EdgeInsets.fromLTRB(
+                                      0 * fem, 5 * fem, 0 * fem, 0 * fem),
+                                  child: Text(
+                                    matricule,
+                                    style: SafeGoogleFont(
+                                      'Montserrat',
+                                      fontSize: 21 * ffem,
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.2175 * ffem / fem,
+                                      color: Color(0xff000000),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),

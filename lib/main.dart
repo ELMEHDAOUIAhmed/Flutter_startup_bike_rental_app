@@ -29,6 +29,7 @@ import 'screens/payment.dart';
 // import 'screens/promotion.dart';
 // import 'tests/map_screen.dart';
 // import 'tests/buttons.dart';
+import '/screens/settings.dart';
 
 import 'tests/map_screen_new.dart';
 import 'tests/bluetooth_screen.dart';
@@ -111,7 +112,7 @@ class MyApp extends StatelessWidget {
       // ***IMPORTANT REMOVE BEFORE FINAL VERSION*** //
 
       // ***FOR TESTING ONLY***//
-      //home: StartingPage(),
+      //home: ProfileMenu(),
     );
   }
 }

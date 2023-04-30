@@ -8,14 +8,19 @@ import 'package:myapp/utils.dart';
 import './payment.dart';
 
 class Mywallet extends StatefulWidget {
+  final Map<String, dynamic> user;
+  const Mywallet({Key key, this.user}) : super(key: key);
   @override
   State<Mywallet> createState() => _MywalletState();
 }
 
 class _MywalletState extends State<Mywallet> {
-
+  double sold = 0.0;
   @override
   Widget build(BuildContext context) {
+    if (widget.user != null) {
+      sold = widget.user['sold'];
+    }
     double baseWidth = 414;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -122,7 +127,7 @@ class _MywalletState extends State<Mywallet> {
                             Container(
                               // contentdpR (1:618)
                               margin: EdgeInsets.fromLTRB(
-                                  0 * fem, 0 * fem, 0 * fem, 5 * fem),
+                                  0 * fem, 0 * fem, 25 * fem, 5 * fem),
                               child: Text(
                                 'Balance',
                                 style: SafeGoogleFont(
@@ -137,7 +142,7 @@ class _MywalletState extends State<Mywallet> {
                             ),
                             Text(
                               // KhF (1:620)
-                              '\$ 10.50',
+                              '\$ $sold',
                               style: SafeGoogleFont(
                                 'Montserrat',
                                 fontSize: 21 * ffem,
@@ -156,10 +161,11 @@ class _MywalletState extends State<Mywallet> {
                             0 * fem, 12 * fem, 0 * fem, 20 * fem),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Payment()));
+                            Navigator.pushNamed(
+                              context,
+                              '/payment',
+                              arguments: widget.user,
+                            );
                           },
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,

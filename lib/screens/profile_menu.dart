@@ -54,7 +54,6 @@ class _ProfileMenuState extends State<ProfileMenu> {
 
   @override
   Widget build(BuildContext context) {
-
     if (widget.user != null) {
       username = widget.user['username'];
       sold = widget.user['sold'];
@@ -102,10 +101,11 @@ class _ProfileMenuState extends State<ProfileMenu> {
                       TextButton(
                         // image42DqX (6:661)
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Profile_welcome()));
+                          Navigator.pushNamed(
+                            context,
+                            '/profilewelcome',
+                            arguments: widget.user,
+                          );
                         },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
@@ -178,10 +178,11 @@ class _ProfileMenuState extends State<ProfileMenu> {
                               top: 1 * fem,
                               child: TextButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Mywallet()));
+                              Navigator.pushNamed(
+                                context,
+                                '/wallet',
+                                arguments: widget.user,
+                              );;
                                 },
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero,
@@ -211,11 +212,11 @@ class _ProfileMenuState extends State<ProfileMenu> {
                             ),
                             Positioned(
                               // DeV (6:631)
-                              left: 255.1999511719 * fem,
+                              left: 0 * fem,
                               top: 0 * fem,
                               child: Align(
                                 child: SizedBox(
-                                  width: 83.95 * fem,
+                                  width: 200 * fem, //83.95
                                   height: 26 * fem,
                                   child: Text(
                                     '\$ $sold',
@@ -411,10 +412,11 @@ class _ProfileMenuState extends State<ProfileMenu> {
                             0 * fem, 0 * fem, 0 * fem, 1 * fem),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.push(
+                              Navigator.pushNamed(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) => Settings()));
+                                '/settings',
+                                arguments: widget.user,
+                              );
                           },
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
