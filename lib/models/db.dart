@@ -63,7 +63,9 @@ Future<void> updateUserSold(double newSold) async {
     'sold': newSold,
   };
   await database.update('user', userData);
+  print('SOLD UPDATED!');
 }
+
 
 Future<String> getMatricule() async {
   final database = await openDatabase('my_database.db', version: 1);

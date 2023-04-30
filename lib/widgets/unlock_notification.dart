@@ -177,6 +177,11 @@ class _UnlockState extends State<Unlock> {
     });
   }
 
+  Future<String> getToken() async{
+    String token = await getToken();
+    return  token;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -192,7 +197,11 @@ class _UnlockState extends State<Unlock> {
           _unlockSteps = false;
           _ride_stats = true;
           startTimerDuration();
+          
         });
+        //send api to server  takeBike(token)
+        //token
+
       }
       if (arduino.access == 'Access denied') {
         ++_attempts;
@@ -230,6 +239,7 @@ class _UnlockState extends State<Unlock> {
         setState(() {
           _lockCleared = true;
         });
+        //send api to server returnBike(token,stationId)
       }
       //}
     };

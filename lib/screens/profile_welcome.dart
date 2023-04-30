@@ -6,6 +6,7 @@ import './ride_history.dart';
 import 'profile_menu.dart';
 import 'package:intl/intl.dart';
 import '/providers/weather_api.dart';
+import '/models/db.dart';
 
 class Profile_welcome extends StatefulWidget {
   final Map<String, dynamic> user;
@@ -51,6 +52,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
   void initState() {
     super.initState();
     _fetchData();
+    getUser();
   }
 
   @override

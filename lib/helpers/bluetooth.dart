@@ -5,6 +5,7 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:permission_handler/permission_handler.dart';
 import './arduino.dart';
 import '/providers/control_access_api.dart';
+import '/models/db.dart';
 
 typedef AccessCallback = void Function(ArduinoMessage arduino);
 
@@ -12,11 +13,13 @@ class BluetoothService {
   AccessCallback onAccessCallback;
   int attempts = 0;
 
-  void processArduinoMessage(String message) {
+  void processArduinoMessage(String message) async { // was working perfectly without async
     var arduinoMessage = extractArduinoMessage(message);
     if (arduinoMessage != null) {
       //api call
+      //remove it
       sendArduinoMessageToApi(arduinoMessage);
+
       print("Access: ${arduinoMessage.access}");
       print("UID: ${arduinoMessage.uid}");
       print("Status: ${arduinoMessage.status}");
@@ -71,7 +74,6 @@ class BluetoothService {
         print('Disconnected from ${device.name}');
         disconnect();
       });
-
     } catch (e) {
       print('Error connecting to ${device.name}: ${e.toString()}');
     }

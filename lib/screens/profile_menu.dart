@@ -49,7 +49,9 @@ class _ProfileMenuState extends State<ProfileMenu> {
 
   @override
   void initState() {
-    //getUserDetails();
+    super.initState();
+    getUser();
+
   }
 
   @override
@@ -212,7 +214,7 @@ class _ProfileMenuState extends State<ProfileMenu> {
                             ),
                             Positioned(
                               // DeV (6:631)
-                              left: 0 * fem,
+                              left: 120 * fem,
                               top: 0 * fem,
                               child: Align(
                                 child: SizedBox(

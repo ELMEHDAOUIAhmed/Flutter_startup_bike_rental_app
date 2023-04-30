@@ -48,3 +48,59 @@ Future<List<Marker>> fetchStations(String token) async {
   }
 }
 
+//reservation of bike
+Future<void> reserveBike(String token, int stationId) async {
+  final url = Uri.parse('http://192.168.100.7:8000/reserver/');
+  final headers = {'Authorization': 'Token $token'};
+  final response = await http.post(url,
+      body: {
+        'station': stationId,
+      },
+      headers: headers);
+
+  print(response.statusCode);
+  print(response.body);
+
+  if (response.statusCode == 200) {
+    print('Bike Reserved');
+    //next i retrun velo informations in here
+  } else {
+    throw Exception('Failed to Reserve Bike!');
+  }
+}
+
+Future<void> takeBike(String token) async {
+  final url = Uri.parse('http://192.168.100.7:8000/locate/');
+  final headers = {'Authorization': 'Token $token'};
+  final response = await http.post(url, headers: headers);
+
+  print(response.statusCode);
+  print(response.body);
+
+  if (response.statusCode == 200) {
+    print('Bike taken');
+    //next i retrun velo informations in here
+  } else {
+    throw Exception('Failed to take Bike!');
+  }
+}
+
+Future<void> returnBike(String token, int stationId) async {
+  final url = Uri.parse('http://192.168.100.7:8000/locate/');
+  final headers = {'Authorization': 'Token $token'};
+  final response = await http.put(url,
+      body: {
+        'station': stationId,
+      },
+      headers: headers);
+
+  print(response.statusCode);
+  print(response.body);
+
+  if (response.statusCode == 200) {
+    print('Bike Returned to Station : $stationId');
+    // return price
+  } else {
+    throw Exception('Failed to return Bike!');
+  }
+}

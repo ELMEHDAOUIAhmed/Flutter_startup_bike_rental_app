@@ -170,9 +170,7 @@ void fetchAll() async {
         
         if(stock >0){
 
-        //api to remove velo from that marker
 
-        fetchAll();
         }
       }
     });

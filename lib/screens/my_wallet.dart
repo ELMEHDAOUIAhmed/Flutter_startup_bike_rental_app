@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 // import 'dart:ui';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/utils.dart';
-
-import './payment.dart';
+import '/models/db.dart';
 
 class Mywallet extends StatefulWidget {
   final Map<String, dynamic> user;
@@ -15,7 +14,14 @@ class Mywallet extends StatefulWidget {
 }
 
 class _MywalletState extends State<Mywallet> {
+
   double sold = 0.0;
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.user != null) {
@@ -161,10 +167,16 @@ class _MywalletState extends State<Mywallet> {
                             0 * fem, 12 * fem, 0 * fem, 20 * fem),
                         child: TextButton(
                           onPressed: () {
+                            // Navigator.pushNamed(
+                            //   context,
+                            //   '/payment',
+                            //   arguments: widget.user,
+                            // );
+
+                            //pushName VOUCHER
                             Navigator.pushNamed(
                               context,
-                              '/payment',
-                              arguments: widget.user,
+                              '/voucher',
                             );
                           },
                           style: TextButton.styleFrom(
@@ -207,8 +219,30 @@ class _MywalletState extends State<Mywallet> {
                   width: 413 * fem,
                   height: 287 * fem,
                   child: Image.asset(
-                    'assets/page-1/images/image-9.png',
+                    'assets/page-1/images/image-7.png',
                     fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              // jKB (5:343)
+              left: 57 * fem, //57
+              top: 320 * fem, //286
+              child: Align(
+                child: SizedBox(
+                  width: 350 * fem, //34
+                  height: 35 * fem, //35
+                  child: Text(
+                    '\$ $sold',
+                    style: SafeGoogleFont(
+                      'Montserrat',
+                      fontSize: 28 * ffem,
+                      fontWeight: FontWeight.w600,
+                      height: 1.2175 * ffem / fem,
+                      color: Color(0xff0a090a),
+                      decoration: TextDecoration.none,
+                    ),
                   ),
                 ),
               ),

@@ -33,6 +33,7 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
     String voucher = voucherController.text;
     try {
       final solde = await refillSold(token, voucher);
+      await updateUserSold(solde);
       // ignore: use_build_context_synchronously
       showDialog(
         context: context,
