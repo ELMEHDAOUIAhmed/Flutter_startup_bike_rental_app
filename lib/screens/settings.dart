@@ -29,6 +29,7 @@ class _SettingsState extends State<Settings> {
       last_name = widget.user['last_name'];
       matricule = widget.user['matricule'];
       email = widget.user['email'];
+      username = widget.user['username'];
     }
 
     double baseWidth = 414;
@@ -242,6 +243,54 @@ class _SettingsState extends State<Settings> {
                                       0 * fem, 5 * fem, 0 * fem, 0 * fem),
                                   child: Text(
                                     first_name,
+                                    style: SafeGoogleFont(
+                                      'Montserrat',
+                                      fontSize: 21 * ffem,
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.2175 * ffem / fem,
+                                      color: Color(0xff000000),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(
+                          0 * fem, 0 * fem, 0 * fem, 20 * fem),
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            // contentcopymbb (1:324)
+                            'Username',
+                            style: SafeGoogleFont(
+                              'Montserrat',
+                              fontSize: 21 * ffem,
+                              fontWeight: FontWeight.w400,
+                              height: 1.2175 * ffem / fem,
+                              color: Color(0xff000000),
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          Container(
+                            // autogroupjtzqgCm (NErcfpeLvGL3EQHr6DJtzq)
+                            margin: EdgeInsets.fromLTRB(
+                                0 * fem, 0 * fem, 1 * fem, 19 * fem),
+                            width: double.infinity,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  // marbellaZXT (1:325)
+                                  margin: EdgeInsets.fromLTRB(
+                                      0 * fem, 5 * fem, 0 * fem, 0 * fem),
+                                  child: Text(
+                                    username,
                                     style: SafeGoogleFont(
                                       'Montserrat',
                                       fontSize: 21 * ffem,
