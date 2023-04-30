@@ -36,13 +36,16 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Signup());
       case '/profilewelcome':
         // if (args is Map<String, dynamic>) {
-          return MaterialPageRoute(
-              builder: (_) => Profile_welcome(
-                    user: args,
-                  ));
-        // }break;
+        return MaterialPageRoute(
+            builder: (_) => Profile_welcome(
+                  user: args,
+                ));
+      // }break;
       case '/profilemenu':
-        return MaterialPageRoute(builder: (_) => ProfileMenu());
+        return MaterialPageRoute(
+            builder: (_) => ProfileMenu(
+                  user: args,
+                ));
       case '/voucher':
         return MaterialPageRoute(builder: (_) => PaymentVoucher());
       case '/payment':

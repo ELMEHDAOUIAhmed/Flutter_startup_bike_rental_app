@@ -21,13 +21,13 @@ class _Profile_welcomeState extends State<Profile_welcome> {
   // Text('First Name: ${user['firstname']}'),
   // Text('Email: ${user['email']}'),
   // Text('Sold: ${user['sold']}'),
-  String username='';
-  String matricule='';
-  String lastname='';
-  String firstname='';
-  String email='';
-  double sold=0.0;
-  
+  String username = '';
+  String matricule = '';
+  String lastname = '';
+  String firstname = '';
+  String email = '';
+  double sold = 0.0;
+
   //https://rapidapi.com/studio
   String _temperature = '';
   String _condition = '';
@@ -55,9 +55,8 @@ class _Profile_welcomeState extends State<Profile_welcome> {
 
   @override
   Widget build(BuildContext context) {
-    if(widget.user!=null){
+    if (widget.user != null) {
       username = widget.user['username'];
-
     }
     //Retreive and formate Date
     DateTime now = DateTime.now();
@@ -139,10 +138,11 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                           height: 89 * fem,
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProfileMenu()));
+                              Navigator.pushNamed(
+                                context,
+                                '/profilemenu',
+                                arguments: widget.user,
+                              );
                             },
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.zero,
@@ -290,7 +290,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                                   // 5Ju (1:1282)
                                   margin: EdgeInsets.fromLTRB(
                                       0 * fem, 0 * fem, 70 * fem, 0 * fem),
-                                      width: double.infinity,
+                                  width: double.infinity,
                                   child: Text(
                                     _temperature.isNotEmpty
                                         ? '${_temperature}°C'
