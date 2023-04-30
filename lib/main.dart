@@ -30,11 +30,9 @@ import 'screens/payment.dart';
 // import 'tests/map_screen.dart';
 // import 'tests/buttons.dart';
 import '/screens/settings.dart';
-
 import 'tests/map_screen_new.dart';
 import 'tests/bluetooth_screen.dart';
 import 'screens/support.dart';
-
 import '/screens/verification.dart';
 import 'screens/message.dart';
 import '/providers/auth_api.dart';
