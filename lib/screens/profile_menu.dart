@@ -16,25 +16,49 @@ import '/providers/auth_api.dart';
 import '/models/db.dart';
 import '/providers/user_api.dart';
 
-// future improvements combine every button into one widget and then instead of writing same code over and over
-// write once , just like my_button.dart
-
 class ProfileMenu extends StatefulWidget {
+  final Map<String, dynamic> user;
+  const ProfileMenu({Key key, this.user}) : super(key: key);
   @override
   State<ProfileMenu> createState() => _ProfileMenuState();
 }
 
 class _ProfileMenuState extends State<ProfileMenu> {
   String username = '';
+  double sold = 0.0;
 
   void signUserOutAPI() async {
     String token = await getToken();
     logout(token);
     await deleteToken();
+    await deleteUser();
+    Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+  }
+
+  // Future<void> getUserDetails() async {
+  //   Map<String, dynamic> user = await getUser();
+  //   if (user != null) {
+  //     setState(() {
+  //       username = user['username'];
+  //       sold = user['sold'];
+  //     });
+  //   } else {
+  //     print('No user found in database');
+  //   }
+  // }
+
+  @override
+  void initState() {
+    //getUserDetails();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    if (widget.user != null) {
+      username = widget.user['username'];
+      sold = widget.user['sold'];
+    }
     double baseWidth = 414;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -194,7 +218,7 @@ class _ProfileMenuState extends State<ProfileMenu> {
                                   width: 83.95 * fem,
                                   height: 26 * fem,
                                   child: Text(
-                                    '\$ 10.50',
+                                    '\$ $sold',
                                     textAlign: TextAlign.right,
                                     style: SafeGoogleFont(
                                       'Montserrat',
@@ -434,8 +458,6 @@ class _ProfileMenuState extends State<ProfileMenu> {
                                   TextButton(
                                 onPressed: () {
                                   signUserOutAPI();
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context, '/auth', (route) => false);
                                 },
                                 style: TextButton.styleFrom(
                                   padding: EdgeInsets.zero,

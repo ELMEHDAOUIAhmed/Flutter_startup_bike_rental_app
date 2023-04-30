@@ -7,7 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 //screen and widgets
-// import 'screens/starting_page.dart';
+import 'screens/starting_page.dart';
 import 'screens/profile_welcome.dart';
 // import 'screens/onboarding_3.dart';
 // import 'screens/profile_menu.dart';
@@ -111,7 +111,7 @@ class MyApp extends StatelessWidget {
       // ***IMPORTANT REMOVE BEFORE FINAL VERSION*** //
 
       // ***FOR TESTING ONLY***//
-      //home: MapScreenNew(),
+      //home: StartingPage(),
     );
   }
 }

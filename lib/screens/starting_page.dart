@@ -4,12 +4,20 @@ import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/utils.dart';
 import 'login.dart';
-
+import '/models/db.dart';
 import './onboarding.dart';
 
 class StartingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = {
+      'matricule':'help',
+      'first_name':'help',
+      'last_name':'help',
+      'email':'help',
+      'username':'help',
+      'sold':20,
+    };
     double baseWidth = 414;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;

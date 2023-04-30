@@ -12,6 +12,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  Map<String, dynamic> user;
+
   String username = ''; //pass it in pushname as a parameter
   // variables to hold user input
   final emailController = TextEditingController();
@@ -32,26 +34,21 @@ class _LoginState extends State<Login> {
     if (email != '' && password != '') {
       try {
         // Call the login function and wait for it to complete
-        final token = await login(email, password);
+        final user = await login(email, password);
         username = emailController.text;
+        final token = user['token'];
         // Save the token to the local database
         await saveToken(token);
+        await saveUser(user);
         // Navigate to the home screen
-        //Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
-        Navigator.of(context).pushNamed('/profilewelcome', arguments: {
-          'matricule': '12121',
-          'lastname': 'ahmed',
-          'firstname': 'zin',
-          'email': 'email@test.com',
-          'sold': 20.0
-        });
+        Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+
 
         // Text('Matricule: ${user['matricule']}'),
         // Text('Last Name: ${user['lastname']}'),
         // Text('First Name: ${user['firstname']}'),
         // Text('Email: ${user['email']}'),
         // Text('Sold: ${user['sold']}'),
-        
       } catch (error) {
         // Display an error message
         showDialog(

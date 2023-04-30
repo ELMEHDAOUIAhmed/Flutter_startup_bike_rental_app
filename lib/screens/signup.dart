@@ -15,6 +15,8 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  Map<String, dynamic> user;
+
   // variables to hold user input
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -86,10 +88,12 @@ class _SignupState extends State<Signup> {
         password != '' &&
         confirmpassword != '') {
       try {
-        final token = await signUp(
+        final user = await signUp(
             matricule, lastName, firstName, userName, email, password);
         // Save the token to the local database
+        final token = user['token'];
         await saveToken(token);
+        await saveUser(user);
         // ignore: use_build_context_synchronously
         showDialog(
           context: context,

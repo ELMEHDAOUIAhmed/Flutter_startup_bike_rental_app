@@ -289,7 +289,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
                                 child: Container(
                                   // 5Ju (1:1282)
                                   margin: EdgeInsets.fromLTRB(
-                                      0 * fem, 0 * fem, 95 * fem, 0 * fem),
+                                      0 * fem, 0 * fem, 70 * fem, 0 * fem),
                                       width: double.infinity,
                                   child: Text(
                                     _temperature.isNotEmpty
