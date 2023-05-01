@@ -10,7 +10,7 @@ import '/screens/onboarding_3.dart';
 import '/screens/payment_voucher.dart';
 import '/screens/payment.dart';
 import '/screens/my_wallet.dart';
-import '/tests/map_screen_new.dart';
+import '/screens/map_screen.dart';
 import '/screens/signup.dart';
 import '/screens/settings.dart';
 
@@ -75,7 +75,7 @@ class RouteGenerator {
       // case '/verification':
       //   return MaterialPageRoute(builder: (_) => MapScreenNew());
       case '/map':
-        return MaterialPageRoute(builder: (_) => MapScreenNew());
+        return MaterialPageRoute(builder: (_) => MapScreen());
 
         return _errorRoute();
       default:

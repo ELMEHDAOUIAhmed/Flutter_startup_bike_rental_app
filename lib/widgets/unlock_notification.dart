@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:myapp/utils.dart';
-import '../tests/map_screen_new.dart';
 import '/helpers/bluetooth.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import '/components/my_button.dart';

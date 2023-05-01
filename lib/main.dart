@@ -30,7 +30,6 @@ import 'screens/payment.dart';
 // import 'tests/map_screen.dart';
 // import 'tests/buttons.dart';
 import '/screens/settings.dart';
-import 'tests/map_screen_new.dart';
 import 'tests/bluetooth_screen.dart';
 import 'screens/support.dart';
 import '/screens/verification.dart';
@@ -40,6 +39,7 @@ import '/widgets/unlock_notification.dart';
 import '/screens/profile_menu.dart';
 import '/tests/camera_report.dart';
 import 'screens/my_wallet.dart';
+import '/screens/map_screen.dart';
 
 
 //Important
@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
       // ***IMPORTANT REMOVE BEFORE FINAL VERSION*** //
 
       // ***FOR TESTING ONLY***//
-       home: MapScreenNew(),
+       home: MapScreen(),
     );
   }
 }
