@@ -11,6 +11,9 @@ import 'package:maps_toolkit/maps_toolkit.dart' as map_tool;
 import '/helpers/station.dart';
 import '/models/db.dart';
 
+typedef AccessCallback = void Function(String stationId);
+
+
 class MapScreenNew extends StatefulWidget {
   @override
   State<MapScreenNew> createState() => _MapScreenNewState();
@@ -274,7 +277,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
   }
 
   void checkIfInStationArea(Position position) async {
-    String stationId='';
+    String stationId = '';
     for (Marker marker in markers) {
       double distanceInMeters = await Geolocator.distanceBetween(
         position.latitude,
@@ -289,7 +292,6 @@ class _MapScreenNewState extends State<MapScreenNew> {
       }
     }
     // callback to retrieve the isInStation value from another file
-
   }
 
   Future<double> calculateDistanceInMeters(

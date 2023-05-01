@@ -22,6 +22,7 @@ class _UnlockState extends State<Unlock> {
 
   bool _lockStatusOpen = false;
   bool _lockCleared = false;
+  String userCurrentStation='';
 
   void _confirmCancelRide() {
     showDialog(
@@ -135,7 +136,6 @@ class _UnlockState extends State<Unlock> {
   }
 
   final BluetoothService bluetoothService = BluetoothService();
-  final MapScreenNew mapService = MapScreenNew();
 
   StreamSubscription<String> _subscription;
   String _message = '';
@@ -188,6 +188,7 @@ class _UnlockState extends State<Unlock> {
     _checkBluetoothStatus();
     startScanning(pin);
     _startTimer();
+
 
     // Set the onAccessCallback to update the state when an access message is received
     bluetoothService.onAccessCallback = (ArduinoMessage arduino) {
