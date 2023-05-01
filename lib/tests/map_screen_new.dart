@@ -97,7 +97,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
 
   bool isInUSTHBArea;
 
-  void CheckUpdatedLocation(Position Position) {
+  void checkUserIsInsideUSTHB(Position Position) {
     //convert position into LatLng
     LatLng pointLatLng = LatLng(Position.latitude, Position.longitude);
 
@@ -110,6 +110,7 @@ class _MapScreenNewState extends State<MapScreenNew> {
           convertedPolygonPoints,
           false);
     });
+    print('Is the USER INSIDE USTHB ? :$isInUSTHBArea');
   }
 
   LatLng userLocation;
@@ -117,15 +118,11 @@ class _MapScreenNewState extends State<MapScreenNew> {
   List<Marker> markers = [];
   var incircles;
 
-// void _deletetoken () async {
-//   deleteToken();
-// }
-
-void fetchAll() async {
-  String token = await getToken();
-  markers = await fetchStations(token);
-  setState(() {});
-}
+  void fetchAll() async {
+    String token = await getToken();
+    markers = await fetchStations(token);
+    setState(() {});
+  }
 
   // Create a Circle for each marker
   void drawCircles() {
@@ -145,11 +142,13 @@ void fetchAll() async {
     token = await getToken();
   }
 
+  void _deletetoken() async {
+    deleteToken();
+  }
 
   void updateMarkerStock() {
     fetchAll();
   }
-
 
   void takeBikeFromMarker(String markerId) {
     //retreive updated stations
@@ -157,21 +156,17 @@ void fetchAll() async {
     setState(() {
       final index =
           markers.indexWhere((marker) => marker.markerId.value == markerId);
-          
-      if (index >= 0) {
 
+      if (index >= 0) {
         final marker = markers[index];
         final stockSnippet = marker.infoWindow.snippet;
         final stockString =
-        stockSnippet.substring(stockSnippet.indexOf(':') + 1).trim();
+            stockSnippet.substring(stockSnippet.indexOf(':') + 1).trim();
         final int stock = int.tryParse(stockString) ?? 0;
 
         print('STOCK IS : $stock');
-        
-        if(stock >0){
 
-
-        }
+        if (stock > 0) {}
       }
     });
   }
@@ -224,7 +219,7 @@ void fetchAll() async {
   //Every 20 sec send http request of this information
 
   StreamSubscription<Position> _positionStreamSubscription;
-  final LocationSettings locationSettings = LocationSettings(
+  final LocationSettings locationSettings = const LocationSettings(
     accuracy: LocationAccuracy.high,
     distanceFilter: 1,
   );
@@ -238,8 +233,8 @@ void fetchAll() async {
           positionuser = position;
         });
 
-        CheckUpdatedLocation(positionuser);
-        print('Is the USER INSIDE USTHB ? :$isInUSTHBArea');
+        checkUserIsInsideUSTHB(positionuser);
+        checkIfInStationArea(positionuser);
 
         //start sending positionuser via http in 20sec intervals
 
@@ -278,6 +273,25 @@ void fetchAll() async {
     _positionStreamSubscription?.cancel();
   }
 
+  void checkIfInStationArea(Position position) async {
+    String stationId='';
+    for (Marker marker in markers) {
+      double distanceInMeters = await Geolocator.distanceBetween(
+        position.latitude,
+        position.longitude,
+        marker.position.latitude,
+        marker.position.longitude,
+      );
+      if (distanceInMeters <= 10) {
+        stationId = marker.markerId.value;
+        print('User is in Station ${marker.markerId.value}');
+        break;
+      }
+    }
+    // callback to retrieve the isInStation value from another file
+
+  }
+
   Future<double> calculateDistanceInMeters(
       int markerIndex, Position userPosition) async {
     if (markerIndex != null && userPosition != null) {
@@ -293,8 +307,6 @@ void fetchAll() async {
       return 0.0;
     }
   }
-
-  
 
   @override
   void initState() {
@@ -339,7 +351,6 @@ void fetchAll() async {
               ),
               ...Set.from(markers),
             },
-            
             circles: incircles?.toSet() ?? {},
             onCameraMove: (position) {},
             polygons: {

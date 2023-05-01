@@ -1,4 +1,5 @@
-You can create a callback function in your BT_new.dart file that updates the state in your unlock_notification.dart file. Here's an example:
+You can create a callback function in your BT_new.dart file that updates the state in your unlock_notification.dart file.
+ Here's an example:
 
 In BT_new.dart:
 

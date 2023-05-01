@@ -35,18 +35,6 @@ class _ProfileMenuState extends State<ProfileMenu> {
     Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
   }
 
-  // Future<void> getUserDetails() async {
-  //   Map<String, dynamic> user = await getUser();
-  //   if (user != null) {
-  //     setState(() {
-  //       username = user['username'];
-  //       sold = user['sold'];
-  //     });
-  //   } else {
-  //     print('No user found in database');
-  //   }
-  // }
-
   @override
   void initState() {
     super.initState();
