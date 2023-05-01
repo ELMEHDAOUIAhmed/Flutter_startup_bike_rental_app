@@ -254,13 +254,13 @@ class _MapScreenState extends State<MapScreen> {
             _distanceInMeters = distanceInMeters;
           });
         }
-        if (_distanceInMeters < 5) {
+        if (_distanceInMeters <= 10) {
           setState(() {
             _notification_Visible = true;
             distance_window = false;
           });
         }
-        if (_distanceInMeters > 15) {
+        if (_distanceInMeters >= 20) {
           setState(() {
             _notification_Visible = false;
             distance_window = true;
@@ -285,7 +285,7 @@ class _MapScreenState extends State<MapScreen> {
         marker.position.latitude,
         marker.position.longitude,
       );
-      if (distanceInMeters <= 10) {
+      if (distanceInMeters <= 15) {
         stationId = marker.markerId.value;
         print('User is in Station ${marker.markerId.value}');
         break;
