@@ -10,9 +10,9 @@ import 'package:myapp/widgets/unlock_notification.dart';
 import 'package:maps_toolkit/maps_toolkit.dart' as map_tool;
 import '/helpers/station.dart';
 import '/models/db.dart';
+import '/components/my_button.dart';
 
 typedef AccessCallback = void Function(String stationId);
-
 
 class MapScreen extends StatefulWidget {
   @override
@@ -23,6 +23,7 @@ class _MapScreenState extends State<MapScreen> {
   //gps postion
   double topPosition = 559;
   bool _gps = true;
+  bool _cancelRide = false;
   static double _distanceInMeters = 0.0;
   bool distance_window = false;
   bool _menu_window = true;
@@ -73,6 +74,56 @@ class _MapScreenState extends State<MapScreen> {
               ),
             ],
           ),
+        );
+      },
+    );
+  }
+
+  void _confirmCancelRide() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(48),
+          ),
+          title: Row(
+            children: const [
+              Icon(Icons.notification_important, color: Colors.yellow),
+              SizedBox(width: 8.0),
+              Flexible(
+                fit: FlexFit.loose,
+                child: Text(
+                    'Alert!\nAre you sure you want to Cancel your Ride ?.',
+                    style: TextStyle(fontSize: 16.0)),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop();
+                //No
+              },
+              child: Text("NO"),
+            ),
+            TextButton(
+              onPressed: () {
+                _stopTracking();
+                //cancelRideAPI; // will be defined after
+
+                setState(() {
+                  distance_window = !distance_window;
+                  _ride_Visible = !distance_window;
+                  _nav_bar_Visible = !_nav_bar_Visible;
+                  _cancelRide = !_cancelRide;
+                });
+                Navigator.of(context).pop();
+                //Yes
+              },
+              child: Text("YES"),
+            ),
+          ],
         );
       },
     );
@@ -252,6 +303,11 @@ class _MapScreenState extends State<MapScreen> {
 
           setState(() {
             _distanceInMeters = distanceInMeters;
+          });
+        }
+        if (_distanceInMeters <= 20) {
+          setState(() {
+            _cancelRide = false;
           });
         }
         if (_distanceInMeters <= 10) {
@@ -440,6 +496,18 @@ class _MapScreenState extends State<MapScreen> {
         ),
         Visibility(visible: _nav_bar_Visible, child: NavBar()),
         Visibility(visible: _notification_Visible, child: Unlock()),
+        Visibility(
+            visible: _cancelRide,
+            child: Positioned(
+              left: 125 * fem,
+              top: 635 * fem,
+              right: 125 * fem,
+              bottom: 170 * fem,
+              child: MyButton(
+                onTap: _confirmCancelRide,
+                text: 'Cancel Ride!',
+              ),
+            )),
 
         //Blur
         Positioned(
@@ -597,74 +665,74 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void stationSelection() {
-    if (id == null) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(48),
-            ),
-            title: Text('Stations'),
-            content: Container(
-              width: double.maxFinite,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: markers.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    leading: const Icon(Icons.directions_bike),
-                    title: Text(markers[index].infoWindow.title),
-                    trailing: Text(markers[index].infoWindow.snippet),
-                    onTap: () {
-                      id = _getId(index);
-                      id_int = index;
-                      Navigator.pop(context);
-                      takeBikeFromMarker(id);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(48),
-                            ),
-                            title: Row(
-                              children: [
-                                //Icon(Icons.error, color: Colors.red),
-                                const Icon(Icons.check_circle,
-                                    color: Colors.green),
-                                const SizedBox(width: 8.0),
-                                Flexible(
-                                  fit: FlexFit.loose,
-                                  child: Text(
-                                      'Station \n "${markers[index].infoWindow.title}"\n successfully selected. \n\n Go to your Station and Follow instruction to unlock Bike.',
-                                      style: TextStyle(fontSize: 16.0)),
-                                ),
-                              ],
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  _confirmRide();
-                                },
-                                child: Text("Continue"),
+    // if (id == null) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(48),
+          ),
+          title: Text('Stations'),
+          content: Container(
+            width: double.maxFinite,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: markers.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  leading: const Icon(Icons.directions_bike),
+                  title: Text(markers[index].infoWindow.title),
+                  trailing: Text(markers[index].infoWindow.snippet),
+                  onTap: () {
+                    id = _getId(index);
+                    id_int = index;
+                    Navigator.pop(context);
+                    takeBikeFromMarker(id);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(48),
+                          ),
+                          title: Row(
+                            children: [
+                              //Icon(Icons.error, color: Colors.red),
+                              const Icon(Icons.check_circle,
+                                  color: Colors.green),
+                              const SizedBox(width: 8.0),
+                              Flexible(
+                                fit: FlexFit.loose,
+                                child: Text(
+                                    'Station \n "${markers[index].infoWindow.title}"\n successfully selected. \n\n Go to your Station and Follow instruction to unlock Bike.',
+                                    style: TextStyle(fontSize: 16.0)),
                               ),
                             ],
-                          );
-                        },
-                      );
-                    },
-                  );
-                },
-              ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                _confirmRide();
+                              },
+                              child: Text("Continue"),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                );
+              },
             ),
-          );
-        },
-      );
-    } else {
-      // wont happend
-    }
+          ),
+        );
+      },
+    );
+    // } else {
+    //   // wont happend
+    // }
   }
 
   void _confirmRide() {
@@ -703,6 +771,7 @@ class _MapScreenState extends State<MapScreen> {
                 setState(() {
                   _ride_Visible = !_ride_Visible;
                   _nav_bar_Visible = !_nav_bar_Visible;
+                  _cancelRide = !_cancelRide;
                 });
                 Navigator.of(context).pop();
                 setState(() {

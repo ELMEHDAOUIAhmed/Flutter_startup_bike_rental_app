@@ -104,3 +104,7 @@ Future<void> returnBike(String token, int stationId) async {
     throw Exception('Failed to return Bike!');
   }
 }
+
+void cancelRideAPI(){
+  
+}
