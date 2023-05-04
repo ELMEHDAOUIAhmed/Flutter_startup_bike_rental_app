@@ -55,6 +55,8 @@ class _MapScreenState extends State<MapScreen> {
     longitude: 0.0,
   );
 
+
+  //note used delete after
   void _stationNotSelected() {
     showDialog(
       //you need a statefull widget to show dialog
@@ -393,7 +395,7 @@ class _MapScreenState extends State<MapScreen> {
         }
         if (_distanceInMeters >= 20) {
           setState(() {
-            _notification_Visible = false;
+            //_notification_Visible = false;
             distance_window = true;
           });
         }
@@ -424,6 +426,11 @@ class _MapScreenState extends State<MapScreen> {
         //break;
         return stationId;
       }
+      else{
+        print('User is not close to any station');
+        globals.stationIdDest=null;
+      }
+
     }
     // callback to retrieve the isInStation value from another file
   }

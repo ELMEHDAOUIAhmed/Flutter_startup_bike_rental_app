@@ -57,7 +57,7 @@ class _ProfileMenuState extends State<ProfileMenu> {
         child: Container(
           // profilemenuKbj (6:585)
           width: double.infinity,
-          height: 896 * fem,
+          height: 896 * fem, 
           decoration: const BoxDecoration(
             color: Color(0xffffffff),
           ),
@@ -421,7 +421,7 @@ class _ProfileMenuState extends State<ProfileMenu> {
                               width: 316 * fem,
                               height: 26 * fem,
                               child: Text(
-                                'Settings',
+                                'Account informations',
                                 style: SafeGoogleFont(
                                   'Montserrat',
                                   fontSize: 21 * ffem,
@@ -461,6 +461,7 @@ class _ProfileMenuState extends State<ProfileMenu> {
                                     // autogroupjwxvw5w (ApA28fwSKpP9kvKLBmJWxV)
                                     margin: EdgeInsets.fromLTRB(
                                         0 * fem, 0 * fem, 24.4 * fem, 20 * fem),
+                                        
                                     padding: EdgeInsets.fromLTRB(50 * fem,
                                         1 * fem, 148.35 * fem, 0 * fem),
                                     // padding to put it in right side

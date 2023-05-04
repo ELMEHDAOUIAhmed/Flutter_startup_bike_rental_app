@@ -72,48 +72,82 @@ class _UnlockState extends State<Unlock> {
   void endRideAPI() {
     // check if its on of our station first ;
     //then execute this
-
-    setState(() {
-      _unlockSteps = true;
-      _ride_stats = false;
-      _blackscreen = true;
-    });
-
-    _status(); //check if lock is open
-    if (_lockStatusOpen) {
+    if (globals.stationIdDest != null) {
       setState(() {
-        unlock = 'Put Bike into Station\nClose the lock!';
+        _unlockSteps = true;
+        _ride_stats = false;
+        _blackscreen = true;
       });
-      setState(() {
-        _unlockSteps = false;
-        _blackscreen = false;
-      });
-      stopTimer();
-      Duration elapsedTime = _stopwatch.elapsed;
-      print(elapsedTime);
-      DateTime now = DateTime.now();
-      print(now);
 
-      // Do something with elapsedTime and now
-      _stopwatch.reset();
+      _status(); //check if lock is open
+      if (_lockStatusOpen) {
+        setState(() {
+          unlock = 'Put Bike into Station\nClose the lock!';
+        });
+        setState(() {
+          _unlockSteps = false;
+          _blackscreen = false;
+        });
+        stopTimer();
+        Duration elapsedTime = _stopwatch.elapsed;
+        print(elapsedTime);
+        DateTime now = DateTime.now();
+        print(now);
 
-      // calculate price => deduct from user wallet => send http request
+        // Do something with elapsedTime and now
+        _stopwatch.reset();
 
-      _clear();
-      if (_lockCleared) {
-        // issue its not going inside the check
-        bluetoothService.disconnect();
-        //Navigator.of(context).pop();
-        // Navigate to the map screen
-        Navigator.pushNamedAndRemoveUntil(context, '/map', (route) => false);
+        // calculate price => deduct from user wallet => send http request
+
+        _clear();
+        if (_lockCleared) {
+          // issue its not going inside the check
+          bluetoothService.disconnect();
+          //Navigator.of(context).pop();
+          // Navigate to the map screen
+          Navigator.pushNamedAndRemoveUntil(context, '/map', (route) => false);
+        }
+      } else {
+        setState(() {
+          unlock = 'Open the lock!\nbefore trying to close it';
+          //_unlockSteps = false;
+          _ride_stats = false; // was true
+          _blackscreen = false;
+        });
       }
     } else {
-      setState(() {
-        unlock = 'Open the lock!\nbefore trying to close it';
-        _unlockSteps = false;
-        _ride_stats = true;
-        _blackscreen = false;
-      });
+      //show dialogue
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(48),
+            ),
+            title: Row(
+              children: const [
+                //Icon(Icons.error, color: Colors.red),
+                Icon(Icons.check_circle, color: Colors.yellow),
+                SizedBox(width: 8.0),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: Text(
+                      'You cannot leave Bike here !\n\n Please Take the Bike in any of our Stations! \n',
+                      style: TextStyle(fontSize: 16.0)),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("Continue"),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
