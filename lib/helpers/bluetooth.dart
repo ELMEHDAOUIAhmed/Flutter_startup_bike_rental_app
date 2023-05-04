@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:permission_handler/permission_handler.dart';
 import './arduino.dart';
 import '/providers/control_access_api.dart';
-import '/models/db.dart';
 
 typedef AccessCallback = void Function(ArduinoMessage arduino);
 

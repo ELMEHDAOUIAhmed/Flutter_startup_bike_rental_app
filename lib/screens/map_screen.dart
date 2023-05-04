@@ -11,8 +11,8 @@ import 'package:maps_toolkit/maps_toolkit.dart' as map_tool;
 import '/helpers/station.dart';
 import '/models/db.dart';
 import '/components/my_button.dart';
+import '/helpers/globals.dart' as globals;
 
-typedef AccessCallback = void Function(String stationId);
 
 class MapScreen extends StatefulWidget {
   @override
@@ -20,6 +20,8 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  String stationId;
+
   //gps postion
   double topPosition = 559;
   bool _gps = true;
@@ -165,6 +167,7 @@ class _MapScreenState extends State<MapScreen> {
           false);
     });
     print('Is the USER INSIDE USTHB ? :$isInUSTHBArea');
+    globals.isInsideUSTHB=isInUSTHBArea;
   }
 
   LatLng userLocation;
@@ -207,18 +210,23 @@ class _MapScreenState extends State<MapScreen> {
   void checkStock(String markerId) {
     //retreive updated stations
     fetchAll();
+
+    //just a test to show markers remove after
+    print(markers);
     setState(() {
       final index =
           markers.indexWhere((marker) => marker.markerId.value == markerId);
 
       if (index >= 0) {
         final marker = markers[index];
+        var markerId = markers[index].markerId;
+        globals.stationIdSource=markerId;
         final stockSnippet = marker.infoWindow.snippet;
         final stockString =
             stockSnippet.substring(stockSnippet.indexOf(':') + 1).trim();
         final int stock = int.tryParse(stockString) ?? 0;
 
-        print('Station : $index / STOCK : $stock');
+        print('Station : $markerId / STOCK : $stock');
         if (stock > 0) {
           showDialog(
             context: context,
@@ -354,6 +362,9 @@ class _MapScreenState extends State<MapScreen> {
         checkUserIsInsideUSTHB(positionuser);
         checkIfInStationArea(positionuser);
 
+
+        //call to put info into sql lite
+
         //start sending positionuser via http in 20sec intervals
 
         // move camera to new position here
@@ -396,8 +407,8 @@ class _MapScreenState extends State<MapScreen> {
     _positionStreamSubscription?.cancel();
   }
 
-  void checkIfInStationArea(Position position) async {
-    String stationId = '';
+  Future<String> checkIfInStationArea(Position position) async {
+    stationId = '';
     for (Marker marker in markers) {
       double distanceInMeters = await Geolocator.distanceBetween(
         position.latitude,
@@ -408,7 +419,10 @@ class _MapScreenState extends State<MapScreen> {
       if (distanceInMeters <= 15) {
         stationId = marker.markerId.value;
         print('User is in Station ${marker.markerId.value}');
-        break;
+
+        globals.stationIdDest=stationId;
+        //break;
+        return stationId;
       }
     }
     // callback to retrieve the isInStation value from another file

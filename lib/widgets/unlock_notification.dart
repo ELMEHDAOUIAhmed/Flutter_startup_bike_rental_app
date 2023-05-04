@@ -6,8 +6,10 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import '/components/my_button.dart';
 import '/helpers/arduino.dart';
 import '/models/db.dart';
+import '/helpers/globals.dart' as globals;
 
-//you have switched between closed and open status becareful
+//you have switched between closed and open status becarful ,
+//place lock and test
 // error _unlockSteps not showing
 
 class Unlock extends StatefulWidget {
@@ -21,7 +23,7 @@ class _UnlockState extends State<Unlock> {
 
   bool _lockStatusOpen = false;
   bool _lockCleared = false;
-  String userCurrentStation='';
+  String userCurrentStation = '';
 
   void _confirmCancelRide() {
     showDialog(
@@ -37,7 +39,8 @@ class _UnlockState extends State<Unlock> {
               SizedBox(width: 8.0),
               Flexible(
                 fit: FlexFit.loose,
-                child: Text('Alert!\nAre you sure you want to stop your Ride ?.',
+                child: Text(
+                    'Alert!\nAre you sure you want to stop your Ride ?.',
                     style: TextStyle(fontSize: 16.0)),
               ),
             ],
@@ -101,7 +104,6 @@ class _UnlockState extends State<Unlock> {
         // Navigate to the map screen
         Navigator.pushNamedAndRemoveUntil(context, '/map', (route) => false);
       }
-
     } else {
       setState(() {
         unlock = 'Open the lock!\nbefore trying to close it';
@@ -176,9 +178,9 @@ class _UnlockState extends State<Unlock> {
     });
   }
 
-  Future<String> getToken() async{
+  Future<String> getToken() async {
     String token = await getToken();
-    return  token;
+    return token;
   }
 
   @override
@@ -188,7 +190,6 @@ class _UnlockState extends State<Unlock> {
     startScanning(pin);
     _startTimer();
 
-
     // Set the onAccessCallback to update the state when an access message is received
     bluetoothService.onAccessCallback = (ArduinoMessage arduino) {
       if (arduino.access == 'Access granted') {
@@ -197,11 +198,9 @@ class _UnlockState extends State<Unlock> {
           _unlockSteps = false;
           _ride_stats = true;
           startTimerDuration();
-          
         });
         //send api to server  takeBike(token)
         //token
-
       }
       if (arduino.access == 'Access denied') {
         ++_attempts;
@@ -259,6 +258,12 @@ class _UnlockState extends State<Unlock> {
       setState(() {
         if (_countdown > 0) {
           _countdown--;
+          print(
+              "UNLOCK NOTIFICATION Station Dest is : ${globals.stationIdDest}");
+          print(
+              "UNLOCK NOTIFICATION Station Source is : ${globals.stationIdSource}");
+          print(
+              "UNLOCK NOTIFICATION User is inside USTHB ??! : ${globals.isInsideUSTHB}");
         } else {
           _countdown = 10;
         }
@@ -451,7 +456,7 @@ class _UnlockState extends State<Unlock> {
                         width: 150 * fem,
                         height: 120 * fem,
                         child: Text(
-                          'Retrying in\n' + _countdown.toString(),
+                          'Retrying in\n$_countdown',
                           textAlign: TextAlign.center,
                           style: SafeGoogleFont(
                             'Montserrat',
