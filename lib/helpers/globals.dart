@@ -1,3 +1,3 @@
 String stationIdDest;
-var stationIdSource;
+int stationIdSource;
 bool isInsideUSTHB;

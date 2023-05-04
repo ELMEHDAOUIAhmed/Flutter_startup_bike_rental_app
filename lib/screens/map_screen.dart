@@ -220,13 +220,13 @@ class _MapScreenState extends State<MapScreen> {
       if (index >= 0) {
         final marker = markers[index];
         var markerId = markers[index].markerId;
-        globals.stationIdSource=markerId;
+        globals.stationIdSource=int.parse(markerId.value);
         final stockSnippet = marker.infoWindow.snippet;
         final stockString =
             stockSnippet.substring(stockSnippet.indexOf(':') + 1).trim();
         final int stock = int.tryParse(stockString) ?? 0;
 
-        print('Station : $markerId / STOCK : $stock');
+        print('Station : ${globals.stationIdSource} / STOCK : $stock');
         if (stock > 0) {
           showDialog(
             context: context,
