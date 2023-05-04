@@ -70,6 +70,9 @@ class _UnlockState extends State<Unlock> {
   //check if lock is open before trying to close it ,
 
   void endRideAPI() {
+    // check if its on of our station first ;
+    //then execute this
+
     setState(() {
       _unlockSteps = true;
       _ride_stats = false;
