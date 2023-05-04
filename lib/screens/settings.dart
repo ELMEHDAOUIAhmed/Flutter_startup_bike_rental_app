@@ -24,6 +24,9 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
+    //check why there is an error here , apparently when you call 
+    // widget.user you are already risking null value and app crashes
+    //try to test  or find another way to not make it null widget.user
     if (widget.user != null) {
       first_name = widget.user['first_name'];
       last_name = widget.user['last_name'];
