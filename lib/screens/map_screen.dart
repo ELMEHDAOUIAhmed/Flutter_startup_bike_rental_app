@@ -396,6 +396,8 @@ class _MapScreenState extends State<MapScreen> {
         if (_distanceInMeters >= 20) {
           setState(() {
             //_notification_Visible = false;
+            //causes errors , try to alert user or cancel his ride , in case he leaves without taking
+            // his bike he cannot connect after :/
             distance_window = true;
           });
         }
