@@ -204,7 +204,7 @@ class _MapScreenState extends State<MapScreen> {
     fetchAll();
   }
 
-  void takeBikeFromMarker(String markerId) {
+  void checkStock(String markerId) {
     //retreive updated stations
     fetchAll();
     setState(() {
@@ -218,9 +218,73 @@ class _MapScreenState extends State<MapScreen> {
             stockSnippet.substring(stockSnippet.indexOf(':') + 1).trim();
         final int stock = int.tryParse(stockString) ?? 0;
 
-        print('STOCK IS : $stock');
-
-        if (stock > 0) {}
+        print('Station : $index / STOCK : $stock');
+        if (stock > 0) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(48),
+                ),
+                title: Row(
+                  children: [
+                    //Icon(Icons.error, color: Colors.red),
+                    const Icon(Icons.check_circle, color: Colors.green),
+                    const SizedBox(width: 8.0),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: Text(
+                          'Station \n "${markers[index].infoWindow.title}"\n successfully selected. \n\n Go to your Station and Follow instruction to unlock Bike.',
+                          style: TextStyle(fontSize: 16.0)),
+                    ),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      _confirmRide();
+                    },
+                    child: Text("Continue"),
+                  ),
+                ],
+              );
+            },
+          );
+        } else {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(48),
+                ),
+                title: Row(
+                  children: [
+                    //Icon(Icons.error, color: Colors.red),
+                    const Icon(Icons.check_circle, color: Colors.yellow),
+                    const SizedBox(width: 8.0),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: Text(
+                          'Station \n "${markers[index].infoWindow.title}"\n Has no Bikes Available. \n\n Try Again!.',
+                          style: TextStyle(fontSize: 16.0)),
+                    ),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Continue"),
+                  ),
+                ],
+              );
+            },
+          );
+        }
       }
     });
   }
@@ -688,40 +752,7 @@ class _MapScreenState extends State<MapScreen> {
                     id = _getId(index);
                     id_int = index;
                     Navigator.pop(context);
-                    takeBikeFromMarker(id);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(48),
-                          ),
-                          title: Row(
-                            children: [
-                              //Icon(Icons.error, color: Colors.red),
-                              const Icon(Icons.check_circle,
-                                  color: Colors.green),
-                              const SizedBox(width: 8.0),
-                              Flexible(
-                                fit: FlexFit.loose,
-                                child: Text(
-                                    'Station \n "${markers[index].infoWindow.title}"\n successfully selected. \n\n Go to your Station and Follow instruction to unlock Bike.',
-                                    style: TextStyle(fontSize: 16.0)),
-                              ),
-                            ],
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                _confirmRide();
-                              },
-                              child: Text("Continue"),
-                            ),
-                          ],
-                        );
-                      },
-                    );
+                    checkStock(id);
                   },
                 );
               },
@@ -759,7 +790,7 @@ class _MapScreenState extends State<MapScreen> {
           actions: [
             TextButton(
               onPressed: () async {
-                returbBikeFromMarker(id);
+                //returbBikeFromMarker(id);
                 Navigator.of(context).pop();
                 id = null;
                 id_int = null;
