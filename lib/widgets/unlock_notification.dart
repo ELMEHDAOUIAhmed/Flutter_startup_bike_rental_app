@@ -7,6 +7,7 @@ import '/components/my_button.dart';
 import '/helpers/arduino.dart';
 import '/models/db.dart';
 import '/helpers/globals.dart' as globals;
+import '/widgets/summary.dart';
 
 //you have switched between closed and open status becarful ,
 //place lock and test
@@ -288,6 +289,7 @@ class _UnlockState extends State<Unlock> {
   bool _unlockSteps = false; // false
   bool _ride_stats = false; // false
   bool _blackscreen = true; // true // hide it when we start ride false
+  bool _summary = false; // false
 
   int _countdown = 10;
   Timer _timer;
@@ -338,6 +340,7 @@ class _UnlockState extends State<Unlock> {
           color: Color.fromRGBO(0, 0, 0, 0.5),
         ),
       ),
+      //summary
       Visibility(
         visible: _unlockSteps,
         child: Positioned(

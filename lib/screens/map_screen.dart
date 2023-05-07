@@ -13,7 +13,6 @@ import '/models/db.dart';
 import '/components/my_button.dart';
 import '/helpers/globals.dart' as globals;
 
-
 class MapScreen extends StatefulWidget {
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -54,7 +53,6 @@ class _MapScreenState extends State<MapScreen> {
     latitude: 0.0,
     longitude: 0.0,
   );
-
 
   //note used delete after
   void _stationNotSelected() {
@@ -169,7 +167,7 @@ class _MapScreenState extends State<MapScreen> {
           false);
     });
     print('Is the USER INSIDE USTHB ? :$isInUSTHBArea');
-    globals.isInsideUSTHB=isInUSTHBArea;
+    globals.isInsideUSTHB = isInUSTHBArea;
   }
 
   LatLng userLocation;
@@ -222,7 +220,7 @@ class _MapScreenState extends State<MapScreen> {
       if (index >= 0) {
         final marker = markers[index];
         var markerId = markers[index].markerId;
-        globals.stationIdSource=int.parse(markerId.value);
+        globals.stationIdSource = int.parse(markerId.value);
         final stockSnippet = marker.infoWindow.snippet;
         final stockString =
             stockSnippet.substring(stockSnippet.indexOf(':') + 1).trim();
@@ -364,7 +362,6 @@ class _MapScreenState extends State<MapScreen> {
         checkUserIsInsideUSTHB(positionuser);
         checkIfInStationArea(positionuser);
 
-
         //call to put info into sql lite
 
         //start sending positionuser via http in 20sec intervals
@@ -424,15 +421,13 @@ class _MapScreenState extends State<MapScreen> {
         stationId = marker.markerId.value;
         print('User is in Station ${marker.markerId.value}');
 
-        globals.stationIdDest=stationId;
+        globals.stationIdDest = stationId;
         //break;
         return stationId;
-      }
-      else{
+      } else {
         print('User is not close to any station');
-        globals.stationIdDest=null;
+        globals.stationIdDest = null;
       }
-
     }
     // callback to retrieve the isInStation value from another file
   }
@@ -697,8 +692,7 @@ class _MapScreenState extends State<MapScreen> {
                 height: 15 * fem,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ProfileMenu()));
+                    Navigator.pop(context);
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,

@@ -13,6 +13,7 @@ import '/screens/my_wallet.dart';
 import '/screens/map_screen.dart';
 import '/screens/signup.dart';
 import '/screens/settings.dart';
+import '/widgets/summary.dart';
 
 //https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -76,6 +77,11 @@ class RouteGenerator {
       //   return MaterialPageRoute(builder: (_) => MapScreenNew());
       case '/map':
         return MaterialPageRoute(builder: (_) => MapScreen());
+      case '/summary':
+        return MaterialPageRoute(
+            builder: (_) => Summary(
+                  stats: args,
+                ));
 
         return _errorRoute();
       default:

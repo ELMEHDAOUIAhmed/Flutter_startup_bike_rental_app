@@ -40,6 +40,7 @@ import '/screens/profile_menu.dart';
 import '/tests/camera_report.dart';
 import 'screens/my_wallet.dart';
 import '/screens/map_screen.dart';
+import '/widgets/summary.dart';
 
 
 //Important
@@ -103,14 +104,14 @@ class MyApp extends StatelessWidget {
       //   primarySwatch: Colors.blue,
       // ),
 
-      initialRoute: '/auth',
-      onGenerateRoute: RouteGenerator.generateRoute,
+      // initialRoute: '/auth',
+      // onGenerateRoute: RouteGenerator.generateRoute,
 
 
       // ***IMPORTANT REMOVE BEFORE FINAL VERSION*** //
 
       // ***FOR TESTING ONLY***//
-      //  home: MapScreen(),
+      home: Summary(),
     );
   }
 }
