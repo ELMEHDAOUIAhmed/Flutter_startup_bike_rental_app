@@ -132,20 +132,21 @@ class _UnlockState extends State<Unlock> {
     _clear();
     await Future.delayed(const Duration(milliseconds: 500));
     //send api to the server
-    stopTimer();
+    _stopTimer();
 
     setState(() {
       elapsedTime = _stopwatch.elapsed;
       _blackscreen = false;
       _ride_stats = false;
-      
     });
     //then show stats
-    
 
     bluetoothService.disconnect();
-    //after navigate to map again
+    //after navigate to summary
+
+    
     Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+    
   }
 
   //Future<void> endRideAPI() {
@@ -291,11 +292,6 @@ class _UnlockState extends State<Unlock> {
     });
   }
 
-  void stopTimer() {
-    _timer.cancel();
-    _stopwatch.stop();
-  }
-
   String formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
     String hours = twoDigits(duration.inHours);
@@ -416,7 +412,8 @@ class _UnlockState extends State<Unlock> {
   bool _bluetoothSteps = true; // true
   bool _unlockSteps = false; // false
   bool _ride_stats = false; // false
-  bool _blackscreen = true; // true // hide it when we start ride false
+  bool _blackscreen = true; // true
+  bool _summary = false; //false
 
   int _countdown = 10;
   Timer _timer;
@@ -438,12 +435,19 @@ class _UnlockState extends State<Unlock> {
     });
   }
 
+  void _stopTimer() {
+    if (_timer != null) {
+      _timer.cancel();
+      _timer = null;
+    }
+    _stopwatch.stop();
+  }
+
   @override
   void dispose() {
     super.dispose();
-    //_subscription?.cancel();
-    //bluetoothService.disconnect();
-    _timer?.cancel();
+    bluetoothService.disconnect();
+    _stopTimer();
   }
 
   @override
