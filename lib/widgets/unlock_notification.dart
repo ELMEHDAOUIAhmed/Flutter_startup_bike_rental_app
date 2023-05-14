@@ -9,12 +9,12 @@ import '/models/db.dart';
 import '/helpers/globals.dart' as globals;
 import '/widgets/summary.dart';
 
-//resumer
-//its not verifying to close lock before clearing in
+//Issues
+//Timer is not being canceled
 
 //you have switched between closed and open status becarful ,
 //place lock and test
-// error _unlockSteps not showing
+
 
 //test more there are some issues in logic, code works
 
@@ -144,7 +144,7 @@ class _UnlockState extends State<Unlock> {
     bluetoothService.disconnect();
     //after navigate to summary
 
-    
+
     Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
     
   }
