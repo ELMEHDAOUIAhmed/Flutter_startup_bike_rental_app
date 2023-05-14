@@ -9,6 +9,9 @@ import '/models/db.dart';
 import '/helpers/globals.dart' as globals;
 import '/widgets/summary.dart';
 
+//resumer
+//its not verifying to close lock before clearing in
+
 //you have switched between closed and open status becarful ,
 //place lock and test
 // error _unlockSteps not showing
@@ -21,12 +24,20 @@ class Unlock extends StatefulWidget {
 }
 
 class _UnlockState extends State<Unlock> {
+  double newSolde = 0.0;
+  double totalPrice = 0.0;
+  Duration elapsedTime;
+
   int _attempts = 0;
   String unlock = 'Put your Student\n Id Card\nclose to the lock';
 
   bool _lockStatusOpen = false;
   bool _lockCleared = false;
   String userCurrentStation = '';
+
+  void function() {
+    Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+  }
 
   void _confirmCancelRide() {
     showDialog(
@@ -59,6 +70,7 @@ class _UnlockState extends State<Unlock> {
             TextButton(
               onPressed: () async {
                 Navigator.of(context).pop();
+                await Future.delayed(Duration(milliseconds: 500));
                 endRideAPI();
                 //Yes
               },
@@ -70,54 +82,170 @@ class _UnlockState extends State<Unlock> {
     );
   }
 
-  //check if lock is open before trying to close it ,
+  void verifyLockStatus() async {
+    _status(); //check if lock is closed
+    await Future.delayed(const Duration(milliseconds: 500));
+    if (_lockStatusOpen) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(48),
+            ),
+            title: Row(
+              children: const [
+                //Icon(Icons.error, color: Colors.red),
+                Icon(Icons.check_circle, color: Colors.yellow),
+                SizedBox(width: 8.0),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: Text('Alert !\n\n Please Close your Bike \'s Lock! \n',
+                      style: TextStyle(fontSize: 16.0)),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("Continue"),
+              ),
+            ],
+          );
+        },
+      ).then((value) {
+        // Wait for dialog to close before returning
+        setState(() {
+          //_unlockSteps = false;
+          _ride_stats = true;
+          _blackscreen = false;
+        });
+      });
+    } else {
+      finishRide();
+    }
+  }
 
-  void endRideAPI() {
+  void finishRide() async {
+    _clear();
+    await Future.delayed(const Duration(milliseconds: 500));
+    //send api to the server
+    stopTimer();
+
+    setState(() {
+      elapsedTime = _stopwatch.elapsed;
+      _blackscreen = false;
+      _ride_stats = false;
+      
+    });
+    //then show stats
+    
+
+    bluetoothService.disconnect();
+    //after navigate to map again
+    Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+  }
+
+  //Future<void> endRideAPI() {
+
+  void endRideAPI() async {
     // check if its on of our station first ;
     //then execute this
     if (globals.stationIdDest != null) {
       setState(() {
-        _unlockSteps = true;
+        //_unlockSteps = true;
         _ride_stats = false;
         _blackscreen = true;
       });
 
       _status(); //check if lock is open
+      await Future.delayed(const Duration(milliseconds: 500));
+
+      if (!_lockStatusOpen) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(48),
+              ),
+              title: Row(
+                children: const [
+                  //Icon(Icons.error, color: Colors.red),
+                  Icon(Icons.check_circle, color: Colors.yellow),
+                  SizedBox(width: 8.0),
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: Text(
+                        'Alert !\n\n Please Open your Bike \'s Lock! \n',
+                        style: TextStyle(fontSize: 16.0)),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Continue"),
+                ),
+              ],
+            );
+          },
+        ).then((value) {
+          // Wait for dialog to close before returning
+          setState(() {
+            //_unlockSteps = false;
+            _ride_stats = true;
+            _blackscreen = false;
+          });
+        });
+        return;
+      }
+
+      _status(); //check if lock is open
+      await Future.delayed(const Duration(milliseconds: 500));
+
       if (_lockStatusOpen) {
-        setState(() {
-          unlock = 'Put Bike into Station\nClose the lock!';
-        });
-        setState(() {
-          _unlockSteps = false;
-          _blackscreen = false;
-        });
-        stopTimer();
-        Duration elapsedTime = _stopwatch.elapsed;
-        print(elapsedTime);
-        DateTime now = DateTime.now();
-        print(now);
-
-        // Do something with elapsedTime and now
-        _stopwatch.reset();
-
-        // calculate price => deduct from user wallet => send http request
-
-        _clear();
-        if (_lockCleared) {
-          // issue its not going inside the check
-          bluetoothService.disconnect();
-          //Navigator.of(context).pop();
-          // Navigate to the map screen
-          Navigator.pushNamedAndRemoveUntil(context, '/map', (route) => false);
-        }
-      } else {
-        setState(() {
-          unlock = 'Open the lock!\nbefore trying to close it';
-          //_unlockSteps = false;
-          _ride_stats = false; // was true
-          _blackscreen = false;
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(48),
+              ),
+              title: Row(
+                children: const [
+                  //Icon(Icons.error, color: Colors.red),
+                  Icon(Icons.check_circle, color: Colors.yellow),
+                  SizedBox(width: 8.0),
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: Text(
+                        'Close Lock Now!\n\n Please Put your Bike back into our Station.\nClose the Lock \nBefore Clicking Continue! \n',
+                        style: TextStyle(fontSize: 16.0)),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Continue"),
+                ),
+              ],
+            );
+          },
+        ).then((value) async {
+          // Wait for dialog to close before returning
+          verifyLockStatus();
         });
       }
+
+      //_stopwatch.reset();
     } else {
       //show dialogue
       showDialog(
@@ -289,7 +417,6 @@ class _UnlockState extends State<Unlock> {
   bool _unlockSteps = false; // false
   bool _ride_stats = false; // false
   bool _blackscreen = true; // true // hide it when we start ride false
-  bool _summary = false; // false
 
   int _countdown = 10;
   Timer _timer;
@@ -299,12 +426,6 @@ class _UnlockState extends State<Unlock> {
       setState(() {
         if (_countdown > 0) {
           _countdown--;
-          print(
-              "UNLOCK NOTIFICATION Station Dest is : ${globals.stationIdDest}");
-          print(
-              "UNLOCK NOTIFICATION Station Source is : ${globals.stationIdSource}");
-          print(
-              "UNLOCK NOTIFICATION User is inside USTHB ??! : ${globals.isInsideUSTHB}");
         } else {
           _countdown = 10;
         }
@@ -340,7 +461,6 @@ class _UnlockState extends State<Unlock> {
           color: Color.fromRGBO(0, 0, 0, 0.5),
         ),
       ),
-      //summary
       Visibility(
         visible: _unlockSteps,
         child: Positioned(
