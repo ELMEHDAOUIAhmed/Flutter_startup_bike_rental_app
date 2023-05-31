@@ -6,7 +6,7 @@ int globalIndex=0;
 
 String velo_name='';
 int velo_password=0;
-int velo=1;
+int velo=-1;
 String response;
 bool isConnectedtoBT =false;
 

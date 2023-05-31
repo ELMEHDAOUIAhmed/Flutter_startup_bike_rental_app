@@ -77,7 +77,7 @@ Future<void> reserveBike(String token, int id) async {
     final response = await dio.post(url, data: {'station': id.toString()});
 
     if (response.statusCode == 200) {
-
+      globals.response='Success';
       final responseData = response.data;
       globals.velo_name = responseData['velo_name'];
       globals.velo_password = responseData['velo_code'];
@@ -86,7 +86,7 @@ Future<void> reserveBike(String token, int id) async {
       print('name: ${globals.velo_name}');
       print('password: ${globals.velo_password}');
       print('id : ${globals.velo}');
-      globals.response='Success';
+      
 
     } else {
       globals.response='Error';

@@ -218,29 +218,64 @@ class _MapScreenState extends State<MapScreen> {
     fetchAll();
   }
 
-  Future<void> checkStock(String markerId) {
+  Future<void> checkStock(String markerId) async {
     //retreive updated stations
     fetchAll();
 
     //just a test to show markers remove after
     print(markers);
-    setState(() {
-      final index =
-          markers.indexWhere((marker) => marker.markerId.value == markerId);
-      if (index >= 0) {
-        final marker = markers[index];
-        var markerId = markers[index].markerId;
-        globals.stationIdSource = int.parse(markerId.value);
-        final stockSnippet = marker.infoWindow.snippet;
-        final stockString =
-            stockSnippet.substring(stockSnippet.indexOf(':') + 1).trim();
-        final int stock = int.tryParse(stockString) ?? 0;
+    //setState(() {
+    final index =
+        markers.indexWhere((marker) => marker.markerId.value == markerId);
+    if (index >= 0) {
+      final marker = markers[index];
+      var markerId = markers[index].markerId;
+      globals.stationIdSource = int.parse(markerId.value);
+      final stockSnippet = marker.infoWindow.snippet;
+      final stockString =
+          stockSnippet.substring(stockSnippet.indexOf(':') + 1).trim();
+      final int stock = int.tryParse(stockString) ?? 0;
 
-        print('Station : ${globals.stationIdSource} / STOCK : $stock');
-        if (stock > 0) {
-          try {
-            reserveBike(token, globals.stationIdSource);
-            if (globals.response == 'Success') {
+      print('Station : ${globals.stationIdSource} / STOCK : $stock');
+      if (stock > 0) {
+        try {
+          await reserveBike(token, globals.stationIdSource);
+          if (globals.response == 'Success') {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(48),
+                  ),
+                  title: Row(
+                    children: [
+                      //Icon(Icons.error, color: Colors.red),
+                      const Icon(Icons.check_circle, color: Colors.green),
+                      const SizedBox(width: 8.0),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: Text(
+                          'Station \n "${markers[index].infoWindow.title}"\n successfully selected. \n\n Go to your Station and Follow instruction to unlock \nBike : ${globals.velo}.',
+                          style: TextStyle(fontSize: 16.0)
+                        ),
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        _confirmRide();
+                      },
+                      child: Text("Continue"),
+                    ),
+                  ],
+                );
+              },
+            );
+          } else {
+            {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -249,15 +284,15 @@ class _MapScreenState extends State<MapScreen> {
                       borderRadius: BorderRadius.circular(48),
                     ),
                     title: Row(
-                      children: [
-                        //Icon(Icons.error, color: Colors.red),
-                        const Icon(Icons.check_circle, color: Colors.green),
-                        const SizedBox(width: 8.0),
+                      children: const [
+                        Icon(Icons.error, color: Colors.red),
+                        SizedBox(width: 8.0),
                         Flexible(
                           fit: FlexFit.loose,
                           child: Text(
-                              'Station \n "${markers[index].infoWindow.title}"\n successfully selected. \n\n Go to your Station and Follow instruction to unlock your Bike.',
-                              style: TextStyle(fontSize: 16.0)),
+                            'Error. Please try again!',
+                            style: TextStyle(fontSize: 16.0),
+                          ),
                         ),
                       ],
                     ),
@@ -265,7 +300,6 @@ class _MapScreenState extends State<MapScreen> {
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).pop();
-                          _confirmRide();
                         },
                         child: Text("Continue"),
                       ),
@@ -273,82 +307,48 @@ class _MapScreenState extends State<MapScreen> {
                   );
                 },
               );
-            } else {
-              {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(48),
-                      ),
-                      title: Row(
-                        children: const [
-                          Icon(Icons.error, color: Colors.red),
-                          SizedBox(width: 8.0),
-                          Flexible(
-                            fit: FlexFit.loose,
-                            child: Text(
-                              'Error. Please try again!',
-                              style: TextStyle(fontSize: 16.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text("Continue"),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              }
             }
-          } catch (e) {
-            showDialog(
-                // ... show error dialog ...
-                );
           }
-        } else {
-          // if(globals.velo!=0){cancelBike(token,globals.velo);}
+        } catch (e) {
           showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(48),
-                ),
-                title: Row(
-                  children: [
-                    //Icon(Icons.error, color: Colors.red),
-                    const Icon(Icons.check_circle, color: Colors.yellow),
-                    const SizedBox(width: 8.0),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: Text(
-                          'Station \n "${markers[index].infoWindow.title}"\n Has no Bikes Available. \n\n Try Again!.',
-                          style: TextStyle(fontSize: 16.0)),
-                    ),
-                  ],
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text("Continue"),
+              // ... show error dialog ...
+              );
+        }
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(48),
+              ),
+              title: Row(
+                children: [
+                  //Icon(Icons.error, color: Colors.red),
+                  const Icon(Icons.check_circle, color: Colors.yellow),
+                  const SizedBox(width: 8.0),
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: Text(
+                        'Station \n "${markers[index].infoWindow.title}"\n Has no Bikes Available. \n\n Try Again!.',
+                        style: TextStyle(fontSize: 16.0)),
                   ),
                 ],
-              );
-            },
-          );
-        }
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Continue"),
+                ),
+              ],
+            );
+          },
+        );
       }
-    });
+    }
+    //});
   }
 
   //get markerid of the station you want to return
