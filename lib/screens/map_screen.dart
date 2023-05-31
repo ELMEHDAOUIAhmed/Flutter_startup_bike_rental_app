@@ -3,7 +3,6 @@ import 'package:myapp/screens/promotion.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:myapp/utils.dart';
-import 'package:myapp/screens/profile_menu.dart';
 import '/widgets/nav_bar.dart';
 import 'dart:async';
 import 'package:myapp/widgets/unlock_notification.dart';
@@ -12,6 +11,9 @@ import '/helpers/station.dart';
 import '/models/db.dart';
 import '/components/my_button.dart';
 import '/helpers/globals.dart' as globals;
+import '/providers/user_api.dart';
+
+//id velo not displaying correctly
 
 class MapScreen extends StatefulWidget {
   @override
@@ -19,8 +21,10 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  Timer positionTimer;
   String stationId;
-
+  double long = 0.0;
+  double lat = 0.0;
   //gps postion
   double topPosition = 559;
   bool _gps = true;
@@ -111,14 +115,20 @@ class _MapScreenState extends State<MapScreen> {
             ),
             TextButton(
               onPressed: () {
+                cancelBike(token, globals.stationIdSource);
+                positionTimer.cancel();
                 _stopTracking();
                 //cancelRideAPI; // will be defined after
 
                 setState(() {
+                  //globals.postorGet = 0;
+                  //globals.globalIndex = 2;
                   distance_window = !distance_window;
                   _ride_Visible = !distance_window;
                   _nav_bar_Visible = !_nav_bar_Visible;
                   _cancelRide = !_cancelRide;
+                  _gps = !_gps;
+                  topPosition = 559;
                 });
                 Navigator.of(context).pop();
                 //Yes
@@ -176,7 +186,7 @@ class _MapScreenState extends State<MapScreen> {
   var incircles;
 
   void fetchAll() async {
-    String token = await getToken();
+    token = await getToken();
     markers = await fetchStations(token);
     setState(() {});
   }
@@ -197,6 +207,7 @@ class _MapScreenState extends State<MapScreen> {
 
   void _getToken() async {
     token = await getToken();
+    print('TOKEN :$token');
   }
 
   void _deletetoken() async {
@@ -207,7 +218,7 @@ class _MapScreenState extends State<MapScreen> {
     fetchAll();
   }
 
-  void checkStock(String markerId) {
+  Future<void> checkStock(String markerId) {
     //retreive updated stations
     fetchAll();
 
@@ -216,7 +227,6 @@ class _MapScreenState extends State<MapScreen> {
     setState(() {
       final index =
           markers.indexWhere((marker) => marker.markerId.value == markerId);
-
       if (index >= 0) {
         final marker = markers[index];
         var markerId = markers[index].markerId;
@@ -228,39 +238,83 @@ class _MapScreenState extends State<MapScreen> {
 
         print('Station : ${globals.stationIdSource} / STOCK : $stock');
         if (stock > 0) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(48),
-                ),
-                title: Row(
-                  children: [
-                    //Icon(Icons.error, color: Colors.red),
-                    const Icon(Icons.check_circle, color: Colors.green),
-                    const SizedBox(width: 8.0),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: Text(
-                          'Station \n "${markers[index].infoWindow.title}"\n successfully selected. \n\n Go to your Station and Follow instruction to unlock Bike.',
-                          style: TextStyle(fontSize: 16.0)),
+          try {
+            reserveBike(token, globals.stationIdSource);
+            if (globals.response == 'Success') {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(48),
                     ),
-                  ],
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      _confirmRide();
-                    },
-                    child: Text("Continue"),
-                  ),
-                ],
+                    title: Row(
+                      children: [
+                        //Icon(Icons.error, color: Colors.red),
+                        const Icon(Icons.check_circle, color: Colors.green),
+                        const SizedBox(width: 8.0),
+                        Flexible(
+                          fit: FlexFit.loose,
+                          child: Text(
+                              'Station \n "${markers[index].infoWindow.title}"\n successfully selected. \n\n Go to your Station and Follow instruction to unlock your Bike.',
+                              style: TextStyle(fontSize: 16.0)),
+                        ),
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          _confirmRide();
+                        },
+                        child: Text("Continue"),
+                      ),
+                    ],
+                  );
+                },
               );
-            },
-          );
+            } else {
+              {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(48),
+                      ),
+                      title: Row(
+                        children: const [
+                          Icon(Icons.error, color: Colors.red),
+                          SizedBox(width: 8.0),
+                          Flexible(
+                            fit: FlexFit.loose,
+                            child: Text(
+                              'Error. Please try again!',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                          ),
+                        ],
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text("Continue"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
+            }
+          } catch (e) {
+            showDialog(
+                // ... show error dialog ...
+                );
+          }
         } else {
+          // if(globals.velo!=0){cancelBike(token,globals.velo);}
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -362,9 +416,11 @@ class _MapScreenState extends State<MapScreen> {
         checkUserIsInsideUSTHB(positionuser);
         checkIfInStationArea(positionuser);
 
-        //call to put info into sql lite
-
         //start sending positionuser via http in 20sec intervals
+        // Start the timer
+        positionTimer = Timer.periodic(Duration(seconds: 20), (timer) {
+          sendPos(token, position, globals.velo);
+        });
 
         // move camera to new position here
         _googleMapController.animateCamera(CameraUpdate.newCameraPosition(
@@ -454,7 +510,6 @@ class _MapScreenState extends State<MapScreen> {
     setCustomMarkerIcon();
     super.initState();
     fetchAll();
-    _getToken();
   }
 
   @override
@@ -462,6 +517,7 @@ class _MapScreenState extends State<MapScreen> {
     _googleMapController?.dispose();
     super.dispose();
     _stopTracking();
+    positionTimer.cancel();
   }
 
   @override
@@ -501,7 +557,6 @@ class _MapScreenState extends State<MapScreen> {
                 strokeWidth: 1,
               ),
             }),
-
         Visibility(
           visible: _ride_Visible,
           child: Container(
@@ -654,18 +709,20 @@ class _MapScreenState extends State<MapScreen> {
                   thickness: 0 * ffem,
                   color: Colors.transparent,
                 ),
-                // if (_distance_window)
                 Visibility(
                   visible: distance_window,
                   child: Container(
+                    width: 170 * fem,
+                    height: 35 * fem,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                    //padding:const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
                     child: Text(
-                      '${_distanceInMeters.round()} m',
+                      '${_distanceInMeters.round()} m\nYour Bike: ${globals.velo}.',
+                      textAlign:
+                          TextAlign.center, // Center the text horizontally.
                       style: SafeGoogleFont(
                         'Montserrat',
                         fontSize: 14 * ffem,
@@ -811,6 +868,7 @@ class _MapScreenState extends State<MapScreen> {
                 Navigator.of(context).pop();
                 id = null;
                 id_int = null;
+                cancelBike(token, globals.stationIdSource);
               },
               child: Text("NO"),
             ),

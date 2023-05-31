@@ -10,6 +10,8 @@ class MyTextField extends StatefulWidget {
   final Color backgroundColor;
   final String mode;
   final bool showPassword; // added showPassword boolean parameter
+  final bool isGenderField; // added isGenderField boolean parameter
+  final ValueChanged<int> onGenderSelected; // added onGenderSelected callback
 
   MyTextField({
     Key key,
@@ -20,6 +22,8 @@ class MyTextField extends StatefulWidget {
     this.mode,
     this.showPassword = false, // default value is false
     this.backgroundColor = Colors.white,
+    this.isGenderField = false, // default value is false
+    this.onGenderSelected, // added onGenderSelected callback
   }) : super(key: key);
 
   @override
@@ -28,6 +32,7 @@ class MyTextField extends StatefulWidget {
 
 class _MyTextFieldState extends State<MyTextField> {
   bool _obscureText;
+  int _selectedGenderIndex; // added selected gender index
 
   @override
   void initState() {
@@ -54,43 +59,77 @@ class _MyTextFieldState extends State<MyTextField> {
             margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 0 * fem),
             width: 264 * fem,
             height: double.infinity,
-            child: TextField(
-              controller: widget.controller,
-              obscureText: _obscureText,
-              keyboardType:
-                  widget.mode == 'number' ? TextInputType.number : TextInputType.text,
-              inputFormatters: widget.mode == 'text'
-                  ? <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(12),
-                    ]
-                  : null,
-              decoration: InputDecoration(
-                labelText: widget.labelText,
-                hintText: widget.hintText,
-                suffixIcon: widget.obscureText // added suffixIcon widget
-                    ? IconButton(
-                        icon: Icon(
-                          _obscureText ? Icons.visibility : Icons.visibility_off,
-                          color: Colors.grey,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _obscureText = !_obscureText;
-                          });
-                        },
-                      )
-                    : null,
-              ),
-              style: SafeGoogleFont(
-                'Montserrat',
-                fontSize: 21 * ffem,
-                fontWeight: FontWeight.w400,
-                height: 1.2175 * ffem / fem,
-                color: Color(0xff030303),
-                decoration: TextDecoration.none,
-              ),
-            ),
+            child: widget.isGenderField // check if it's a gender field
+                ? DropdownButtonFormField<int>(
+                    value: _selectedGenderIndex,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedGenderIndex = value;
+                      });
+                      if (widget.onGenderSelected != null) {
+                        widget.onGenderSelected(value);
+                      }
+                    },
+                    items: [
+                      DropdownMenuItem<int>(
+                        value: 0,
+                        child: Text('Male'),
+                      ),
+                      DropdownMenuItem<int>(
+                        value: 1,
+                        child: Text('Female'),
+                      ),
+                    ],
+                    style: SafeGoogleFont(
+                      'Montserrat',
+                      fontSize: 21 * ffem,
+                      fontWeight: FontWeight.w400,
+                      height: 1.2175 * ffem / fem,
+                      color: Color(0xff030303),
+                      decoration: TextDecoration.none,
+                    ),
+                    hint: Text('Select Gender'),
+                  )
+                : TextField(
+                    controller: widget.controller,
+                    obscureText: _obscureText,
+                    keyboardType: widget.mode == 'number'
+                        ? TextInputType.number
+                        : TextInputType.text,
+                    inputFormatters: widget.mode == 'text'
+                        ? <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(12),
+                          ]
+                        : null,
+                    decoration: InputDecoration(
+                      labelText: widget.labelText,
+                      hintText: widget.hintText,
+                      suffixIcon: widget.obscureText
+                          ? IconButton(
+                              icon: Icon(
+                                _obscureText
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
+                              },
+                            )
+                          : null,
+                    ),
+                    style: SafeGoogleFont(
+                      'Montserrat',
+                      fontSize: 21 * ffem,
+                      fontWeight: FontWeight.w400,
+                      height: 1.2175 * ffem / fem,
+                      color: Color(0xff030303),
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
           ),
         ),
       ),

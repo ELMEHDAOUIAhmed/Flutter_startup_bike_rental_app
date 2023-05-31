@@ -4,10 +4,16 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:permission_handler/permission_handler.dart';
 import './arduino.dart';
 import '/providers/control_access_api.dart';
+import '/helpers/globals.dart' as globals;
+import '/models/db.dart';
+import './station.dart';
 
 typedef AccessCallback = void Function(ArduinoMessage arduino);
 
+
 class BluetoothService {
+
+  bool reserved=false;
   AccessCallback onAccessCallback;
   int attempts = 0;
 
@@ -60,8 +66,15 @@ class BluetoothService {
       connection = await BluetoothConnection.toAddress(device.address);
       isConnected = true;
       print('Connected to ${device.name}');
+      globals.isConnectedtoBT = true;
       listenForMessages();
 
+      //take bike
+      if(!reserved){
+         String token = await getToken();
+         takeBike(token);
+        reserved=true;
+      }
       //get matricule from DB
 
       //send it
@@ -71,6 +84,7 @@ class BluetoothService {
       _inputSubscription?.onDone(() {
         print('Disconnected from ${device.name}');
         disconnect();
+        globals.isConnectedtoBT = false;
       });
     } catch (e) {
       print('Error connecting to ${device.name}: ${e.toString()}');

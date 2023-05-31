@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 
 Future<double> refillSold(String token, String voucher) async {
-  final url = Uri.parse('http://192.168.100.7:8000/sold/');
+  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/sold/');
   final headers = {'Authorization': 'Token $token'};
   final body = {'token': voucher};
   final response = await http.post(url, headers: headers, body: body);

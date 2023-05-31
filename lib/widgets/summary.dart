@@ -82,7 +82,7 @@ class _SummaryState extends State<Summary> {
                 ),
               ),
               Text(
-                '$elapsedTime',
+                '$elapsedTime min',
                 textAlign: TextAlign.center,
                 style: SafeGoogleFont(
                   'Montserrat',

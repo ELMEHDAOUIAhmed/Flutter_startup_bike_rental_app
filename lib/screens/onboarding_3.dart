@@ -10,7 +10,7 @@ class OnboardingThree extends StatelessWidget {
       firstImage: 'assets/page-1/images/image-12.png',
       secondImage: 'assets/page-1/images/select_3.png',
       firstText: 'Ride',
-      secondText: 'Enjoy your Ride :). \n\n',
+      secondText: 'Enjoy your Ride :) \n\n',
       onNextPressed: () {
         Navigator.pushNamed(context, '/login');
       },

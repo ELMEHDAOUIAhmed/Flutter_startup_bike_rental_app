@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+import '/helpers/globals.dart' as globals;
+import 'package:dio/dio.dart';
 
 Future<List<Marker>> fetchStations(String token) async {
   final ByteData imageData =
@@ -9,7 +11,7 @@ Future<List<Marker>> fetchStations(String token) async {
   final Uint8List pngBytes = imageData.buffer.asUint8List();
   final BitmapDescriptor customIcon = BitmapDescriptor.fromBytes(pngBytes);
 
-  final url = Uri.parse('http://192.168.100.7:8000/stations/');
+  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/stations/');
   final headers = {'Authorization': 'Token $token'};
   final response = await http.get(url, headers: headers);
 
@@ -47,28 +49,78 @@ Future<List<Marker>> fetchStations(String token) async {
 }
 
 //reservation of bike
-Future<void> reserveBike(String token, int stationId) async {
-  final url = Uri.parse('http://192.168.100.7:8000/reserver/');
-  final headers = {'Authorization': 'Token $token'};
-  final response = await http.post(url,
-      body: {
-        'station': stationId,
-      },
-      headers: headers);
+// Future<void> reserveBike(String token, int id) async {
+//   final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/reserver/?station=${id}');
+//   final headers = {'Authorization': 'Token $token'};
+//   final response =
+//       await http.get(url, headers: headers);
 
-  print(response.statusCode);
-  print(response.body);
+//     final responseData = jsonDecode(response.body);
+//     globals.velo_name = responseData['velo_name'];
+//     globals.velo_password = responseData['velo_code'];
+//     globals.velo_id = responseData['id'];
 
-  if (response.statusCode == 200) {
-    print('Bike Reserved');
-    //next i retrun velo informations in here
-  } else {
-    throw Exception('Failed to Reserve Bike!');
+//     print(globals.velo_name);
+//     print(globals.velo_password);
+//     print(globals.velo_id);
+
+// }
+
+Future<void> reserveBike(String token, int id) async {
+  // ignore: prefer_const_declarations
+  final url = 'https://hebhoubtarek.pythonanywhere.com/reserver/';
+
+  final dio = Dio();
+  dio.options.headers = {'Authorization': 'Token $token'};
+
+  try {
+    final response = await dio.post(url, data: {'station': id.toString()});
+
+    if (response.statusCode == 200) {
+
+      final responseData = response.data;
+      globals.velo_name = responseData['velo_name'];
+      globals.velo_password = responseData['velo_code'];
+      globals.velo = responseData['velo'];
+
+      print('name: ${globals.velo_name}');
+      print('password: ${globals.velo_password}');
+      print('id : ${globals.velo}');
+      globals.response='Success';
+
+    } else {
+      globals.response='Error';
+      throw Exception('Failed to get bike: ${response.statusCode}');
+    }
+  } catch (e) {
+    globals.response='Error';
+    throw Exception('Failed to get bike: $e');
   }
 }
 
+//cancel ride
+
+Future<void> cancelBike(String token,int id) async {
+  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/reserver/');
+  final headers = {'Authorization': 'Token $token'};
+
+  final response = await http.delete(url,body:{'station':id.toString()}, headers: headers);
+
+  if (response.statusCode == 200) {
+    final responseData = jsonDecode(response.body);
+    globals.velo_name = '';
+    globals.velo_password=0;
+    globals.velo = -1;
+    print('canceled ride');
+  } else {
+    throw Exception('Failed to cancel bike: ${response.statusCode}');
+  }
+}
+
+
+
 Future<void> takeBike(String token) async {
-  final url = Uri.parse('http://192.168.100.7:8000/locate/');
+  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/locate/');
   final headers = {'Authorization': 'Token $token'};
   final response = await http.post(url, headers: headers);
 
@@ -79,14 +131,16 @@ Future<void> takeBike(String token) async {
     print('Bike taken');
     //next i retrun velo informations in here
   } else {
-    throw Exception('Failed to take Bike!');
+    throw Exception('Failed!');
   }
 }
 
+//return bike at the end of ride
+
 Future<void> returnBike(String token, int stationId) async {
-  final url = Uri.parse('http://192.168.100.7:8000/locate/');
+  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/alocate/');
   final headers = {'Authorization': 'Token $token'};
-  final response = await http.put(url,
+  final response = await http.delete(url,
       body: {
         'station': stationId,
       },
@@ -96,13 +150,15 @@ Future<void> returnBike(String token, int stationId) async {
   print(response.body);
 
   if (response.statusCode == 200) {
-    print('Bike Returned to Station : $stationId');
     // return price
+    final responseData = jsonDecode(response.body);
+    globals.total_price = responseData['price'];
+    globals.new_solde = responseData['solde'];
+
+    print('Bike Returned to Station : $stationId');
   } else {
     throw Exception('Failed to return Bike!');
   }
 }
 
-void cancelRideAPI(){
-  
-}
+void cancelRideAPI() {}

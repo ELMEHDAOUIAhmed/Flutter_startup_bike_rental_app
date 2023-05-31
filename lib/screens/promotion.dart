@@ -88,6 +88,7 @@ class Promotion extends StatelessWidget {
                           color: Color(0xff000000),
                           decoration: TextDecoration.none,
                         ),
+                        
                       ),
                     ),
                     Container(

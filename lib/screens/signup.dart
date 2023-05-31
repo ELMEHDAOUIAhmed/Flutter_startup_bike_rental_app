@@ -25,6 +25,9 @@ class _SignupState extends State<Signup> {
   final firstnameController = TextEditingController();
   final matriculeController = TextEditingController();
   final confirmpasswordController = TextEditingController();
+  final TextEditingController genderController = TextEditingController();
+  int selectedGenderIndex; // to store the selected gender index
+  String gender;
 
   // create a FocusNode instance
   final FocusNode _matriculeFocusNode = FocusNode();
@@ -54,6 +57,15 @@ class _SignupState extends State<Signup> {
     final email = emailController.text;
     final password = passwordController.text;
     final confirmpassword = confirmpasswordController.text;
+
+    if(selectedGenderIndex==0){
+        //male
+        gender='True';
+    }
+    else{
+        //female
+        gender='False';
+    }
 
     if (password != confirmpassword) {
       showDialog(
@@ -89,7 +101,7 @@ class _SignupState extends State<Signup> {
         confirmpassword != '') {
       try {
         final user = await signUp(
-            matricule, lastName, firstName, userName, email, password);
+            matricule, lastName, firstName, userName, email, password,gender);
         // Save the token to the local database
         final token = user['token'];
         await saveToken(token);
@@ -358,6 +370,17 @@ class _SignupState extends State<Signup> {
                           labelText: 'Confirm Password',
                           hintText: '',
                           obscureText: true,
+                        ),
+                        MyTextField(
+                          controller: genderController,
+                          labelText: 'Gender',
+                          hintText: 'Select your gender',
+                          obscureText: false,
+                          isGenderField: true, // set as gender field
+                          onGenderSelected: (value) {
+                            // Handle the selected gender index
+                            selectedGenderIndex = value;
+                          },
                         ),
 
                         Container(

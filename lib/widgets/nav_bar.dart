@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/helpers/globals.dart' as globals;
 
 class NavBar extends StatefulWidget {
   @override
@@ -12,7 +13,8 @@ class _NavBarState extends State<NavBar> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      //_selectedIndex = index;
+      globals.globalIndex=index;
       _iconScales = [1.0, 1.0, 1.0];
       _iconScales[index] = 1.5;
     });
@@ -38,7 +40,7 @@ class _NavBarState extends State<NavBar> {
                 icon: Transform.scale(
                   scale: _iconScales[0],
                   child: Image.asset(
-                    _selectedIndex == 0
+                    globals.globalIndex == 0
                         ? 'assets/page-1/images/location_selected.png'
                         : 'assets/page-1/images/location_not_selected.png',
                     width: 38,
@@ -51,7 +53,7 @@ class _NavBarState extends State<NavBar> {
                 icon: Transform.scale(
                   scale: _iconScales[1],
                   child: Image.asset(
-                    _selectedIndex == 1
+                    globals.globalIndex == 1
                         ? 'assets/page-1/images/lock_selected.png'
                         : 'assets/page-1/images/unlock_not_selected.png',
                     width: 38,
@@ -64,7 +66,7 @@ class _NavBarState extends State<NavBar> {
                 icon: Transform.scale(
                   scale: _iconScales[2],
                   child: Image.asset(
-                    _selectedIndex == 2
+                    globals.globalIndex == 2
                         ? 'assets/page-1/images/toolkit_selected.png'
                         : 'assets/page-1/images/toolkit_not_slected.png',
                     width: 38,

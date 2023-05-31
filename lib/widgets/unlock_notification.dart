@@ -8,6 +8,7 @@ import '/helpers/arduino.dart';
 import '/models/db.dart';
 import '/helpers/globals.dart' as globals;
 import '/widgets/summary.dart';
+import '/helpers/station.dart';
 
 //Issues
 //Timer is not being canceled
@@ -360,6 +361,7 @@ class _UnlockState extends State<Unlock> {
         setState(() {
           _blackscreen = false;
           _unlockSteps = false;
+          globals.globalIndex=0;
           _ride_stats = true;
           startTimerDuration();
         });
@@ -590,7 +592,7 @@ class _UnlockState extends State<Unlock> {
                         height: 135 * fem,
                         child: Text(
                           // ignore: prefer_interpolation_to_compose_strings
-                          'Looking for Bike Bluetooth \nStatus:\n\n' +
+                          'Looking for Bike ${globals.velo} Bluetooth \nStatus:\n\n' +
                               bluetoothStatus,
                           textAlign: TextAlign.center,
                           style: SafeGoogleFont(
