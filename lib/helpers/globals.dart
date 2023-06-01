@@ -11,6 +11,7 @@ String response='';
 bool isConnectedtoBT =false;
 bool reserved = false;
 String authString='';
+Duration total_ride_time;
 
 int new_solde=0;
 int total_price=0;

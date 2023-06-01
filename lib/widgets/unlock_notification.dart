@@ -28,7 +28,8 @@ class _UnlockState extends State<Unlock> {
   String token;
   double newSolde = 0.0;
   double totalPrice = 0.0;
-  Duration elapsedTime;
+  //Duration elapsedTime;
+  Timer bt_reconnect_timer;
 
   int _attempts = 0;
   String unlock = 'Put your Student\n Id Card\nclose to the lock';
@@ -140,7 +141,7 @@ class _UnlockState extends State<Unlock> {
     await returnBike(token, globals.stationIdDest);
 
     setState(() {
-      elapsedTime = _stopwatch.elapsed;
+      globals.total_ride_time = _stopwatch.elapsed;
       _blackscreen = false;
       _ride_stats = false;
     });
@@ -150,6 +151,9 @@ class _UnlockState extends State<Unlock> {
     bluetoothService.disconnect();
     if(_timer!=null){
     _timer.cancel();
+    }
+    if(bt_reconnect_timer!=null){
+    bt_reconnect_timer.cancel();
     }
     globals.reserved=false;
 
@@ -308,7 +312,7 @@ class _UnlockState extends State<Unlock> {
     String hours = twoDigits(duration.inHours);
     String minutes = twoDigits(duration.inMinutes.remainder(60));
     String seconds = twoDigits(duration.inSeconds.remainder(60));
-    return "$hours:$minutes:$seconds";
+    return "${hours}h:${minutes}m:${seconds}s";
   }
 
   final BluetoothService bluetoothService = BluetoothService();
@@ -347,7 +351,7 @@ class _UnlockState extends State<Unlock> {
   }
 
   void startScanning(int pin) {
-    Timer.periodic(Duration(seconds: 10), (timer) {
+   bt_reconnect_timer= Timer.periodic(Duration(seconds: 10), (timer) {
       _checkBluetoothStatus();
       bluetoothService.startScan(pin);
     });

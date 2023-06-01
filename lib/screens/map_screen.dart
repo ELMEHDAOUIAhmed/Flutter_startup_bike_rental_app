@@ -131,6 +131,7 @@ class _MapScreenState extends State<MapScreen> {
                   _cancelRide = !_cancelRide;
                   _gps = !_gps;
                   topPosition = 559;
+                  _menu_window=true;
                 });
                 Navigator.of(context).pop();
                 //Yes

@@ -16,8 +16,15 @@ class Summary extends StatefulWidget {
 class _SummaryState extends State<Summary> {
   double newSolde = 0.0;
   double totalPrice = 0.0;
-  var elapsedTime = 0;
-
+  String elapsedTime;
+  
+    String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String hours = twoDigits(duration.inHours);
+    String minutes = twoDigits(duration.inMinutes.remainder(60));
+    String seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "${hours}h:${minutes}m:${seconds}s";
+  }
 
 
   @override
@@ -28,6 +35,9 @@ class _SummaryState extends State<Summary> {
     //   newSolde = widget.stats['newSolde'];
     // }
 
+    if(globals.total_ride_time!=null){
+      elapsedTime=formatDuration(globals.total_ride_time);
+    }
     double baseWidth = 380;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -85,7 +95,7 @@ class _SummaryState extends State<Summary> {
                 ),
               ),
               Text(
-                '$elapsedTime min',
+                '$elapsedTime',
                 textAlign: TextAlign.center,
                 style: SafeGoogleFont(
                   'Montserrat',
