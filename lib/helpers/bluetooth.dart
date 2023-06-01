@@ -21,7 +21,7 @@ class BluetoothService {
     if (arduinoMessage != null) {
       //api call
       //remove it
-      sendArduinoMessageToApi(arduinoMessage);
+      //sendArduinoMessageToApi(arduinoMessage);
 
       print("Access: ${arduinoMessage.access}");
       print("UID: ${arduinoMessage.uid}");

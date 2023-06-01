@@ -13,7 +13,6 @@ import '/components/my_button.dart';
 import '/helpers/globals.dart' as globals;
 import '/providers/user_api.dart';
 
-//id velo not displaying correctly
 
 class MapScreen extends StatefulWidget {
   @override
