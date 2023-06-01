@@ -14,6 +14,7 @@ import '/screens/map_screen.dart';
 import '/screens/signup.dart';
 import '/screens/settings.dart';
 import '/widgets/summary.dart';
+import '/screens/promotion.dart';
 
 //https://www.youtube.com/watch?v=nyvwx7o277U
 
@@ -60,8 +61,8 @@ class RouteGenerator {
             builder: (_) => Mywallet(
                   user: args,
                 ));
-      // case '/promotion':
-      //   return MaterialPageRoute(builder: (_) => MapScreenNew());
+      case '/promotion':
+        return MaterialPageRoute(builder: (_) => Promotion());
       // case '/ride_history':
       //   return MaterialPageRoute(builder: (_) => MapScreenNew());
       case '/settings':
@@ -80,7 +81,7 @@ class RouteGenerator {
       case '/summary':
         return MaterialPageRoute(
             builder: (_) => Summary(
-                  stats: args,
+                //stats: args,
                 ));
 
         return _errorRoute();

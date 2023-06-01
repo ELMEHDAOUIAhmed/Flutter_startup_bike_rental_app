@@ -23,6 +23,7 @@ Future<Map<String, dynamic>> login(String username, String password) async {
     user['token'] = token;
     return user;
   } else {
+    globals.authString=response.body;
     throw Exception('Failed to log in');
   }
 }

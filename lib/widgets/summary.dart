@@ -4,10 +4,11 @@ import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/components/my_button.dart';
 import 'package:myapp/utils.dart';
+import '/helpers/globals.dart' as globals;
 
 class Summary extends StatefulWidget {
-  final Map<String, dynamic> stats;
-  const Summary({Key key, this.stats}) : super(key: key);
+  //final Map<String, dynamic> stats;
+  //const Summary({Key key, this.stats}) : super(key: key);
   @override
   State<Summary> createState() => _SummaryState();
 }
@@ -17,13 +18,15 @@ class _SummaryState extends State<Summary> {
   double totalPrice = 0.0;
   var elapsedTime = 0;
 
+
+
   @override
   Widget build(BuildContext context) {
-    if (widget.stats != null) {
-      elapsedTime = widget.stats['elapsedTime'];
-      totalPrice = widget.stats['totalPrice'];
-      newSolde = widget.stats['newSolde'];
-    }
+    // if (widget.stats != null) {
+    //   elapsedTime = widget.stats['elapsedTime'];
+    //   totalPrice = widget.stats['totalPrice'];
+    //   newSolde = widget.stats['newSolde'];
+    // }
 
     double baseWidth = 380;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -109,7 +112,7 @@ class _SummaryState extends State<Summary> {
                 ),
               ),
               Text(
-                '$totalPrice',
+                '${globals.total_price}',
                 textAlign: TextAlign.center,
                 style: SafeGoogleFont(
                   'Montserrat',
@@ -135,7 +138,7 @@ class _SummaryState extends State<Summary> {
                 ),
               ),
               Text(
-                '$newSolde',
+                '${globals.new_solde}',
                 textAlign: TextAlign.center,
                 style: SafeGoogleFont(
                   'Montserrat',

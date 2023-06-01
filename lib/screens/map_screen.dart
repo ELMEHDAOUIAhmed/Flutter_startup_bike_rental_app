@@ -116,7 +116,9 @@ class _MapScreenState extends State<MapScreen> {
             TextButton(
               onPressed: () {
                 cancelBike(token, globals.stationIdSource);
+                if(positionTimer!=null){
                 positionTimer.cancel();
+                }
                 _stopTracking();
                 //cancelRideAPI; // will be defined after
 
@@ -256,9 +258,8 @@ class _MapScreenState extends State<MapScreen> {
                       Flexible(
                         fit: FlexFit.loose,
                         child: Text(
-                          'Station \n "${markers[index].infoWindow.title}"\n successfully selected. \n\n Go to your Station and Follow instruction to unlock \nBike : ${globals.velo}.',
-                          style: TextStyle(fontSize: 16.0)
-                        ),
+                            'Station \n "${markers[index].infoWindow.title}"\n successfully selected. \n\n Go to your Station and Follow instruction to unlock \nBike : ${globals.velo}.',
+                            style: TextStyle(fontSize: 16.0)),
                       ),
                     ],
                   ),
@@ -309,10 +310,39 @@ class _MapScreenState extends State<MapScreen> {
               );
             }
           }
-        } catch (e) {
+        } //we need api to cancel all ride for user in case an issue happends
+        catch (e) {
           showDialog(
-              // ... show error dialog ...
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(48),
+                ),
+                title: Row(
+                  children: const [
+                    Icon(Icons.error, color: Colors.red),
+                    SizedBox(width: 8.0),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: Text(
+                        'Error. Please try again!',
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    ),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Continue"),
+                  ),
+                ],
               );
+            },
+          );
         }
       } else {
         showDialog(
@@ -583,9 +613,17 @@ class _MapScreenState extends State<MapScreen> {
                       margin: EdgeInsets.fromLTRB(
                           0 * fem, 0 * fem, 0 * fem, 15 * fem),
                       child: TextButton(
-                        onPressed: () {
-                          //Start sending user location
+                        onPressed: () async {
                           //take a ride button
+                          if (globals.velo != -1) {
+                            try {
+                              await cancelBike(token, globals.stationIdSource);
+                              // ignore: empty_catches
+                            } catch (e) {
+                              print("ERROR!");
+                            }
+                          }
+                          fetchAll();
                           stationSelection();
                           drawCircles();
                         },
@@ -607,10 +645,12 @@ class _MapScreenState extends State<MapScreen> {
                       // image35nh3 (1:120)
                       onPressed: () {
                         //promotion button
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Promotion()));
+                        Navigator.pushNamed(context, '/promotion');
+                        // Navigator.pushNamedAndRemoveUntil(context, '/summary', (route) => false);
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => Promotion()));
                       },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,

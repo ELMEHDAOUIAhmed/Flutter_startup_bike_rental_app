@@ -25,6 +25,7 @@ class Unlock extends StatefulWidget {
 }
 
 class _UnlockState extends State<Unlock> {
+  String token;
   double newSolde = 0.0;
   double totalPrice = 0.0;
   Duration elapsedTime;
@@ -134,6 +135,9 @@ class _UnlockState extends State<Unlock> {
     await Future.delayed(const Duration(milliseconds: 500));
     //send api to the server
     _stopTimer();
+    
+    token = await getToken();
+    await returnBike(token, globals.stationIdDest);
 
     setState(() {
       elapsedTime = _stopwatch.elapsed;
@@ -142,11 +146,17 @@ class _UnlockState extends State<Unlock> {
     });
     //then show stats
 
+    // _stopTimer();
     bluetoothService.disconnect();
+    if(_timer!=null){
+    _timer.cancel();
+    }
+    globals.reserved=false;
+
     //after navigate to summary
 
-
-    Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+    Navigator.pushNamed(context, '/summary');
+    //Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
     
   }
 
@@ -343,10 +353,7 @@ class _UnlockState extends State<Unlock> {
     });
   }
 
-  Future<String> getToken() async {
-    String token = await getToken();
-    return token;
-  }
+
 
   @override
   void initState() {
@@ -592,7 +599,7 @@ class _UnlockState extends State<Unlock> {
                         height: 135 * fem,
                         child: Text(
                           // ignore: prefer_interpolation_to_compose_strings
-                          'Looking for Bike ${globals.velo} Bluetooth \nStatus:\n\n' +
+                          'Looking for Bike:${globals.velo} Bluetooth \nStatus:\n\n' +
                               bluetoothStatus,
                           textAlign: TextAlign.center,
                           style: SafeGoogleFont(

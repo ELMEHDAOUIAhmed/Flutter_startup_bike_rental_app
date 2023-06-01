@@ -5,6 +5,7 @@ import 'package:myapp/components/my_textfield.dart';
 import 'package:myapp/components/my_button.dart';
 import '/providers/user_api.dart';
 import '/models/db.dart';
+import '/helpers/globals.dart' as globals;
 
 class Login extends StatefulWidget {
   @override
@@ -55,8 +56,8 @@ class _LoginState extends State<Login> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: const Text('Error'),
-              content: Text(error.toString()),
+              title: const Text('Error!'),
+              content: Text('${globals.authString}'),
               actions: [
                 TextButton(
                   onPressed: () {

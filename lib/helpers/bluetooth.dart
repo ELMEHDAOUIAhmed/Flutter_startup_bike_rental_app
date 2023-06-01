@@ -10,14 +10,13 @@ import './station.dart';
 
 typedef AccessCallback = void Function(ArduinoMessage arduino);
 
-
 class BluetoothService {
-
-  bool reserved=false;
+  bool reserved = false;
   AccessCallback onAccessCallback;
   int attempts = 0;
 
-  void processArduinoMessage(String message) async { // was working perfectly without async
+  void processArduinoMessage(String message) async {
+    // was working perfectly without async
     var arduinoMessage = extractArduinoMessage(message);
     if (arduinoMessage != null) {
       //api call
@@ -63,18 +62,24 @@ class BluetoothService {
 
   Future<void> connectToDevice(BluetoothDevice device, int pin) async {
     try {
+      String token = await getToken();
+      if (!globals.reserved) {
+        //take bike
+        try {
+          await takeBike(token);
+          globals.reserved = true;
+        } catch (e) {
+          print('Error reserving!');
+          globals.reserved = false;
+          return;
+        }
+      }
       connection = await BluetoothConnection.toAddress(device.address);
       isConnected = true;
       print('Connected to ${device.name}');
       globals.isConnectedtoBT = true;
       listenForMessages();
 
-      //take bike
-      if(!reserved){
-         String token = await getToken();
-         takeBike(token);
-        reserved=true;
-      }
       //get matricule from DB
 
       //send it

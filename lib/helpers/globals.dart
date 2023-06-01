@@ -7,9 +7,11 @@ int globalIndex=0;
 String velo_name='';
 int velo_password=0;
 int velo=-1;
-String response;
+String response='';
 bool isConnectedtoBT =false;
+bool reserved = false;
+String authString='';
 
-double new_solde=0.0;
-double total_price=0.0;
+int new_solde=0;
+int total_price=0;
 

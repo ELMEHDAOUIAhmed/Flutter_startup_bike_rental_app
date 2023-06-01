@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import '/helpers/globals.dart' as globals;
 import 'package:dio/dio.dart';
+import '/models/db.dart';
 
 Future<List<Marker>> fetchStations(String token) async {
   final ByteData imageData =
@@ -120,7 +121,7 @@ Future<void> cancelBike(String token,int id) async {
 
 
 Future<void> takeBike(String token) async {
-  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/locate/');
+  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/alocate/');
   final headers = {'Authorization': 'Token $token'};
   final response = await http.post(url, headers: headers);
 
@@ -137,7 +138,7 @@ Future<void> takeBike(String token) async {
 
 //return bike at the end of ride
 
-Future<void> returnBike(String token, int stationId) async {
+Future<void> returnBike(String token, String stationId) async {
   final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/alocate/');
   final headers = {'Authorization': 'Token $token'};
   final response = await http.delete(url,
@@ -153,7 +154,9 @@ Future<void> returnBike(String token, int stationId) async {
     // return price
     final responseData = jsonDecode(response.body);
     globals.total_price = responseData['price'];
-    globals.new_solde = responseData['solde'];
+    globals.new_solde = responseData['sold'];
+    updateUserSold(globals.new_solde.toDouble());
+  
 
     print('Bike Returned to Station : $stationId');
   } else {
