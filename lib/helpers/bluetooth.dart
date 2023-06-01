@@ -70,7 +70,7 @@ class BluetoothService {
           globals.reserved = true;
         } catch (e) {
           print('Error reserving!');
-          globals.reserved = false;
+          globals.reserved = true;
           return;
         }
       }
