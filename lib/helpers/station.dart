@@ -12,7 +12,7 @@ Future<List<Marker>> fetchStations(String token) async {
   final Uint8List pngBytes = imageData.buffer.asUint8List();
   final BitmapDescriptor customIcon = BitmapDescriptor.fromBytes(pngBytes);
 
-  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/stations/');
+  final url = Uri.parse('${globals.api}/stations/');
   final headers = {'Authorization': 'Token $token'};
   final response = await http.get(url, headers: headers);
 
@@ -69,7 +69,7 @@ Future<List<Marker>> fetchStations(String token) async {
 
 Future<void> reserveBike(String token, int id) async {
   // ignore: prefer_const_declarations
-  final url = 'https://hebhoubtarek.pythonanywhere.com/reserver/';
+  final url = '${globals.api}/reserver/';
 
   final dio = Dio();
   dio.options.headers = {'Authorization': 'Token $token'};
@@ -102,7 +102,7 @@ Future<void> reserveBike(String token, int id) async {
 //cancel ride
 
 Future<void> cancelBike(String token,int id) async {
-  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/reserver/');
+  final url = Uri.parse('${globals.api}/reserver/');
   final headers = {'Authorization': 'Token $token'};
 
   final response = await http.delete(url,body:{'station':id.toString()}, headers: headers);
@@ -121,7 +121,7 @@ Future<void> cancelBike(String token,int id) async {
 
 
 Future<void> takeBike(String token) async {
-  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/alocate/');
+  final url = Uri.parse('${globals.api}/alocate/');
   final headers = {'Authorization': 'Token $token'};
   final response = await http.post(url, headers: headers);
 
@@ -139,7 +139,7 @@ Future<void> takeBike(String token) async {
 //return bike at the end of ride
 
 Future<void> returnBike(String token, String stationId) async {
-  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/alocate/');
+  final url = Uri.parse('${globals.api}/alocate/');
   final headers = {'Authorization': 'Token $token'};
   final response = await http.delete(url,
       body: {

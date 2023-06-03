@@ -15,6 +15,7 @@ import './profile_welcome.dart';
 import '/providers/auth_api.dart';
 import '/models/db.dart';
 import '/providers/user_api.dart';
+import '/helpers/globals.dart' as globals;
 
 class ProfileMenu extends StatefulWidget {
   final Map<String, dynamic> user;

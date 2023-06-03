@@ -8,6 +8,7 @@ import 'package:myapp/components/my_textfield.dart';
 import 'package:myapp/components/my_button.dart';
 import '../providers/payment_api.dart';
 import '/models/db.dart';
+import '/helpers/globals.dart' as globals;
 
 class PaymentVoucher extends StatefulWidget {
   @override
@@ -66,7 +67,9 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
             ],
           );
         },
-      );
+      ).then((value) {
+        Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+      });
     } catch (error) {
       // Display an error message
       // ignore: use_build_context_synchronously
@@ -84,7 +87,7 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
                 SizedBox(width: 8.0),
                 Flexible(
                   fit: FlexFit.loose,
-                  child: Text('Error! \n\nInvalid or User Voucher',
+                  child: Text('Error! \n\nInvalid User Voucher!',
                       style: TextStyle(fontSize: 16.0)),
                 ),
               ],
@@ -147,7 +150,7 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
                         Container(
                           // iconchevronleftmcH (I1:308;0:1417)
                           margin: EdgeInsets.fromLTRB(
-                              0* fem, 0 * fem, 0 * fem, 120 * fem),
+                              0 * fem, 0 * fem, 0 * fem, 120 * fem),
                           width: 18.13 * fem,
                           height: 17.28 * fem,
                           child: const Icon(

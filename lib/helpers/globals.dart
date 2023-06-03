@@ -16,3 +16,11 @@ Duration total_ride_time;
 int new_solde=0;
 int total_price=0;
 
+String bt_status='';
+
+String api='https://e0e4-105-98-80-154.ngrok-free.app';
+
+//https://hebhoubtarek.pythonanywhere.com
+//https://e0e4-105-98-80-154.ngrok-free.app
+// https://192.168.100.7
+

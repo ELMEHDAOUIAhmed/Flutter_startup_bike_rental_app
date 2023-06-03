@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import '/helpers/globals.dart' as globals;
 
 Future<Map<String, dynamic>> login(String username, String password) async {
-  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/login/');
+  final url = Uri.parse('${globals.api}/login/');
   final response = await http.post(url, body: {
     'username': username,
     'password': password,
@@ -36,7 +36,7 @@ Future<Map<String, dynamic>> signUp(
     String email,
     String password,
     String gender) async {
-  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/sign-up/');
+  final url = Uri.parse('${globals.api}/sign-up/');
   final response = await http.post(url, body: {
     'matricule': matricule,
     'last_name': lastname,
@@ -59,7 +59,7 @@ Future<Map<String, dynamic>> signUp(
 }
 
 Future<void> logout(String token) async {
-  final url = Uri.parse('https://hebhoubtarek.pythonanywhere.com/logout/');
+  final url = Uri.parse('${globals.api}/logout/');
   final headers = {'Authorization': 'Token $token'};
   final response = await http.post(url, headers: headers);
 
@@ -77,6 +77,7 @@ Future<void> sendPos(String token, Position position, int velo_id) async {
 
   final headers = {'Authorization': 'Token $token'};
 
+  try {
   final response = await http.get(url, headers: headers);
   if (response.statusCode == 200) {
     print('sent!\n');
@@ -85,4 +86,7 @@ Future<void> sendPos(String token, Position position, int velo_id) async {
     throw Exception(
         'Failed to send user pos: ${response.statusCode},${response.body}');
   }
+} on Exception catch (e) {
+  print('ERRROR');
+}
 }

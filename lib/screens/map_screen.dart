@@ -13,7 +13,6 @@ import '/components/my_button.dart';
 import '/helpers/globals.dart' as globals;
 import '/providers/user_api.dart';
 
-
 class MapScreen extends StatefulWidget {
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -115,8 +114,8 @@ class _MapScreenState extends State<MapScreen> {
             TextButton(
               onPressed: () {
                 cancelBike(token, globals.stationIdSource);
-                if(positionTimer!=null){
-                positionTimer.cancel();
+                if (positionTimer != null) {
+                  positionTimer.cancel();
                 }
                 _stopTracking();
                 //cancelRideAPI; // will be defined after
@@ -130,7 +129,7 @@ class _MapScreenState extends State<MapScreen> {
                   _cancelRide = !_cancelRide;
                   _gps = !_gps;
                   topPosition = 559;
-                  _menu_window=true;
+                  _menu_window = true;
                 });
                 Navigator.of(context).pop();
                 //Yes
@@ -320,13 +319,13 @@ class _MapScreenState extends State<MapScreen> {
                   borderRadius: BorderRadius.circular(48),
                 ),
                 title: Row(
-                  children: const [
+                  children: const[
                     Icon(Icons.error, color: Colors.red),
                     SizedBox(width: 8.0),
                     Flexible(
                       fit: FlexFit.loose,
                       child: Text(
-                        'Error. Please try again!',
+                        'Error! insufficient balance\n You need to refill Your Balance.',
                         style: TextStyle(fontSize: 16.0),
                       ),
                     ),
@@ -342,7 +341,10 @@ class _MapScreenState extends State<MapScreen> {
                 ],
               );
             },
-          );
+          ).then((value) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/voucher', (route) => false);
+          });
         }
       } else {
         showDialog(

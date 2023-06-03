@@ -77,6 +77,7 @@ class BluetoothService {
       connection = await BluetoothConnection.toAddress(device.address);
       isConnected = true;
       print('Connected to ${device.name}');
+      globals.bt_status ='';
       globals.isConnectedtoBT = true;
       listenForMessages();
 
@@ -89,6 +90,7 @@ class BluetoothService {
       _inputSubscription?.onDone(() {
         print('Disconnected from ${device.name}');
         disconnect();
+        globals.bt_status ='Disconnected from ${device.name}';
         globals.isConnectedtoBT = false;
       });
     } catch (e) {

@@ -7,17 +7,11 @@ import '/components/my_button.dart';
 import '/helpers/arduino.dart';
 import '/models/db.dart';
 import '/helpers/globals.dart' as globals;
-import '/widgets/summary.dart';
 import '/helpers/station.dart';
-
-//Issues
-//Timer is not being canceled
+import '/screens/map_screen.dart';
 
 //you have switched between closed and open status becarful ,
 //place lock and test
-
-
-//test more there are some issues in logic, code works
 
 class Unlock extends StatefulWidget {
   @override
@@ -134,34 +128,64 @@ class _UnlockState extends State<Unlock> {
   void finishRide() async {
     _clear();
     await Future.delayed(const Duration(milliseconds: 500));
-    //send api to the server
-    _stopTimer();
-    
-    token = await getToken();
-    await returnBike(token, globals.stationIdDest);
 
-    setState(() {
-      globals.total_ride_time = _stopwatch.elapsed;
-      _blackscreen = false;
-      _ride_stats = false;
-    });
-    //then show stats
+    try {
+      token = await getToken();
+      await returnBike(token, globals.stationIdDest);
 
-    // _stopTimer();
-    bluetoothService.disconnect();
-    if(_timer!=null){
-    _timer.cancel();
+      setState(() {
+        globals.total_ride_time = _stopwatch.elapsed;
+        _blackscreen = false;
+        _ride_stats = false;
+      });
+      //then show stats
+
+      _stopTimer();
+      bluetoothService.disconnect();
+      if (_timer != null) {
+        _timer.cancel();
+      }
+      if (bt_reconnect_timer != null) {
+        bt_reconnect_timer.cancel();
+      }
+      globals.reserved = false;
+
+      //after navigate to summary
+
+      Navigator.pushNamedAndRemoveUntil(context, '/summary', (route) => false);
+      //Navigator.pushNamed(context, '/summary');
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(48),
+            ),
+            title: Row(
+              children: const [
+                //Icon(Icons.error, color: Colors.red),
+                Icon(Icons.check_circle, color: Color.fromARGB(255, 255, 0, 0)),
+                SizedBox(width: 8.0),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: Text('Server Busy! \nTry Again!',
+                      style: TextStyle(fontSize: 16.0)),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("Continue"),
+              ),
+            ],
+          );
+        },
+      );
     }
-    if(bt_reconnect_timer!=null){
-    bt_reconnect_timer.cancel();
-    }
-    globals.reserved=false;
-
-    //after navigate to summary
-
-    Navigator.pushNamed(context, '/summary');
-    //Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
-    
   }
 
   //Future<void> endRideAPI() {
@@ -351,13 +375,18 @@ class _UnlockState extends State<Unlock> {
   }
 
   void startScanning(int pin) {
-   bt_reconnect_timer= Timer.periodic(Duration(seconds: 10), (timer) {
+    bt_reconnect_timer = Timer.periodic(Duration(seconds: 10), (timer) {
       _checkBluetoothStatus();
       bluetoothService.startScan(pin);
+      if (!globals.isConnectedtoBT) {
+        setState(() {
+          _bluetoothSteps = true;
+          _unlockSteps = false;
+        });
+        _startTimer();
+      }
     });
   }
-
-
 
   @override
   void initState() {
@@ -372,7 +401,7 @@ class _UnlockState extends State<Unlock> {
         setState(() {
           _blackscreen = false;
           _unlockSteps = false;
-          globals.globalIndex=0;
+          globals.globalIndex = 0;
           _ride_stats = true;
           startTimerDuration();
         });
@@ -396,12 +425,72 @@ class _UnlockState extends State<Unlock> {
       }
       // if (arduino.access == null) {
       if (arduino.status == 'closed') {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(48),
+              ),
+              title: Row(
+                children: const [
+                  //Icon(Icons.error, color: Colors.red),
+                  Icon(Icons.check_circle, color: Colors.yellow),
+                  SizedBox(width: 8.0),
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: Text('Lock Closed! \n',
+                        style: TextStyle(fontSize: 16.0)),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Continue"),
+                ),
+              ],
+            );
+          },
+        );
         print('Lock has been closed');
         setState(() {
           _lockStatusOpen = false;
         });
       }
       if (arduino.status == 'opened') {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(48),
+              ),
+              title: Row(
+                children: const [
+                  //Icon(Icons.error, color: Colors.red),
+                  Icon(Icons.check_circle, color: Colors.yellow),
+                  SizedBox(width: 8.0),
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: Text('Lock opened! \nEnjoy your Ride :)',
+                        style: TextStyle(fontSize: 16.0)),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Continue"),
+                ),
+              ],
+            );
+          },
+        );
         print('Lock has been opened');
         setState(() {
           _lockStatusOpen = true;

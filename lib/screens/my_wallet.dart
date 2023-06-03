@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/utils.dart';
 import '/models/db.dart';
+import '/helpers/globals.dart' as globals;
 
 class Mywallet extends StatefulWidget {
   final Map<String, dynamic> user;
