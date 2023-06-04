@@ -18,7 +18,7 @@ int total_price=0;
 
 String bt_status='';
 
-String api='https://hebhoubtarek.pythonanywhere.com';
+String api='http://hebhoubtarek.pythonanywhere.com';
 
 //https://hebhoubtarek.pythonanywhere.com
 //https://e0e4-105-98-80-154.ngrok-free.app

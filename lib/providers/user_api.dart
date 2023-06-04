@@ -72,11 +72,12 @@ Future<void> logout(String token) async {
 
 Future<void> sendPos(String token, Position position, int velo_id) async {
   final url = Uri.parse(
-      '${globals.api}/?lat=${position.latitude}&long=${position.longitude}&velo=${velo_id.toString()}');
+      '${globals.api}/user_pos/?lat=${position.latitude}&long=${position.longitude}&velo=${velo_id.toString()}');
 
   final headers = {'Authorization': 'Token $token'};
 
-  try {
+ try {
+
   final response = await http.get(url, headers: headers);
   if (response.statusCode == 200) {
     print('sent!\n');
@@ -85,7 +86,10 @@ Future<void> sendPos(String token, Position position, int velo_id) async {
     throw Exception(
         'Failed to send user pos: ${response.statusCode},${response.body}');
   }
+
+
 } on Exception catch (e) {
+  print('velo id :${velo_id}');
   print('ERRROR');
 }
 }
