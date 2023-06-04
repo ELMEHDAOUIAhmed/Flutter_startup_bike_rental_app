@@ -3,19 +3,13 @@ import 'package:flutter/material.dart';
 // import 'dart:ui';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/utils.dart';
-import './my_wallet.dart';
 import './my_statistics.dart';
 // import './invite.dart';
 import './support_request.dart';
 // import './reputation.dart';
 // import './report.dart';
-import './settings.dart';
-import './starting_page.dart';
-import './profile_welcome.dart';
-import '/providers/auth_api.dart';
 import '/models/db.dart';
 import '/providers/user_api.dart';
-import '/helpers/globals.dart' as globals;
 
 class ProfileMenu extends StatefulWidget {
   final Map<String, dynamic> user;

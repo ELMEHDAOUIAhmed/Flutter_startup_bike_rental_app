@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/utils.dart';
 import 'login.dart';
-import '/models/db.dart';
 import './onboarding.dart';
 
 class StartingPage extends StatelessWidget {

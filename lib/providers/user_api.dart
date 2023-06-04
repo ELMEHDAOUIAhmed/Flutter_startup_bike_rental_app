@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import '/models/db.dart';
 import 'package:geolocator/geolocator.dart';
@@ -73,7 +72,7 @@ Future<void> logout(String token) async {
 
 Future<void> sendPos(String token, Position position, int velo_id) async {
   final url = Uri.parse(
-      'https://hebhoubtarek.pythonanywhere.com/user_pos/?lat=${position.latitude}&long=${position.longitude}&velo=${velo_id.toString()}');
+      '${globals.api}/?lat=${position.latitude}&long=${position.longitude}&velo=${velo_id.toString()}');
 
   final headers = {'Authorization': 'Token $token'};
 

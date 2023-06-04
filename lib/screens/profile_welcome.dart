@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:myapp/utils.dart';
 import './ride_history.dart';
-import 'profile_menu.dart';
 import 'package:intl/intl.dart';
 import '/providers/weather_api.dart';
 import '/models/db.dart';

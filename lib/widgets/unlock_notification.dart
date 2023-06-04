@@ -8,7 +8,6 @@ import '/helpers/arduino.dart';
 import '/models/db.dart';
 import '/helpers/globals.dart' as globals;
 import '/helpers/station.dart';
-import '/screens/map_screen.dart';
 
 //you have switched between closed and open status becarful ,
 //place lock and test

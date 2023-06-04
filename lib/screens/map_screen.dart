@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/screens/promotion.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:myapp/utils.dart';
@@ -223,8 +222,6 @@ class _MapScreenState extends State<MapScreen> {
     //retreive updated stations
     fetchAll();
 
-    //just a test to show markers remove after
-    print(markers);
     //setState(() {
     final index =
         markers.indexWhere((marker) => marker.markerId.value == markerId);
@@ -342,8 +339,8 @@ class _MapScreenState extends State<MapScreen> {
               );
             },
           ).then((value) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/voucher', (route) => false);
+            Navigator.pushNamed(
+                context, '/voucher');
           });
         }
       } else {

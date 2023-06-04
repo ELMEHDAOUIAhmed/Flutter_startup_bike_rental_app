@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:myapp/utils.dart';
-import './profile_welcome.dart';
-import 'package:myapp/components/my_button.dart';
 
 class Mystatistics extends StatelessWidget {
   @override

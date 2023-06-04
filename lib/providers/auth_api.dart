@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '/models/db.dart';
 import '/screens/starting_page.dart';
-import '/models/db.dart';
 
 class AuthScreen extends StatelessWidget {
   AuthScreen({Key key}) : super(key: key);

@@ -8,7 +8,6 @@ import 'package:myapp/components/my_textfield.dart';
 import 'package:myapp/components/my_button.dart';
 import '../providers/payment_api.dart';
 import '/models/db.dart';
-import '/helpers/globals.dart' as globals;
 
 class PaymentVoucher extends StatefulWidget {
   @override
