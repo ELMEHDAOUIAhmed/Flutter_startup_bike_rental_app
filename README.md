@@ -1,14 +1,13 @@
 # Flutter bike rental app "myapp"
 
-
-Welcome to my awesome app! This README file showcases some screenshots of the app.
+Welcome to my awesome app! This README file showcases some screenshots of the
+app.
 
 ## Screenshots
 
 ### Starting Page
 
-![Homepage](/path/to/homepage-screenshot.png)
-This is the homepage of my app. It showcases the main features and provides an overview of what the app can do.
+This is the Starting page of my app. It only shows when you are not logged in.
 
 <div align="center">
   <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584245453312020/0.png" alt="StartingPage" width="250" />
@@ -22,15 +21,32 @@ This is the homepage of my app. It showcases the main features and provides an o
   <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584247156178975/3.png" alt="Onboarding_three" width="250" />
 </div>
 
-### User Profile
+### Login/SignUp Screens
 
-![User Profile](/path/to/profile-screenshot.png)
-Here's a screenshot of the user profile page. Users can view and edit their profile information in this section.
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584246384427116/1.png" alt="Login" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584246829027368/2.png" alt="Sign_up_one" width="250" />
+    <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584246829027368/2.png" alt="Sign_up_two" width="250" />
+</div>
+
+### Welcome/Profile Screens
+
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115585751619485696/accueil.png" alt="Welcome" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115585794082619402/menu.png" alt="Menu" width="250" />
+</div>
+
+### Map Screen
+
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584246384427116/1.png" alt="Map" width="250" />
+</div>
+
 
 ### Settings
 
-![Settings](/path/to/settings-screenshot.png)
-This is the settings page where users can customize their app preferences and adjust various settings.
+![Settings](/path/to/settings-screenshot.png) This is the settings page where
+users can customize their app preferences and adjust various settings.
 
 ## Installation
 
@@ -46,36 +62,20 @@ If you'd like to contribute to this project.
 
 ## License
 
-
 Happy coding!
-
-
-
-
-
 
 lines changd in build.gradle
 
-50  minSdkVersion 20
-51  targetSdkVersion flutter.targetSdkVersion
-
+50 minSdkVersion 20 51 targetSdkVersion flutter.targetSdkVersion
 
 29 compileSdkVersion flutter.compileSdkVersion
 
-
-
-flutter sdk  was 
-sdk: '>=2.18.2 <3.0.0'
-
+flutter sdk was sdk: '>=2.18.2 <3.0.0'
 
 minSdkVersion flutter.minSdkVersion
 
-
-Set the minSdkVersion in android/app/build.gradle:
-line 50 was 
+Set the minSdkVersion in android/app/build.gradle: line 50 was
 
 minSdkVersion flutter.minSdkVersion
 
-
-
-  sdk: ">=2.7.0 <3.0.0"
+sdk: ">=2.7.0 <3.0.0"
