@@ -10,13 +10,5 @@
 
 
 
-// // create function _trackUserLocal 
-// // to track user inside the app without sending to Server 
-
-// //create function _trackUser
-// // send to Server ( when he starts using the bike )
-
-
-
 
 
