@@ -1,4 +1,3 @@
-// //check user 's location  needs to be close to station selected
 
 // //start to scan in background
 // //connect to bluetooth HC-05 with pin 1234
