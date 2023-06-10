@@ -1,5 +1,4 @@
 
-// //connect to bluetooth HC-05 with pin 1234
 // //send uid (matricule) of user to arduino
 // // show notification how to unlock
 // // check status
