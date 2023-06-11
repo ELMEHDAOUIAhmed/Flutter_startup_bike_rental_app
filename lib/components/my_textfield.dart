@@ -126,7 +126,7 @@ class _MyTextFieldState extends State<MyTextField> {
                       fontSize: 21 * ffem,
                       fontWeight: FontWeight.w400,
                       height: 1.2175 * ffem / fem,
-                      color: Color(0xff030303),
+                      color: const Color(0xff030303),
                       decoration: TextDecoration.none,
                     ),
                   ),
