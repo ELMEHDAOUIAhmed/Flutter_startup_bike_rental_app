@@ -26,6 +26,7 @@ class _SummaryState extends State<Summary> {
 
   @override
   Widget build(BuildContext context) {
+    
     // if (widget.stats != null) {
     //   elapsedTime = widget.stats['elapsedTime'];
     //   totalPrice = widget.stats['totalPrice'];
