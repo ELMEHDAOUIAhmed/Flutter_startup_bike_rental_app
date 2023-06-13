@@ -71,6 +71,7 @@ lines changd in build.gradle
 29 compileSdkVersion flutter.compileSdkVersion
 
 flutter sdk was sdk: '>=2.18.2 <3.0.0'
+ and flutter was 3.7.6 
 
 minSdkVersion flutter.minSdkVersion
 

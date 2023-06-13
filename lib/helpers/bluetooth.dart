@@ -159,7 +159,7 @@ class BluetoothService {
           _messageBuffer = _messageBuffer.substring(newlineIndex + 1);
           // ignore: avoid_print
           print('Received message: $completeMessage');
-          processArduinoMessage(completeMessage!);
+          processArduinoMessage(completeMessage);
           //return completeMessage;
           // Do whatever you need to do with the complete message here
         }
