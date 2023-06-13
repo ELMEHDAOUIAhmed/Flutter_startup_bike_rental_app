@@ -108,7 +108,7 @@ Future<void> cancelBike(String token,int id) async {
   final response = await http.delete(url,body:{'station':id.toString()}, headers: headers);
 
   if (response.statusCode == 200) {
-    final responseData = jsonDecode(response.body);
+    //final responseData = jsonDecode(response.body);
     globals.velo_name = '';
     globals.velo_password=0;
     globals.velo = -1;

@@ -9,7 +9,6 @@ import 'package:myapp/utils.dart';
 import './support.dart';
 import 'package:myapp/screens/profile_welcome.dart';
 
-import 'package:myapp/components/my_button.dart';
 
 class Ridehistory extends StatelessWidget {
   @override
