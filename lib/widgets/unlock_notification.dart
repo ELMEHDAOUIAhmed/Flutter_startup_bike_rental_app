@@ -18,11 +18,11 @@ class Unlock extends StatefulWidget {
 }
 
 class _UnlockState extends State<Unlock> {
-  String token;
+  String? token;
   double newSolde = 0.0;
   double totalPrice = 0.0;
   //Duration elapsedTime;
-  Timer bt_reconnect_timer;
+  Timer? bt_reconnect_timer;
 
   int _attempts = 0;
   String unlock = 'Put your Student\n Id Card\nclose to the lock';
@@ -142,10 +142,10 @@ class _UnlockState extends State<Unlock> {
       _stopTimer();
       bluetoothService.disconnect();
       if (_timer != null) {
-        _timer.cancel();
+        _timer!.cancel();
       }
       if (bt_reconnect_timer != null) {
-        bt_reconnect_timer.cancel();
+        bt_reconnect_timer!.cancel();
       }
       globals.reserved = false;
 
@@ -340,14 +340,14 @@ class _UnlockState extends State<Unlock> {
 
   final BluetoothService bluetoothService = BluetoothService();
 
-  StreamSubscription<String> _subscription;
+  StreamSubscription<String>? _subscription;
   String _message = '';
   String bluetoothStatus = 'NOT CONNECTED';
   int pin = 1234;
   String bt = 'Loading ...';
 
   void _sendMatricule() async {
-    String matricule = await getMatricule();
+    String? matricule = await getMatricule();
     await bluetoothService.send(matricule);
   }
 
@@ -363,7 +363,7 @@ class _UnlockState extends State<Unlock> {
 
   Future<void> _checkBluetoothStatus() async {
     // Enable Bluetooth if it is disabled
-    if (!(await FlutterBluetoothSerial.instance.isEnabled)) {
+    if (!(await FlutterBluetoothSerial.instance.isEnabled)!) {
       await FlutterBluetoothSerial.instance.requestEnable();
     }
 
@@ -517,7 +517,7 @@ class _UnlockState extends State<Unlock> {
   bool _summary = false; //false
 
   int _countdown = 10;
-  Timer _timer;
+  Timer? _timer;
 
   void _startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -538,7 +538,7 @@ class _UnlockState extends State<Unlock> {
 
   void _stopTimer() {
     if (_timer != null) {
-      _timer.cancel();
+      _timer!.cancel();
       _timer = null;
     }
     _stopwatch.stop();

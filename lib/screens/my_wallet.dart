@@ -7,15 +7,15 @@ import 'package:myapp/utils.dart';
 import '/models/db.dart';
 
 class Mywallet extends StatefulWidget {
-  final Map<String, dynamic> user;
-  const Mywallet({Key key, this.user}) : super(key: key);
+  final Map<String, dynamic>? user;
+  const Mywallet({Key? key, this.user}) : super(key: key);
   @override
   State<Mywallet> createState() => _MywalletState();
 }
 
 class _MywalletState extends State<Mywallet> {
 
-  double sold = 0.0;
+  double? sold = 0.0;
   @override
   void initState() {
     super.initState();
@@ -25,7 +25,7 @@ class _MywalletState extends State<Mywallet> {
   @override
   Widget build(BuildContext context) {
     if (widget.user != null) {
-      sold = widget.user['sold'];
+      sold = widget.user!['sold'];
     }
     double baseWidth = 414;
     double fem = MediaQuery.of(context).size.width / baseWidth;

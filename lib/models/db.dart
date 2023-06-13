@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 
-Future saveToken(String token) async {
+Future saveToken(String? token) async {
   final database = await openDatabase('my_database.db', version: 1);
   await database.execute(
       'CREATE TABLE IF NOT EXISTS tokens (id INTEGER PRIMARY KEY, token TEXT)');
@@ -8,11 +8,11 @@ Future saveToken(String token) async {
   await database.insert('tokens', {'token': token});
 }
 
-Future<String> getToken() async {
+Future<String?> getToken() async {
   final database = await openDatabase('my_database.db', version: 1);
   final tokens = await database.query('tokens', limit: 1);
   if (tokens.isNotEmpty) {
-    return tokens.first['token'] as String;
+    return tokens.first['token'] as String?;
   } else {
     return '';
   }
@@ -47,7 +47,7 @@ Future<void> deleteUser() async{
   print("USER DELETED!");
 }
 
-Future<Map<String, dynamic>> getUser() async {
+Future<Map<String, dynamic>?> getUser() async {
   final database = await openDatabase('my_database.db', version: 1);
   final results = await database.query('user');
   if (results.isEmpty) {
@@ -57,7 +57,7 @@ Future<Map<String, dynamic>> getUser() async {
   return results.first;
 }
 
-Future<void> updateUserSold(double newSold) async {
+Future<void> updateUserSold(double? newSold) async {
   final database = await openDatabase('my_database.db', version: 1);
   final userData = <String, dynamic>{
     'sold': newSold,
@@ -67,13 +67,13 @@ Future<void> updateUserSold(double newSold) async {
 }
 
 
-Future<String> getMatricule() async {
+Future<String?> getMatricule() async {
   final database = await openDatabase('my_database.db', version: 1);
   final results = await database.query('user');
   if (results.isEmpty) {
     return null;
   }
-  return results.first['matricule'] as String;
+  return results.first['matricule'] as String?;
 }
 
 

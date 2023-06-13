@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-Future<Map<String, dynamic>> fetchWeatherData() async {
+Future<Map<String, dynamic>?> fetchWeatherData() async {
   final response = await http.get(
     Uri.parse('https://weatherapi-com.p.rapidapi.com/current.json?q=36.711903%2C%203.180181'),
     headers: {

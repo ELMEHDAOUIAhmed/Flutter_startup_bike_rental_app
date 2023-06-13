@@ -173,7 +173,7 @@ class Verification extends StatelessWidget {
 /// Otp
 class Otp extends StatelessWidget {
   Otp({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   var textFormFieldDecoration = InputDecoration(

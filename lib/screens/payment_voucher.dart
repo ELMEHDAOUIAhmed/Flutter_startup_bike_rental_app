@@ -29,7 +29,7 @@ class _PaymentVoucherState extends State<PaymentVoucher> {
       },
     );
 
-    String token = await getToken();
+    String? token = await getToken();
     String voucher = voucherController.text;
     try {
       final solde = await refillSold(token, voucher);

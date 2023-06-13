@@ -34,7 +34,7 @@ Future<Map<String, dynamic>> signUp(
     String username,
     String email,
     String password,
-    String gender) async {
+    String? gender) async {
   final url = Uri.parse('${globals.api}/sign-up/');
   final response = await http.post(url, body: {
     'matricule': matricule,
@@ -57,7 +57,7 @@ Future<Map<String, dynamic>> signUp(
   }
 }
 
-Future<void> logout(String token) async {
+Future<void> logout(String? token) async {
   final url = Uri.parse('${globals.api}/logout/');
   final headers = {'Authorization': 'Token $token'};
   final response = await http.post(url, headers: headers);
@@ -70,7 +70,7 @@ Future<void> logout(String token) async {
   }
 }
 
-Future<void> sendPos(String token, Position position, int velo_id) async {
+Future<void> sendPos(String? token, Position position, int? velo_id) async {
   final url = Uri.parse(
       '${globals.api}/user_pos/?lat=${position.latitude}&long=${position.longitude}&velo=${velo_id.toString()}');
 

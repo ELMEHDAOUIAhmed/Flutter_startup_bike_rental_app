@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:permission_handler/permission_handler.dart';
 import './arduino.dart';
-
 import '/helpers/globals.dart' as globals;
 import '/models/db.dart';
 import './station.dart';
@@ -12,7 +12,7 @@ typedef AccessCallback = void Function(ArduinoMessage arduino);
 
 class BluetoothService {
   bool reserved = false;
-  AccessCallback onAccessCallback;
+  AccessCallback? onAccessCallback;
   int attempts = 0;
 
   void processArduinoMessage(String message) async {
@@ -29,7 +29,7 @@ class BluetoothService {
 
       // Call the callback function with the access value
       if (onAccessCallback != null) {
-        onAccessCallback(arduinoMessage);
+        onAccessCallback!(arduinoMessage);
       }
     } else {
       print("Invalid access message!");
@@ -37,12 +37,12 @@ class BluetoothService {
   }
 
   bool isConnected = false;
-  BluetoothConnection connection;
-  StreamSubscription<List<int>> _inputSubscription;
+  late BluetoothConnection connection;
+  StreamSubscription<List<int>>? _inputSubscription;
   StreamController<String> _messageController =
       StreamController<String>.broadcast();
   String _messageBuffer = '';
-  String completeMessage;
+  late String completeMessage;
 
   Future<bool> _checkPermission() async {
     // Request Bluetooth permission
@@ -55,14 +55,14 @@ class BluetoothService {
 
   Future<void> _enablePermission() async {
     // Enable Bluetooth if it is disabled
-    if (!(await FlutterBluetoothSerial.instance.isEnabled)) {
+    if (!(await FlutterBluetoothSerial.instance.isEnabled)!) {
       await FlutterBluetoothSerial.instance.requestEnable();
     }
   }
 
   Future<void> connectToDevice(BluetoothDevice device, int pin) async {
     try {
-      String token = await getToken();
+      String? token = await getToken();
       if (!globals.reserved) {
         //take bike
         try {
@@ -77,7 +77,7 @@ class BluetoothService {
       connection = await BluetoothConnection.toAddress(device.address);
       isConnected = true;
       print('Connected to ${device.name}');
-      globals.bt_status ='';
+      globals.bt_status = '';
       globals.isConnectedtoBT = true;
       listenForMessages();
 
@@ -90,7 +90,7 @@ class BluetoothService {
       _inputSubscription?.onDone(() {
         print('Disconnected from ${device.name}');
         disconnect();
-        globals.bt_status ='Disconnected from ${device.name}';
+        globals.bt_status = 'Disconnected from ${device.name}';
         globals.isConnectedtoBT = false;
       });
     } catch (e) {
@@ -113,13 +113,13 @@ class BluetoothService {
     }
   }
 
-  Future<String> send(String message) async {
+  Future<String> send(String? message) async {
     if (!isConnected) {
       return ('BLUETOOTH NOT CONNECTED');
     }
     try {
       // Send the message
-      connection.output.add(utf8.encode(message));
+      connection.output.add(utf8.encode(message!) as Uint8List);
       await connection.output.allSent;
       return 'Message sent: $message';
     } catch (e) {
@@ -149,7 +149,7 @@ class BluetoothService {
     // ignore: prefer_conditional_assignment
     if (_inputSubscription == null) {
       // ignore: void_checks
-      _inputSubscription = connection.input.listen((data) {
+      _inputSubscription = connection.input!.listen((data) {
         String message = utf8.decode(data);
         _messageBuffer += message;
         if (_messageBuffer.contains('\n')) {
@@ -159,8 +159,8 @@ class BluetoothService {
           _messageBuffer = _messageBuffer.substring(newlineIndex + 1);
           // ignore: avoid_print
           print('Received message: $completeMessage');
-          processArduinoMessage(completeMessage);
-          return completeMessage;
+          processArduinoMessage(completeMessage!);
+          //return completeMessage;
           // Do whatever you need to do with the complete message here
         }
       });

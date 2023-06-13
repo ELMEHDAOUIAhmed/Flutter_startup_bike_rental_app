@@ -6,18 +6,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:myapp/utils.dart';
 
 class Settings extends StatefulWidget {
-  final Map<String, dynamic> user;
-  const Settings({Key key, this.user}) : super(key: key);
+  final Map<String, dynamic>? user;
+  const Settings({Key? key, this.user}) : super(key: key);
   @override
   State<Settings> createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
-  String username = '';
-  String first_name = '';
-  String last_name = '';
-  String matricule = '';
-  String email = '';
+  String? username = '';
+  String? first_name = '';
+  String? last_name = '';
+  String? matricule = '';
+  String? email = '';
 
   String buttonon = 'assets/page-1/images/buttonon.png';
   String buttonoff = 'assets/page-1/images/buttonoff.png';
@@ -28,11 +28,11 @@ class _SettingsState extends State<Settings> {
     // widget.user you are already risking null value and app crashes
     //try to test  or find another way to not make it null widget.user
     if (widget.user != null) {
-      first_name = widget.user['first_name'];
-      last_name = widget.user['last_name'];
-      matricule = widget.user['matricule'];
-      email = widget.user['email'];
-      username = widget.user['username'];
+      first_name = widget.user!['first_name'];
+      last_name = widget.user!['last_name'];
+      matricule = widget.user!['matricule'];
+      email = widget.user!['email'];
+      username = widget.user!['username'];
     }
 
     double baseWidth = 414;
@@ -149,7 +149,7 @@ class _SettingsState extends State<Settings> {
                                   margin: EdgeInsets.fromLTRB(
                                       0 * fem, 5 * fem, 0 * fem, 0 * fem),
                                   child: Text(
-                                    email,
+                                    email!,
                                     style: SafeGoogleFont(
                                       'Montserrat',
                                       fontSize: 21 * ffem,
@@ -197,7 +197,7 @@ class _SettingsState extends State<Settings> {
                                   margin: EdgeInsets.fromLTRB(
                                       0 * fem, 5 * fem, 0 * fem, 0 * fem),
                                   child: Text(
-                                    last_name,
+                                    last_name!,
                                     style: SafeGoogleFont(
                                       'Montserrat',
                                       fontSize: 21 * ffem,
@@ -245,7 +245,7 @@ class _SettingsState extends State<Settings> {
                                   margin: EdgeInsets.fromLTRB(
                                       0 * fem, 5 * fem, 0 * fem, 0 * fem),
                                   child: Text(
-                                    first_name,
+                                    first_name!,
                                     style: SafeGoogleFont(
                                       'Montserrat',
                                       fontSize: 21 * ffem,
@@ -293,7 +293,7 @@ class _SettingsState extends State<Settings> {
                                   margin: EdgeInsets.fromLTRB(
                                       0 * fem, 5 * fem, 0 * fem, 0 * fem),
                                   child: Text(
-                                    username,
+                                    username!,
                                     style: SafeGoogleFont(
                                       'Montserrat',
                                       fontSize: 21 * ffem,
@@ -341,7 +341,7 @@ class _SettingsState extends State<Settings> {
                                   margin: EdgeInsets.fromLTRB(
                                       0 * fem, 5 * fem, 0 * fem, 0 * fem),
                                   child: Text(
-                                    matricule,
+                                    matricule!,
                                     style: SafeGoogleFont(
                                       'Montserrat',
                                       fontSize: 21 * ffem,

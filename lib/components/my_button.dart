@@ -16,8 +16,8 @@ class MyButton extends StatelessWidget {
   final String text;
   final Function() onTap;
   const MyButton({
-  @required this.text,
-  @required this.onTap,});
+  required this.text,
+  required this.onTap,});
 
   @override
   Widget build(BuildContext context) {

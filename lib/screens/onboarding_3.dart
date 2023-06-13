@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '/widgets/onboarding_widget.dart';
 
 class OnboardingThree extends StatelessWidget {
-  const OnboardingThree({Key key}) : super(key: key);
+  const OnboardingThree({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

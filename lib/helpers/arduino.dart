@@ -1,12 +1,12 @@
 class ArduinoMessage {
-  String uid;
-  String status;
-  String access;
+  String? uid;
+  String? status;
+  String? access;
 
   ArduinoMessage({this.uid, this.status, this.access});
 }
 
-ArduinoMessage extractArduinoMessage(String message) {
+ArduinoMessage? extractArduinoMessage(String message) {
   List<String> parts = message.split("|");
 
   if (parts.isEmpty) {
@@ -14,9 +14,9 @@ ArduinoMessage extractArduinoMessage(String message) {
     return null;
   }
 
-  String access = parts[0];
-  String uid;
-  String status;
+  String? access = parts[0];
+  String? uid;
+  String? status;
 
   if (access == "Access granted") {
     uid = parts[1];

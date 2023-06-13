@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '/helpers/bluetooth.dart';
 
 class Bluetooth extends StatefulWidget {
-  const Bluetooth({Key key}) : super(key: key);
+  const Bluetooth({Key? key}) : super(key: key);
 
   @override
   _BluetoothState createState() => _BluetoothState();
@@ -13,7 +13,7 @@ class _BluetoothState extends State<Bluetooth> {
 
 
   final BluetoothService bluetoothService = BluetoothService();
-  StreamSubscription<String> _subscription;
+  StreamSubscription<String>? _subscription;
   String _message = '';
   String bluetoothStatus = 'NOT CONNECTED';
   int pin = 1234;

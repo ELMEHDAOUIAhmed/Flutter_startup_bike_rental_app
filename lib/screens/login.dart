@@ -13,7 +13,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  Map<String, dynamic> user;
+  Map<String, dynamic>? user;
 
   String username = ''; //pass it in pushname as a parameter
   // variables to hold user input

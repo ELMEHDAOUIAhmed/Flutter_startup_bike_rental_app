@@ -18,8 +18,8 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  Timer positionTimer;
-  String stationId;
+  Timer? positionTimer;
+  String? stationId;
   double long = 0.0;
   double lat = 0.0;
   //gps postion
@@ -29,19 +29,19 @@ class _MapScreenState extends State<MapScreen> {
   static double _distanceInMeters = 0.0;
   bool distance_window = false;
   bool _menu_window = true;
-  String id;
-  int id_int;
+  String? id;
+  int? id_int;
   String userDestStation = '';
-  Position _dest, _userDest;
-  String _selectedStationName;
+  Position? _dest, _userDest;
+  String? _selectedStationName;
   bool _ride_Visible = true;
   bool _nav_bar_Visible = false;
   bool _notification_Visible = false;
   String _selectedMarkerId = '';
-  GoogleMapController _googleMapController;
-  Marker _user;
-  int stock; // the initial stock value retreive this from DB
-  String token = '';
+  GoogleMapController? _googleMapController;
+  Marker? _user;
+  int? stock; // the initial stock value retreive this from DB
+  String? token = '';
 
   //Starting location
   static const _initialCameraPosition = CameraPosition(
@@ -50,9 +50,16 @@ class _MapScreenState extends State<MapScreen> {
   );
 
   //initialize user location to avoid null value in widgets
+  // ignore: prefer_const_constructors
   Position positionuser = Position(
     latitude: 0.0,
     longitude: 0.0,
+    accuracy: 0.0,
+    speedAccuracy: 0.0,
+    speed: 0.0,
+    heading: 0.0,
+    altitude: 0.0,
+    timestamp: null,
   );
 
   //note used delete after
@@ -114,7 +121,7 @@ class _MapScreenState extends State<MapScreen> {
               onPressed: () {
                 cancelBike(token, globals.stationIdSource);
                 if (positionTimer != null) {
-                  positionTimer.cancel();
+                  positionTimer!.cancel();
                 }
                 _stopTracking();
                 //cancelRideAPI; // will be defined after
@@ -161,7 +168,7 @@ class _MapScreenState extends State<MapScreen> {
 // add function call back to listen to isInUSTHBArea changes , so when its true
 // we can allow user to close lock in unlock_notification.dart;
 
-  bool isInUSTHBArea;
+  bool? isInUSTHBArea;
 
   void checkUserIsInsideUSTHB(Position Position) {
     //convert position into LatLng
@@ -180,7 +187,7 @@ class _MapScreenState extends State<MapScreen> {
     globals.isInsideUSTHB = isInUSTHBArea;
   }
 
-  LatLng userLocation;
+  LatLng? userLocation;
 
   List<Marker> markers = [];
   var incircles;
@@ -218,7 +225,7 @@ class _MapScreenState extends State<MapScreen> {
     fetchAll();
   }
 
-  Future<void> checkStock(String markerId) async {
+  Future<void> checkStock(String? markerId) async {
     //retreive updated stations
     fetchAll();
 
@@ -229,7 +236,7 @@ class _MapScreenState extends State<MapScreen> {
       final marker = markers[index];
       var markerId = markers[index].markerId;
       globals.stationIdSource = int.parse(markerId.value);
-      final stockSnippet = marker.infoWindow.snippet;
+      final stockSnippet = marker.infoWindow.snippet!;
       final stockString =
           stockSnippet.substring(stockSnippet.indexOf(':') + 1).trim();
       final int stock = int.tryParse(stockString) ?? 0;
@@ -316,7 +323,7 @@ class _MapScreenState extends State<MapScreen> {
                   borderRadius: BorderRadius.circular(48),
                 ),
                 title: Row(
-                  children: const[
+                  children: const [
                     Icon(Icons.error, color: Colors.red),
                     SizedBox(width: 8.0),
                     Flexible(
@@ -339,8 +346,7 @@ class _MapScreenState extends State<MapScreen> {
               );
             },
           ).then((value) {
-            Navigator.pushNamed(
-                context, '/voucher');
+            Navigator.pushNamed(context, '/voucher');
           });
         }
       } else {
@@ -417,7 +423,7 @@ class _MapScreenState extends State<MapScreen> {
 
   void _moveCamera(Position position) {
     if (position != null) {
-      _googleMapController.animateCamera(CameraUpdate.newCameraPosition(
+      _googleMapController!.animateCamera(CameraUpdate.newCameraPosition(
           CameraPosition(
               target: LatLng(position.latitude, position.longitude),
               zoom: 17)));
@@ -427,13 +433,13 @@ class _MapScreenState extends State<MapScreen> {
   // Only start executing this when the user has started his ride
   //Every 20 sec send http request of this information
 
-  StreamSubscription<Position> _positionStreamSubscription;
+  StreamSubscription<Position>? _positionStreamSubscription;
   final LocationSettings locationSettings = const LocationSettings(
     accuracy: LocationAccuracy.high,
     distanceFilter: 1,
   );
 
-  void _determinePositionMoveCamera(int index) async {
+  void _determinePositionMoveCamera(int? index) async {
     try {
       _positionStreamSubscription =
           Geolocator.getPositionStream(locationSettings: locationSettings)
@@ -452,7 +458,7 @@ class _MapScreenState extends State<MapScreen> {
         });
 
         // move camera to new position here
-        _googleMapController.animateCamera(CameraUpdate.newCameraPosition(
+        _googleMapController!.animateCamera(CameraUpdate.newCameraPosition(
             CameraPosition(
                 target: LatLng(position.latitude, position.longitude),
                 zoom: 17)));
@@ -493,7 +499,7 @@ class _MapScreenState extends State<MapScreen> {
     _positionStreamSubscription?.cancel();
   }
 
-  Future<String> checkIfInStationArea(Position position) async {
+  Future<String?> checkIfInStationArea(Position position) async {
     stationId = '';
     for (Marker marker in markers) {
       double distanceInMeters = await Geolocator.distanceBetween(
@@ -546,7 +552,7 @@ class _MapScreenState extends State<MapScreen> {
     _googleMapController?.dispose();
     super.dispose();
     _stopTracking();
-    positionTimer.cancel();
+    positionTimer!.cancel();
   }
 
   @override
@@ -859,8 +865,8 @@ class _MapScreenState extends State<MapScreen> {
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
                   leading: const Icon(Icons.directions_bike),
-                  title: Text(markers[index].infoWindow.title),
-                  trailing: Text(markers[index].infoWindow.snippet),
+                  title: Text(markers[index].infoWindow.title!),
+                  trailing: Text(markers[index].infoWindow.snippet!),
                   onTap: () {
                     id = _getId(index);
                     id_int = index;

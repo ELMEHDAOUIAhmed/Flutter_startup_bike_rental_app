@@ -41,25 +41,25 @@ class RouteGenerator {
         // if (args is Map<String, dynamic>) {
         return MaterialPageRoute(
             builder: (_) => Profile_welcome(
-                  user: args,
+                  user: args as Map<String, dynamic>?,
                 ));
       // }break;
       case '/profilemenu':
         return MaterialPageRoute(
             builder: (_) => ProfileMenu(
-                  user: args,
+                  user: args as Map<String, dynamic>?,
                 ));
       case '/voucher':
         return MaterialPageRoute(builder: (_) => PaymentVoucher());
       case '/payment':
         return MaterialPageRoute(
             builder: (_) => Payment(
-                  user: args,
+                  user: args as Map<String, dynamic>?,
                 ));
       case '/wallet':
         return MaterialPageRoute(
             builder: (_) => Mywallet(
-                  user: args,
+                  user: args as Map<String, dynamic>?,
                 ));
       case '/promotion':
         return MaterialPageRoute(builder: (_) => Promotion());
@@ -68,7 +68,7 @@ class RouteGenerator {
       case '/settings':
         return MaterialPageRoute(
             builder: (_) => Settings(
-                  user: args,
+                  user: args as Map<String, dynamic>?,
                 ));
       // case '/support_request':
       //   return MaterialPageRoute(builder: (_) => MapScreenNew());

@@ -8,17 +8,17 @@ class MyTextField extends StatefulWidget {
   final bool obscureText;
   final String labelText;
   final Color backgroundColor;
-  final String mode;
+  final String? mode;
   final bool showPassword; // added showPassword boolean parameter
   final bool isGenderField; // added isGenderField boolean parameter
-  final ValueChanged<int> onGenderSelected; // added onGenderSelected callback
+  final ValueChanged<int?>? onGenderSelected; // added onGenderSelected callback
 
   MyTextField({
-    Key key,
-    @required this.controller,
-    @required this.labelText,
-    @required this.hintText,
-    @required this.obscureText,
+    Key? key,
+    required this.controller,
+    required this.labelText,
+    required this.hintText,
+    required this.obscureText,
     this.mode,
     this.showPassword = false, // default value is false
     this.backgroundColor = Colors.white,
@@ -31,8 +31,8 @@ class MyTextField extends StatefulWidget {
 }
 
 class _MyTextFieldState extends State<MyTextField> {
-  bool _obscureText;
-  int _selectedGenderIndex; // added selected gender index
+  late bool _obscureText;
+  int? _selectedGenderIndex; // added selected gender index
 
   @override
   void initState() {
@@ -67,7 +67,7 @@ class _MyTextFieldState extends State<MyTextField> {
                         _selectedGenderIndex = value;
                       });
                       if (widget.onGenderSelected != null) {
-                        widget.onGenderSelected(value);
+                        widget.onGenderSelected!(value);
                       }
                     },
                     items: [

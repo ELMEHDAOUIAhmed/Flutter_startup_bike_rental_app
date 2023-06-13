@@ -8,8 +8,8 @@ import '/providers/weather_api.dart';
 import '/models/db.dart';
 
 class Profile_welcome extends StatefulWidget {
-  final Map<String, dynamic> user;
-  const Profile_welcome({Key key, this.user}) : super(key: key);
+  final Map<String, dynamic>? user;
+  const Profile_welcome({Key? key, this.user}) : super(key: key);
 
   @override
   State<Profile_welcome> createState() => _Profile_welcomeState();
@@ -21,7 +21,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
   // Text('First Name: ${user['firstname']}'),
   // Text('Email: ${user['email']}'),
   // Text('Sold: ${user['sold']}'),
-  String username = '';
+  String? username = '';
   String matricule = '';
   String lastname = '';
   String firstname = '';
@@ -32,15 +32,15 @@ class _Profile_welcomeState extends State<Profile_welcome> {
   String _temperature = '';
   String _condition = '';
 
-  Map<String, dynamic> _weatherData = {};
+  Map<String, dynamic>? _weatherData = {};
 
   Future<void> _fetchData() async {
     try {
       final data = await fetchWeatherData();
       setState(() {
         _weatherData = data;
-        _temperature = _weatherData['current']['temp_c']?.toString() ?? "";
-        _condition = _weatherData['current']['condition']['text'] ?? "";
+        _temperature = _weatherData!['current']['temp_c']?.toString() ?? "";
+        _condition = _weatherData!['current']['condition']['text'] ?? "";
       });
     } catch (e) {
       print(e);
@@ -57,7 +57,7 @@ class _Profile_welcomeState extends State<Profile_welcome> {
   @override
   Widget build(BuildContext context) {
     if (widget.user != null) {
-      username = widget.user['username'];
+      username = widget.user!['username'];
     }
     //Retreive and formate Date
     DateTime now = DateTime.now();

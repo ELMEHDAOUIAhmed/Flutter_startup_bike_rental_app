@@ -34,7 +34,7 @@ void main() async {
   }
 
   // Enable Bluetooth if it is disabled
-  while (!(await FlutterBluetoothSerial.instance.isEnabled)) {
+  while (!(await FlutterBluetoothSerial.instance.isEnabled)!) {
     await FlutterBluetoothSerial.instance.requestEnable();
 
   }

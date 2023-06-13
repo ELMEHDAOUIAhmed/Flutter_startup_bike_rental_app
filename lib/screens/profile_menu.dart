@@ -12,18 +12,18 @@ import '/models/db.dart';
 import '/providers/user_api.dart';
 
 class ProfileMenu extends StatefulWidget {
-  final Map<String, dynamic> user;
-  const ProfileMenu({Key key, this.user}) : super(key: key);
+  final Map<String, dynamic>? user;
+  const ProfileMenu({Key? key, this.user}) : super(key: key);
   @override
   State<ProfileMenu> createState() => _ProfileMenuState();
 }
 
 class _ProfileMenuState extends State<ProfileMenu> {
-  String username = '';
-  double sold = 0.0;
+  String? username = '';
+  double? sold = 0.0;
 
   void signUserOutAPI() async {
-    String token = await getToken();
+    String? token = await getToken();
     logout(token);
     await deleteToken();
     await deleteUser();
@@ -40,8 +40,8 @@ class _ProfileMenuState extends State<ProfileMenu> {
   @override
   Widget build(BuildContext context) {
     if (widget.user != null) {
-      username = widget.user['username'];
-      sold = widget.user['sold'];
+      username = widget.user!['username'];
+      sold = widget.user!['sold'];
     }
     double baseWidth = 414;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -113,7 +113,7 @@ class _ProfileMenuState extends State<ProfileMenu> {
                                 1 * fem, 0 * fem, 0 * fem, 0 * fem),
                             child: Text(
                               //modify after to show username not email
-                              username,
+                              username!,
                               textAlign: TextAlign.center,
                               style: SafeGoogleFont(
                                 'Montserrat',

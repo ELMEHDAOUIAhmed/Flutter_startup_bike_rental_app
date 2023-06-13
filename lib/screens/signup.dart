@@ -15,7 +15,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  Map<String, dynamic> user;
+  Map<String, dynamic>? user;
 
   // variables to hold user input
   final emailController = TextEditingController();
@@ -26,8 +26,8 @@ class _SignupState extends State<Signup> {
   final matriculeController = TextEditingController();
   final confirmpasswordController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
-  int selectedGenderIndex; // to store the selected gender index
-  String gender;
+  int? selectedGenderIndex; // to store the selected gender index
+  String? gender;
 
   // create a FocusNode instance
   final FocusNode _matriculeFocusNode = FocusNode();

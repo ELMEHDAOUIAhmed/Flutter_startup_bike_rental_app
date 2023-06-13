@@ -6,18 +6,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:myapp/utils.dart';
 
 class Payment extends StatefulWidget {
-  final Map<String, dynamic> user;
-  const Payment({Key key, this.user}) : super(key: key);
+  final Map<String, dynamic>? user;
+  const Payment({Key? key, this.user}) : super(key: key);
   @override
   State<Payment> createState() => _PaymentState();
 }
 
 class _PaymentState extends State<Payment> {
-  double sold = 0.0;
+  double? sold = 0.0;
   @override
   Widget build(BuildContext context) {
     if (widget.user != null) {
-      sold = widget.user['sold'];
+      sold = widget.user!['sold'];
     }
     double baseWidth = 414;
     double fem = MediaQuery.of(context).size.width / baseWidth;

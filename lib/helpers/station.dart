@@ -6,7 +6,7 @@ import '/helpers/globals.dart' as globals;
 import 'package:dio/dio.dart';
 import '/models/db.dart';
 
-Future<List<Marker>> fetchStations(String token) async {
+Future<List<Marker>> fetchStations(String? token) async {
   final ByteData imageData =
       await rootBundle.load('assets/icons/bike-parking.png');
   final Uint8List pngBytes = imageData.buffer.asUint8List();
@@ -67,7 +67,7 @@ Future<List<Marker>> fetchStations(String token) async {
 
 // }
 
-Future<void> reserveBike(String token, int id) async {
+Future<void> reserveBike(String? token, int? id) async {
   // ignore: prefer_const_declarations
   final url = '${globals.api}/reserver/';
 
@@ -101,7 +101,7 @@ Future<void> reserveBike(String token, int id) async {
 
 //cancel ride
 
-Future<void> cancelBike(String token,int id) async {
+Future<void> cancelBike(String? token,int? id) async {
   final url = Uri.parse('${globals.api}/reserver/');
   final headers = {'Authorization': 'Token $token'};
 
@@ -120,7 +120,7 @@ Future<void> cancelBike(String token,int id) async {
 
 
 
-Future<void> takeBike(String token) async {
+Future<void> takeBike(String? token) async {
   final url = Uri.parse('${globals.api}/alocate/');
   final headers = {'Authorization': 'Token $token'};
   final response = await http.post(url, headers: headers);
@@ -138,7 +138,7 @@ Future<void> takeBike(String token) async {
 
 //return bike at the end of ride
 
-Future<void> returnBike(String token, String stationId) async {
+Future<void> returnBike(String? token, String? stationId) async {
   final url = Uri.parse('${globals.api}/alocate/');
   final headers = {'Authorization': 'Token $token'};
   final response = await http.delete(url,
@@ -155,7 +155,7 @@ Future<void> returnBike(String token, String stationId) async {
     final responseData = jsonDecode(response.body);
     globals.total_price = responseData['price'];
     globals.new_solde = responseData['sold'];
-    updateUserSold(globals.new_solde.toDouble());
+    updateUserSold(globals.new_solde!.toDouble());
   
 
     print('Bike Returned to Station : $stationId');

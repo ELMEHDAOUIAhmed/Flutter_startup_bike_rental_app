@@ -3,18 +3,18 @@ import '/models/db.dart';
 import '/screens/starting_page.dart';
 
 class AuthScreen extends StatelessWidget {
-  AuthScreen({Key key}) : super(key: key);
+  AuthScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<String>(
+      body: FutureBuilder<String?>(
         future: getToken(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final token = snapshot.data;
             if (token is String && token.isNotEmpty) {
-              return FutureBuilder<Map<String, dynamic>>(
+              return FutureBuilder<Map<String, dynamic>?>(
                 future: getUser(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {

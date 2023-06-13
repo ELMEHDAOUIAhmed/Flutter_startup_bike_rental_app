@@ -12,15 +12,15 @@ class OnboardingWidget extends StatelessWidget {
   final String nextText;
 
   const OnboardingWidget({
-    Key key,
-    @required this.firstImage,
-    @required this.secondImage,
-    @required this.firstText,
-    @required this.secondText,
-    @required this.onNextPressed,
-    @required this.onSkipPressed,
-    @required this.skipText,
-    @required this.nextText,
+    Key? key,
+    required this.firstImage,
+    required this.secondImage,
+    required this.firstText,
+    required this.secondText,
+    required this.onNextPressed,
+    required this.onSkipPressed,
+    required this.skipText,
+    required this.nextText,
 
   }) : super(key: key);
 

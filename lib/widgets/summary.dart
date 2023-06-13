@@ -13,7 +13,7 @@ class Summary extends StatefulWidget {
 class _SummaryState extends State<Summary> {
   double newSolde = 0.0;
   double totalPrice = 0.0;
-  String elapsedTime;
+  String? elapsedTime;
   
     String formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
@@ -34,7 +34,7 @@ class _SummaryState extends State<Summary> {
     // }
 
     if(globals.total_ride_time!=null){
-      elapsedTime=formatDuration(globals.total_ride_time);
+      elapsedTime=formatDuration(globals.total_ride_time!);
     }
     double baseWidth = 380;
     double fem = MediaQuery.of(context).size.width / baseWidth;
