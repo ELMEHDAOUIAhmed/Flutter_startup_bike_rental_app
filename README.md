@@ -64,9 +64,10 @@ If you'd like to contribute to this project.
 
 Happy coding!
 
+
+
+
 lines changd in build.gradle
-
-
 
 50 minSdkVersion 20 51 targetSdkVersion flutter.targetSdkVersion
 
