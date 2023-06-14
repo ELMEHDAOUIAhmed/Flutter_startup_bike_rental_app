@@ -895,9 +895,9 @@ class _MapScreenState extends State<MapScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(48),
           ),
-          title: Row(
-            children: const [
-              //Icon(Icons.error, color: Colors.red),
+          //wasnt const before in Row
+          title: const Row(
+            children: [
               Icon(Icons.notification_important, color: Colors.yellow),
               SizedBox(width: 8.0),
               Flexible(
