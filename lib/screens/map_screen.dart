@@ -525,7 +525,8 @@ class _MapScreenState extends State<MapScreen> {
 
   Future<double> calculateDistanceInMeters(
       int markerIndex, Position userPosition) async {
-    if (markerIndex != null && userPosition != null) {
+    // if (markerIndex != null && userPosition != null) 
+    // {
       Marker marker = markers[markerIndex];
       double distanceInMeters = Geolocator.distanceBetween(
         userPosition.latitude,
@@ -534,9 +535,10 @@ class _MapScreenState extends State<MapScreen> {
         marker.position.longitude,
       );
       return distanceInMeters;
-    } else {
-      return 0.0;
-    }
+    // } 
+    // else {
+    //   return 0.0;
+    // }
   }
 
   @override

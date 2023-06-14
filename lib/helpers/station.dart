@@ -33,16 +33,18 @@ Future<List<Marker>> fetchStations(String? token) async {
         .toList();
     return markers;
   } else {
+    // ignore: avoid_print
     print('Failed to fetch stations');
+    // ignore: unused_local_variable
     List<Marker> markers;
     return markers = [
       Marker(
-        markerId: MarkerId('9999'),
-        position: LatLng(36.712067, 3.181122),
+        markerId: const MarkerId('9999'),
+        position: const LatLng(36.712067, 3.181122),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-        infoWindow: InfoWindow(
+        infoWindow: const InfoWindow(
           title: 'Bike Rental APP',
-          snippet: 'Stock: 0',
+          snippet: 'unable to retrieve data!',
         ),
       ),
     ];
