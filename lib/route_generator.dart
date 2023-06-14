@@ -83,8 +83,6 @@ class RouteGenerator {
             builder: (_) => Summary(
                 //stats: args,
                 ));
-
-        return _errorRoute();
       default:
         return _errorRoute();
     }
