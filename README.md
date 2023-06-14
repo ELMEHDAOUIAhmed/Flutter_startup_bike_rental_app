@@ -66,6 +66,8 @@ Happy coding!
 
 lines changd in build.gradle
 
+
+
 50 minSdkVersion 20 51 targetSdkVersion flutter.targetSdkVersion
 
 29 compileSdkVersion flutter.compileSdkVersion
