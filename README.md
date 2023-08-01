@@ -42,6 +42,42 @@ This is the Starting page of my app. It only shows when you are not logged in.
   <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115586453108424754/map2.png" alt="Map" width="250" />
 </div>
 
+### Map Screen
+
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115586453108424754/map2.png" alt="Map" width="250" />
+</div>
+
+### Map Screen
+
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115586453108424754/map2.png" alt="Map" width="250" />
+</div>
+
+### Map Screen
+
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115586453108424754/map2.png" alt="Map" width="250" />
+</div>
+
+### Map Screen
+
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115586453108424754/map2.png" alt="Map" width="250" />
+</div>
+
+### Map Screen
+
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115586453108424754/map2.png" alt="Map" width="250" />
+</div>
+
+### Map Screen
+
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115586453108424754/map2.png" alt="Map" width="250" />
+</div>
+
 
 ### Settings
 
