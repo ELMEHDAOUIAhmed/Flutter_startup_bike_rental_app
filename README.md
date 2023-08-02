@@ -57,6 +57,13 @@ This is the Starting page of my app. It only shows when you are not logged in.
 
 </div>
 
+### Unlock steps
+
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1136248932326969364/unlock_steps.png" alt="unlock" width="250" />
+</div>
+
+
 ### Settings
 
 ![Settings](/path/to/settings-screenshot.png) This is the settings page where
