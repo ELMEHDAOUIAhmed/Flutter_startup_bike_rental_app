@@ -1,3 +1,19 @@
+lines changed in build.gradle
+
+50 minSdkVersion 20 51 targetSdkVersion flutter.targetSdkVersion
+
+29 compileSdkVersion flutter.compileSdkVersion
+
+flutter sdk was sdk: '>=2.18.2 <3.0.0'
+
+minSdkVersion flutter.minSdkVersion
+
+Set the minSdkVersion in android/app/build.gradle: line 50 was
+
+minSdkVersion flutter.minSdkVersion
+
+sdk: ">=2.7.0 <3.0.0"
+
 
                   Navigator.of(context).pop();
                   Navigator.of(context).pop();
@@ -5,7 +21,7 @@
                   to hide alert dialog and Circular loading 
 
 
-# very widget in flutter needs to extend "Stateless widget or stateful widget"
+# every widget in flutter needs to extend "Stateless widget or stateful widget"
 
 # force you to add build method to draw pixels into the screen  
 
