@@ -51,11 +51,8 @@ This is the Starting page of my app. It only shows when you are not logged in.
 </div>
 
 ### Select station & reserve a bike
-<div align="center">
-    <video controls>
-        <source src="https://youtu.be/I-CZcU5JrmE" type="video/mp4">
-    </video>
-    </div>
+
+[![Video Thumbnail](https://img.youtube.com/vi/I-CZcU5JrmE/0.jpg)](https://www.youtube.com/watch?v=I-CZcU5JrmE)
 
 
 ### Settings
