@@ -1,6 +1,6 @@
 # Flutter bike rental app "myapp"
 
-Welcome to my awesome app! This README file showcases some screenshots of the
+Welcome to my first ever mobile app for "Bike Rental for students"! This README file showcases some screenshots of the
 app.
 
 ## Screenshots
