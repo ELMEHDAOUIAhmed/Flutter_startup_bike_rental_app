@@ -50,10 +50,12 @@ This is the Starting page of my app. It only shows when you are not logged in.
     <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1135886746173841468/rechargement.png" alt="payment" width="250" />
 </div>
 
-### Select station & reserve a bike
+### Select station & reserve a bike (Video!)
+<div align="center">
 
 [![Video Thumbnail](https://img.youtube.com/vi/I-CZcU5JrmE/0.jpg)](https://www.youtube.com/watch?v=I-CZcU5JrmE)
 
+</div>
 
 ### Settings
 
