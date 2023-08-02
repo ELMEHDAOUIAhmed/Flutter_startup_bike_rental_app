@@ -2,6 +2,7 @@
 
 Welcome to my first ever mobile app for "Bike Rental for students"! This README file showcases some screenshots of the
 app.
+ps: in the future i will add step by step installation.
 
 ## Screenshots
 
