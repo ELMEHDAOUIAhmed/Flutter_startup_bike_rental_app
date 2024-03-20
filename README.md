@@ -40,8 +40,8 @@ This is the Starting page of my app. It only shows when you are not logged in.
 ### Map Screen
 
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115586453108424754/map2.png" alt="Map" width="250" />
-    <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1135887271082590248/map_station_list.png" alt="StationSelect" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115586453108424754/map2.png?ex=660bdc59&is=65f96759&hm=f5d1dc159fc6a4c0c6b982348e1c5b6d096453c2b90dda1a31137cd6802ca13c&" alt="Map" width="250" />
+    <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1135887271082590248/map_station_list.png?ex=660be2f5&is=65f96df5&hm=26e0f2c4a2f29f5bf5e996d77181602a046ce4efe2d56aae51d013ebe24b7a08&" alt="StationSelect" width="250" />
 </div>
 
 ### Wallet & Payment
