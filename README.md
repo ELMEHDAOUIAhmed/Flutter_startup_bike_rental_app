@@ -47,8 +47,8 @@ This is the Starting page of my app. It only shows when you are not logged in.
 ### Wallet & Payment
 
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1135886545086316585/wallet.png" alt="wallet" width="250" />
-    <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1135886746173841468/rechargement.png" alt="payment" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1135886545086316585/wallet.png?ex=660be248&is=65f96d48&hm=ea3938c0aaca7059e01d861b30fb6800341649daf863fca25a59af87f82ce959&" alt="wallet" width="250" />
+    <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1135886746173841468/rechargement.png?ex=660be278&is=65f96d78&hm=fa3beca1e4d44b8692f2549dcbf19bb9d351464979f4a82e7455fa5612b5fa5e&" alt="payment" width="250" />
 </div>
 
 ### Select station & reserve a bike (Video!)
