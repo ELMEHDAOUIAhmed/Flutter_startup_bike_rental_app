@@ -11,15 +11,15 @@ ps: in the future i will add step by step installation.
 This is the Starting page of my app. It only shows when you are not logged in.
 
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584245453312020/0.png" alt="StartingPage" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584245453312020/0.png?ex=660bda4a&is=65f9654a&hm=cdd826a2b0eda05a8fef4097822bd8ed0fa52213e07c3c7ab77429517dde02b1&" alt="StartingPage" width="250" />
 </div>
 
 ### OnBoarding
 
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584246384427116/1.png" alt="Onboarding_one" width="250" />
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584246829027368/2.png" alt="Onboarding_two" width="250" />
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584247156178975/3.png" alt="Onboarding_three" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584246384427116/1.png?ex=660bda4a&is=65f9654a&hm=26dbda196b8498e8b2c1c1d075e2fba54a323c1d6a1d0c164970414408d9b0ff&" alt="Onboarding_one" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584246829027368/2.png?ex=660bda4a&is=65f9654a&hm=7ad4b409325ed2bf91957aca892151e644267f35818cc03d3f089a534ab41ae9&" alt="Onboarding_two" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584247156178975/3.png?ex=660bda4b&is=65f9654b&hm=85b8d810c92beec5fe6c982f2339abd326a051eb59b7d7f5bb657ffe1960918a&" alt="Onboarding_three" width="250" />
 </div>
 
 ### Login/SignUp Screens
