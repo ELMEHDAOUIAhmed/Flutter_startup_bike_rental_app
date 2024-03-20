@@ -33,8 +33,8 @@ This is the Starting page of my app. It only shows when you are not logged in.
 ### Welcome/Profile Screens
 
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115585751619485696/accueil.png" alt="Welcome" width="250" />
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115585794082619402/menu.png" alt="Menu" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115585751619485696/accueil.png?ex=660bdbb1&is=65f966b1&hm=f3d3625968f9d1ebce771722c97076f3080b9548e1db6413a2fc3d6e81143e89&" alt="Welcome" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115585794082619402/menu.png?ex=660bdbbb&is=65f966bb&hm=ba27e0b39cfd1eb327652a6cf8fdcef50dadf39fcfaff4466d2a2c7e6848e938&" alt="Menu" width="250" />
 </div>
 
 ### Map Screen
