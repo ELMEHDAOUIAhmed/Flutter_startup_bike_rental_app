@@ -61,7 +61,7 @@ This is the Starting page of my app. It only shows when you are not logged in.
 ### Unlock steps
 
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1136248932326969364/unlock_steps.png" alt="unlock" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1136248932326969364/unlock_steps.png?ex=660d33c7&is=65fabec7&hm=885bf2c10c1b7333acf8dd1ad94d7bd90341d67dac12e421e316881ac5974c9d&" alt="unlock" width="250" />
 </div>
 
 
