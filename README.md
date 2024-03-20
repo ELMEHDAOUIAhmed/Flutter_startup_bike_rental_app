@@ -25,9 +25,9 @@ This is the Starting page of my app. It only shows when you are not logged in.
 ### Login/SignUp Screens
 
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115587540779552828/login.png" alt="Login" width="250" />
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115587555665129493/signup1.png" alt="Sign_up_one" width="250" />
-    <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115587567476297828/singup2.png" alt="Sign_up_two" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115587540779552828/login.png?ex=660bdd5c&is=65f9685c&hm=99bfae72a23308f275ad55499791f15494d7451f5f5281cb4a384dd686debe2f&" alt="Login" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115587555665129493/signup1.png?ex=660bdd5f&is=65f9685f&hm=329591d58809a6a63a93e5f2ce78df427effb524b5a08c32f43004615361ff8a&" alt="Sign_up_one" width="250" />
+    <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115587567476297828/singup2.png?ex=660bdd62&is=65f96862&hm=f9883cc48efaff1ccc945f30fedc2121e4a1324c30d8f123178cad770fd53ffa&" alt="Sign_up_two" width="250" />
 </div>
 
 ### Welcome/Profile Screens
