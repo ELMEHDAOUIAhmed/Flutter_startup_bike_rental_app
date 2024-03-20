@@ -1,8 +1,8 @@
 # Flutter bike rental app "myapp"
 
-Welcome to my first ever mobile app for "Bike Rental for students"! This README file showcases some screenshots of the
-app.
-ps: in the future i will add step by step installation.
+Welcome to my first ever mobile app for "Bike Rental for students"! This README
+file showcases some screenshots of the app. ps: in the future i will add step by
+step installation.
 
 ## Screenshots
 
@@ -64,6 +64,7 @@ This is the Starting page of my app. It only shows when you are not logged in.
 </div>
 
 ### Select station & reserve a bike (Video!)
+
 <div align="center">
 
 [![Video Thumbnail](https://img.youtube.com/vi/I-CZcU5JrmE/0.jpg)](https://www.youtube.com/watch?v=I-CZcU5JrmE)
@@ -83,6 +84,21 @@ This is the Starting page of my app. It only shows when you are not logged in.
 
 <div align="center">
   <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1220140752924049468/ride_started.png?ex=660ddba0&is=65fb66a0&hm=1fc68f6e8381785e7b45b4fa8ec9df96a158ec572c291bf6880825639770087b&" alt="on_bike" width="250" />
+</div>
+
+### End Ride
+
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1220141639331352666/end_ride_confirmation.png?ex=660ddc73&is=65fb6773&hm=2f4313fc5861f06025417b53b8f7517793c700e00c79ff89ec4a46d8e8b4f213&" alt="stop_ride" width="250" />
+    <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1220141639864025099/end_ride_error.png?ex=660ddc74&is=65fb6774&hm=1a97a3e09a8061b3c116a510299954291a42f83092bcef1a1a66be85ee0425e6&" alt="unable_to_stop_ride" width="250" />
+      <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1220141638958190663/end_ride_steps.png?ex=660ddc73&is=65fb6773&hm=bf69d8d552b201cb393a6f3b382c80cfad6600d327392ca2918361e2188aad69&" alt="steps_to_park_bike" width="250" />
+</div>
+
+
+### Ride Summary
+
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1220142027539218513/summary.png?ex=660ddcd0&is=65fb67d0&hm=c7b6819f59d9102126ad7499755ecef4c89fa0aff7e86a680b6dbca701b61ff8&" alt="summary" width="250" />
 </div>
 
 
