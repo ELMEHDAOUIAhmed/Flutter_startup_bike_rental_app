@@ -44,6 +44,12 @@ This is the Starting page of my app. It only shows when you are not logged in.
     <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1135887271082590248/map_station_list.png?ex=660be2f5&is=65f96df5&hm=26e0f2c4a2f29f5bf5e996d77181602a046ce4efe2d56aae51d013ebe24b7a08&" alt="StationSelect" width="250" />
 </div>
 
+### Ride Hisotry
+
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1220139752846659744/historique.png?ex=660ddab2&is=65fb65b2&hm=637893d347ec53810c70560f7c7e5f7311f0f49a2884f6a28565cd02c6186ad4&" alt="wallet" width="250" />
+</div>
+
 ### Wallet & Payment
 
 <div align="center">
@@ -64,10 +70,19 @@ This is the Starting page of my app. It only shows when you are not logged in.
 
 </div>
 
-### Unlock steps
+### Bike Pairing & Unlock steps
 
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1136248932326969364/unlock_steps.png?ex=660d33c7&is=65fabec7&hm=885bf2c10c1b7333acf8dd1ad94d7bd90341d67dac12e421e316881ac5974c9d&" alt="unlock" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1220140752521138306/starts_ride.png?ex=660ddba0&is=65fb66a0&hm=21d4721c0ff3809509a1ce1e2f1a6ecec3f5dcb55241ee74813760a3448df802&" alt="heading_to_bike" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1220140045735034930/Looking_for_bluetooth.png?ex=660ddaf8&is=65fb65f8&hm=78bac3675eeb06ce9a7cdc2bf0b8425783ef95fd5c4ded6867232289bc7d80cd&" alt="looking_for_bike" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1220140045735034930/Looking_for_bluetooth.png?ex=660ddaf8&is=65fb65f8&hm=78bac3675eeb06ce9a7cdc2bf0b8425783ef95fd5c4ded6867232289bc7d80cd&" alt="connected_to_bike" width="250" />
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1136248932326969364/unlock_steps.png?ex=660d33c7&is=65fabec7&hm=885bf2c10c1b7333acf8dd1ad94d7bd90341d67dac12e421e316881ac5974c9d&" alt="unlock_steps" width="250" />
+</div>
+
+### On Ride
+
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1220140752924049468/ride_started.png?ex=660ddba0&is=65fb66a0&hm=1fc68f6e8381785e7b45b4fa8ec9df96a158ec572c291bf6880825639770087b&" alt="on_bike" width="250" />
 </div>
 
 
