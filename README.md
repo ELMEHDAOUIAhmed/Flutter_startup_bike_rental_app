@@ -11,7 +11,7 @@ step installation.
 This is the Starting page of my app. It only shows when you are not logged in.
 
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1115584245453312020/0.png?ex=660bda4a&is=65f9654a&hm=cdd826a2b0eda05a8fef4097822bd8ed0fa52213e07c3c7ab77429517dde02b1&" alt="StartingPage" width="250" />
+  <img src="https://i.imghippo.com/files/0Tcbl1720519891.png" alt="StartingPage" width="250" />
 </div>
 
 ### OnBoarding
