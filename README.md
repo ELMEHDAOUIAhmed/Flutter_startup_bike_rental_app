@@ -60,7 +60,7 @@ This is the Starting page of my app. It only shows when you are not logged in.
 ### Referral Program (Coming Soon!)
 
 <div align="center">
-  <img src="https://ibb.co/5rW7dsD" alt="referral" width="250" />
+  <img src="https://www.imghippo.com/i/0Tcbl1720519891.png" alt="referral" width="250" />
 </div>
 
 ### Select station & reserve a bike (Video!)
