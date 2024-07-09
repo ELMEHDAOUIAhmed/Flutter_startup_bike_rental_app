@@ -60,7 +60,7 @@ This is the Starting page of my app. It only shows when you are not logged in.
 ### Referral Program (Coming Soon!)
 
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1220139500273926226/promotion.png?ex=660dda75&is=65fb6575&hm=c773a0780c748c15f8c5b0443db602ade07ec71b6915db8108e9299622085928&" alt="referral" width="250" />
+  <img src="https://ibb.co/5rW7dsD" alt="referral" width="250" />
 </div>
 
 ### Select station & reserve a bike (Video!)
