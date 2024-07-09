@@ -98,7 +98,7 @@ This is the Starting page of my app. It only shows when you are not logged in.
 ### Ride Summary
 
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/1036031412794576987/1220142027539218513/summary.png?ex=660ddcd0&is=65fb67d0&hm=c7b6819f59d9102126ad7499755ecef4c89fa0aff7e86a680b6dbca701b61ff8&" alt="summary" width="250" />
+  <img src="https://i.imghippo.com/files/Ed95I1720520814.png" alt="summary" width="250" />
 </div>
 
 
